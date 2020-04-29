@@ -1,0 +1,276 @@
+﻿Canada,Alberta
+Canada,British Columbia
+Canada,Manitoba
+Canada,New Brunswick
+Canada,Newfoundland and Labrador
+Canada,Northwest Territories
+Canada,Nova Scotia
+Canada,Nunavut
+Canada,Ontario
+Canada,Prince Edward Island
+Canada,Québec
+Canada,Saskatchewan
+Canada,Yukon
+United Kingdom,Aberdeen City
+United Kingdom,Angus
+United Kingdom,Antrim and Newtownabbey
+United Kingdom,Ards and North Down
+United Kingdom,Argyll and Bute
+United Kingdom,"Armagh, Banbridge and Craigavon"
+United Kingdom,Barking and Dagenham
+United Kingdom,Barnet
+United Kingdom,Barnsley
+United Kingdom,Bath and North East Somerset
+United Kingdom,Bedford
+United Kingdom,Belfast
+United Kingdom,Bexley
+United Kingdom,Birmingham
+United Kingdom,Blackburn with Darwen
+United Kingdom,Blackpool
+United Kingdom,Blaenau Gwent
+United Kingdom,Bolton
+United Kingdom,Bournemouth
+United Kingdom,Bracknell Forest
+United Kingdom,Bradford
+United Kingdom,Brent
+United Kingdom,Bridgend
+United Kingdom,Brighton and Hove
+United Kingdom,"Bristol, City of"
+United Kingdom,Bromley
+United Kingdom,Buckinghamshire
+United Kingdom,Bury
+United Kingdom,Caerphilly
+United Kingdom,Calderdale
+United Kingdom,Cambridgeshire
+United Kingdom,Camden
+United Kingdom,Cardiff
+United Kingdom,Carmarthenshire
+United Kingdom,Causeway Coast and Glens
+United Kingdom,Central Bedfordshire
+United Kingdom,Ceredigion
+United Kingdom,Cheshire East
+United Kingdom,Cheshire West and Chester
+United Kingdom,Clackmannanshire
+United Kingdom,Conwy
+United Kingdom,Cornwall
+United Kingdom,Coventry
+United Kingdom,Croydon
+United Kingdom,Cumbria
+United Kingdom,Darlington
+United Kingdom,Denbighshire
+United Kingdom,Derby
+United Kingdom,Derbyshire
+United Kingdom,Derry and Strabane
+United Kingdom,Devon
+United Kingdom,Doncaster
+United Kingdom,Dorset
+United Kingdom,Dudley
+United Kingdom,Dumfries and Galloway
+United Kingdom,Dundee City
+United Kingdom,Durham
+United Kingdom,Ealing
+United Kingdom,East Ayrshire
+United Kingdom,East Dunbartonshire
+United Kingdom,East Lothian
+United Kingdom,East Renfrewshire
+United Kingdom,East Riding of Yorkshire
+United Kingdom,East Sussex
+United Kingdom,"Edinburgh, City of"
+United Kingdom,Eilean Siar
+United Kingdom,Enfield
+United Kingdom,Essex
+United Kingdom,Falkirk
+United Kingdom,Fermanagh and Omagh
+United Kingdom,Fife
+United Kingdom,Flintshire
+United Kingdom,Gateshead
+United Kingdom,Glasgow City
+United Kingdom,Gloucestershire
+United Kingdom,Greenwich
+United Kingdom,Gwynedd
+United Kingdom,Hackney
+United Kingdom,Halton
+United Kingdom,Hammersmith and Fulham
+United Kingdom,Hampshire
+United Kingdom,Haringey
+United Kingdom,Harrow
+United Kingdom,Hartlepool
+United Kingdom,Havering
+United Kingdom,Herefordshire
+United Kingdom,Hertfordshire
+United Kingdom,Highland
+United Kingdom,Hillingdon
+United Kingdom,Hounslow
+United Kingdom,Inverclyde
+United Kingdom,Isle of Anglesey
+United Kingdom,Isle of Wight
+United Kingdom,Isles of Scilly
+United Kingdom,Islington
+United Kingdom,Kensington and Chelsea
+United Kingdom,Kent
+United Kingdom,"Kingston upon Hull, City of"
+United Kingdom,Kingston upon Thames
+United Kingdom,Kirklees
+United Kingdom,Knowsley
+United Kingdom,Lambeth
+United Kingdom,Lancashire
+United Kingdom,Leeds
+United Kingdom,Leicester
+United Kingdom,Lewisham
+United Kingdom,Lincolnshire
+United Kingdom,Lisburn and Castlereagh
+United Kingdom,Liverpool
+United Kingdom,London
+United Kingdom,Luton
+United Kingdom,Manchester
+United Kingdom,Medway
+United Kingdom,Merthyr Tydfil
+United Kingdom,Merton
+United Kingdom,Mid and East Antrim
+United Kingdom,Mid Ulster
+United Kingdom,Midlothian
+United Kingdom,Milton Keynes
+United Kingdom,Monmouthshire
+United Kingdom,Moray
+United Kingdom,Neath Port Talbot
+United Kingdom,Newcastle upon Tyne
+United Kingdom,Newham
+United Kingdom,Newport
+United Kingdom,"Newry, Mourne and Down"
+United Kingdom,Norfolk
+United Kingdom,North Ayrshire
+United Kingdom,North East Lincolnshire
+United Kingdom,North Lanarkshire
+United Kingdom,North Lincolnshire
+United Kingdom,North Somerset
+United Kingdom,North Tyneside
+United Kingdom,North Yorkshire
+United Kingdom,Northamptonshire
+United Kingdom,Northumberland
+United Kingdom,Nottingham
+United Kingdom,Oldham
+United Kingdom,Orkney Islands
+United Kingdom,Oxfordshire
+United Kingdom,Pembrokeshire
+United Kingdom,Perth and Kinross
+United Kingdom,Peterborough
+United Kingdom,Plymouth
+United Kingdom,Poole
+United Kingdom,Portsmouth
+United Kingdom,Powys
+United Kingdom,Reading
+United Kingdom,Redbridge
+United Kingdom,Redcar and Cleveland
+United Kingdom,Renfrewshire
+United Kingdom,Rhondda Cynon Taff
+United Kingdom,Richmond upon Thames
+United Kingdom,Rochdale
+United Kingdom,Rotherham
+United Kingdom,Rutland
+United Kingdom,Salford
+United Kingdom,Sandwell
+United Kingdom,"Scottish Borders, The"
+United Kingdom,Sefton
+United Kingdom,Sheffield
+United Kingdom,Shetland Islands
+United Kingdom,Shropshire
+United Kingdom,Slough
+United Kingdom,Solihull
+United Kingdom,Somerset
+United Kingdom,South Ayrshire
+United Kingdom,South Gloucestershire
+United Kingdom,South Lanarkshire
+United Kingdom,South Tyneside
+United Kingdom,Southampton
+United Kingdom,Southend-on-Sea
+United Kingdom,Southwark
+United Kingdom,St. Helens
+United Kingdom,Stirling
+United Kingdom,Stockport
+United Kingdom,Stockton-on-Tees
+United Kingdom,Stoke-on-Trent
+United Kingdom,Suffolk
+United Kingdom,Sunderland
+United Kingdom,Sutton
+United Kingdom,Swansea
+United Kingdom,Swindon
+United Kingdom,Tameside
+United Kingdom,Telford and Wrekin
+United Kingdom,Thurrock
+United Kingdom,Torbay
+United Kingdom,Torfaen
+United Kingdom,Tower Hamlets
+United Kingdom,Trafford
+United Kingdom,"Vale of Glamorgan, The"
+United Kingdom,Wakefield
+United Kingdom,Walsall
+United Kingdom,Waltham Forest
+United Kingdom,Wandsworth
+United Kingdom,Warrington
+United Kingdom,Warwickshire
+United Kingdom,West Berkshire
+United Kingdom,West Dunbartonshire
+United Kingdom,West Lothian
+United Kingdom,West Sussex
+United Kingdom,Westminster
+United Kingdom,Wigan
+United Kingdom,Wiltshire
+United Kingdom,Windsor and Maidenhead
+United Kingdom,Wirral
+United Kingdom,Wokingham
+United Kingdom,Wolverhampton
+United Kingdom,Worcestershire
+United Kingdom,Wrexham
+United Kingdom,York
+United States,Alabama
+United States,Alaska
+United States,Arizona
+United States,Arkansas
+United States,California
+United States,Colorado
+United States,Connecticut
+United States,Delaware
+United States,District of Columbia
+United States,Florida
+United States,Georgia
+United States,Hawaii
+United States,Idaho
+United States,Illinois
+United States,Indiana
+United States,Iowa
+United States,Kansas
+United States,Kentucky
+United States,Louisiana
+United States,Maine
+United States,Maryland
+United States,Massachusetts
+United States,Michigan
+United States,Minnesota
+United States,Mississippi
+United States,Missouri
+United States,Montana
+United States,Nebraska
+United States,Nevada
+United States,New Hampshire
+United States,New Jersey
+United States,New Mexico
+United States,New York
+United States,North Carolina
+United States,North Dakota
+United States,Ohio
+United States,Oklahoma
+United States,Oregon
+United States,Pennsylvania
+United States,Puerto Rico
+United States,Rhode Island
+United States,South Carolina
+United States,South Dakota
+United States,Tennessee
+United States,Texas
+United States,Utah
+United States,Vermont
+United States,Virginia
+United States,Washington
+United States,West Virginia
+United States,Wisconsin
+United States,Wyoming

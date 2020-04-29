@@ -1,0 +1,43 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.4" encoding: "UTF-8"
+
+new FormModel {
+	"i18n.bundlePackage": "competition.management.system.view.member"
+	"i18n.bundleName": "MemberMainFrame"
+	"i18n.autoExternalize": true
+	"i18n.keyPrefix": "MemberMainFrame"
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "table_teams"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar1"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button_production"
+					"text": new FormMessage( null, "MemberMainFrame.button_production.text" )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_productionActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button_changePassword"
+					"text": new FormMessage( null, "MemberMainFrame.button_changePassword.text" )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_changePasswordActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button_person"
+					"text": new FormMessage( null, "MemberMainFrame.button_person.text" )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_personActionPerformed", true ) )
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 1055, 625 )
+		} )
+	}
+}

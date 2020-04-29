@@ -1,0 +1,11 @@
+Weight,Colour
+5,Red
+7,Purple
+3,Yellow
+9,Blue
+4,Green
+5,Purple
+7,Yellow
+9,Yellow
+4,Blue
+1,Green

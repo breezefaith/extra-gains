@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ems.view.MainController">
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar HBox.hgrow="ALWAYS">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem fx:id="menuItemClose" mnemonicParsing="false" text="Close" onAction="#close"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Employee Profile">
+                            <items>
+                                <MenuItem fx:id="menuItemAddProfile" mnemonicParsing="false" text="Add New Profile" onAction="#addProfile"/>
+                                <MenuItem fx:id="menuItemModifyProfile" mnemonicParsing="false" text="Modify Profile" onAction="#modifyProfile"/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </children>
+        </HBox>
+    </top>
+</BorderPane>

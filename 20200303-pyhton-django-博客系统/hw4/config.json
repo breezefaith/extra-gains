@@ -1,0 +1,9 @@
+{
+	'engine': 'django.db.backends.mysql',
+	'name': 'social_network',
+	'user': 'root',
+	'password': 'aaaaaa',
+	'host': 'localhost',
+	'port': '3306'
+}
+

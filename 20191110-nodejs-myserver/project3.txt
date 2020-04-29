@@ -1,0 +1,180 @@
+Project #3 
+
+---------------------------------------------------------
+
+Note: There are requirements for all programming assignments listed in the syllabus.  You must follow each of them.  They will count against your grade even though they are not listed in the assignment rubric.
+
+---------------------------------------------------------
+You shall write a simple server in nodejs.
+
+Requirements:
+    - You are to implement a simple HTTP server in nodejs.
+    - Your server shall be implemented on the *.cs.uky.edu systems.
+    - Your server shall be called myhttp.js
+    - Your server must always return some message to the client
+      regardless of the request made.
+
+Specifications:
+    - You shall produce (2) total files:
+        1) an nodejs file containing the appropriate JavaScript
+        2) a *text* file named P3.txt  (NOT a PDF/Word file!)
+
+    1) nodejs file shall:
+
+        - have your name(s) somewhere near the top, as a comment.
+        - not include any external libraries other than those allowed here.
+        - not call/access/reference another website
+
+    2) Your nodejs program shall follow these steps:
+        SETUP:  [You should start with the posted myhttp.js file]
+            Your program shall declare the following constants:
+            MINPORT = 5000;
+            MAXPORT = 35000;
+            REPART1 = /....../;  // You need to fill these in!
+            REPART2 = /....../;  // You need to fill these in!
+            REPART3 = /....../;  // You need to fill these in!
+            WORKDIRECTORY = "WEBSERVER/";
+            VALIDEXT = [
+                ["txt", "text/plain"],
+                ["html", "text/html"],
+                ["mp3", "audio/mp3"],
+                ["jpg", "image/jpeg"]
+            ];
+
+
+        Write a function randomPort(min,max) which takes a range of numbers and generates a random number between them inclusive.  Call this function passing MINPORT and MAXPORT to get your port number.
+        Output a string to the console like: "Listening on http://localhost:PORT" where PORT is the randomly generated port.
+
+-------------------------------------------------------------------
+        Notation for this write-up:
+
+        {filepath} is a relative path that has the following properties:  directory name is uppercase alpha A-Z only followed by a forward slash "/".  There can be zero or more 
+        directories!
+             Examples:  FOO/ -or- FOO/BAR/ -or- F/B/D/FINAL/
+
+        {filename} is alphanumeric plus underscore _ .
+             Examples:  foo -or- bar -or- whatever -or- some_image
+
+        {extension} is a . (period) followed by the extension listed as the first element of VALIDEXT entries.Every file requires an extension!
+             Examples:  .jpg -or- .html -or- .jpg -or- .txt
+
+        {FILE} is a combination of the above, with each request requiring a filepath, filename, and extension.
+             Examples:  FOO/foo.html
+                        FOO/BAR/bar.txt
+                        F/B/D/FINAL/whatever.jpg
+
+        Note that while testing your program, you will need to create the directories/subdirectories and files to test with.
+-------------------------------------------------------------------
+
+        Modify the incoming() callback function to perform the following :
+
+		Output a message for each request to the console:
+		console.log("Incoming request with the URL: "+theurl);
+
+        Your server shall attempt to serve out the requested URL.  The URL is an application specific protocol.  There are 3 pieces to the protocol:
+        /UNLINK/{FILE}    
+        /SIZE/{FILE}
+        /FETCH/{FILE}
+
+        Note:  for any error, set the statusCode to 403.  No need to get specific with the 400-level error code, just use 403. Also, for any error, output an appropriate error to the console.
+
+        Use a single regular expression test to see if the request.url matches.  If not, return "INVALID URL: "+theurl to the client.
+
+        Your single regular expression shall have 3 parts concatenated together (use | for "or") *similar to*: /REPART1|REPART2|REPART3/
+
+        Make sure your individual regular expressions work correctly!
+
+        If it is a valid URL, test each regular expression separately to see what the request is (UNLINK vs. SIZE vs. FETCH).  Call three functions that you shall write:
+
+        Note:  all 3 functions will be performed on directories/files
+               in the directory WORKDIRECTORY.  What this means is
+               simple - you'll need to create the directory "WEBSERVER"
+               and place any directories/files in that directory.
+               The "WEBSERVER/" system filepath is NOT PART OF THE URL!
+               It is assumed, much like "HTML/" is assumed as part of
+               the www.cs.uky.edu.
+
+        doRemove:
+            Set the Header to "text/plain".
+            This function uses the fs.unlink() method to attempt to
+            remove a file.  If the file does not exist, or there
+            is another error (HINT: permissions??), return the message
+            "ERROR: could not unlink file " plus the requested URL.
+
+            Otherwise return the message:  
+            "UNLINK: the URL "+theurl+" was removed."
+
+        doSize:
+            Set the Header to "text/plain".
+            This function uses the fs.stat() method to determine the
+            size of the file.  If the file does not exist, or there
+            is another error (HINT: permissions??), return the message
+            "ERROR: could not stat file " plus the requested URL.
+
+            Otherwise return the message:  
+            "STAT: the URL "+theurl+" size is "+foo.
+
+        doFetch:
+            This function uses the fs.readFile() method to read the
+            contents of the file (if possible).  It shall set the
+            correct Header based on the extension.  Look the
+            appropriate header up in the VALIDEXT array.  Then send 
+            the client the file contents.  If there is an error 
+            reading the file, return the message:
+            "ERROR: unable to fetch URL "+theurl.
+
+    3) Your P3.txt file shall:
+        - contain your name(s).
+        - contain any references you used outside of material
+          I presented.
+        - contain any collaboration that you had with others
+          students not in your group.
+        - a brief description of the project
+
+        - answer the following questions:
+            1 What happens if your random number generator picks a port number that a student already has allocated? Be specific, include an error message.
+            2 What happens if your random number generator is incorrect and returns a number below 1024?  Again, be specific, include an error message.
+            3 Why, in a real world deployment with multiple, unknown users, would it be not very useful to use a random port for your server?
+            4 How many lines of code (if any) would you need to add if you were told to add "mp4" to handle "video/mp4" file types?
+            5 What would happen if a user1 requested a file: /SLOW/DISK/DIRECTORY/foo.html and user2 requested a different file: /FAST/SSD/bar.html
+              Where your program took 20 seconds to read the first file and 1 second to read the second file.
+
+              What would the perceived time to see the complete contents of their file for each user if they sent their requests, user1 and user2 (1) second apart?
+              What about user2 and then user1 (1) second apart?
+
+
+What to turn in:
+    Submit a ZIP file .  Do not create an additional
+    directory in your ZIP file, just a ZIP file of the 2 files
+    above: an nodejs file called myhttp.js and the P3.txt text file.  
+    Call this file P3_lname.zip where lname is your last name.  
+    If in a group use P3_lname1lname2.zip.
+
+Rubric:
+
+    nodejs code:                                  110 points
+          Code executes without crashing           10 points
+
+          Single, correct, regular expression 
+          used for checking if valid URL           15 points
+
+          Connections are serviced asynchronously
+          without any manual delays or calls
+          to *Sync() functions.                    20 points
+          
+          doRemove implemented and works including
+                   handling errors                 15 points
+          doSize   implemented and works including
+                   handling errors                 15 points
+          doFetch  implemented and works including
+                   handling errors, dynamic
+                   extensions, sets correct header 25 points
+          randomPort() works and is correct         5 points
+          appropriate errors are logged to the
+                   console                          5 points
+          
+
+    Text file has all (and correct) information 
+          required:                                15 points
+    ------------------------------------------------------
+                                                  125 points

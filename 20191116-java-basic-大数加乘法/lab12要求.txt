@@ -1,0 +1,37 @@
+Lab 12
+
+due: 11/15/19
+
+ 
+
+1. Write and implement the following two methods:
+
+ 
+
+      String addL(String n1, String n2) – returns n1+n2.
+
+      String mulL(String n1, String n2) – returns n1*n2.
+
+ 
+
+Note that n1 and n2 are very long integer strings. Therefore, converting n1 and n2 into int or long type 
+is not allowed because of possible overflow error.
+
+ 
+
+*.length() and .charAt() are the only built-in methods allowed in this assignment. (Using some built-in 
+classes like java.math.BigInteger is absolutely not allowed.)
+
+* Use the following menu in the main:
+
+ 
+
+      a: add
+
+   m: multiply
+
+   q: Quit
+
+ 
+
+   Select:

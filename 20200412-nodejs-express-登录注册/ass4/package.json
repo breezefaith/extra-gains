@@ -1,0 +1,21 @@
+{
+  "name": "ass4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "supervisor app.js --watch . -x node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "conf": "^6.2.4",
+    "cookie-parser": "^1.4.5",
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.3",
+    "supervisor": "^0.12.0",
+    "uuid": "^7.0.3"
+  }
+}

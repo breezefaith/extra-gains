@@ -1,0 +1,57 @@
+<div class="framework">
+  <div class="container">
+    <div class="modal" #modal>
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">x</span>
+        </div>
+        <div class="modal-body">
+          {{modalMessage}}
+        </div>
+        <div class="modal-footer">
+          <h3></h3>
+        </div>
+      </div>
+    </div>
+    <div class="nav">
+      <div class="toolbar">
+        <button (click)="goBack()">go back</button>
+        <button (click)="showHelp()">Help</button>
+        <button (click)="showAbout()">About</button>
+      </div>
+    </div>
+
+    <form class="form" action="">
+      <fieldset>
+        <input type="text" name="name" id="name" [(ngModel)]="movie&&movie.name" [readonly]="isEditing"
+          placeholder="Name" #name="ngModel" required>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" style="color: red;">Name must not be null</div>
+      </fieldset>
+      <fieldset>
+        <input type="text" name="director" id="director" [(ngModel)]="movie&&movie.director" placeholder="Director"
+          #director="ngModel" required>
+        <div *ngIf="director.invalid && (director.dirty || director.touched)" style="color: red;">Director must not be null
+        </div>
+      </fieldset>
+      <fieldset>
+        <input type="text" name="year" id="year" ngModel="{{movie&&movie.year}}" (ngModelChange)="setYear($event)"
+          placeholder="Year" #year="ngModel" required>
+        <div *ngIf="year.invalid && (year.dirty || year.touched)" style="color: red;">Year must not be null
+        </div>
+      </fieldset>
+      <fieldset>
+        <input type="text" name="genre" id="genre" [(ngModel)]="movie&&movie.genre" placeholder="Genre"
+          #genre="ngModel" required>
+        <div *ngIf="genre.invalid && (genre.dirty || genre.touched)" style="color: red;">Genre must not be null
+        </div>
+      </fieldset>
+      <fieldset>
+        <input type="text" name="notes" id="notes" [(ngModel)]="movie&&movie.notes" placeholder="Notes">
+      </fieldset>
+      <fieldset>
+        <button (click)="save()">Save</button>
+      </fieldset>
+    </form>
+  </div>
+</div>

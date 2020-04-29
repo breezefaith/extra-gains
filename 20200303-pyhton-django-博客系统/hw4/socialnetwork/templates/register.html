@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register
+{% endblock title %}
+
+{% block nav_link %}
+<div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+        <li><a class="text-light" href="/socialnetwork/login" id="id_login_link">Login</a></li>
+    </ul>
+</div>
+{% endblock nav_link %}
+
+{% block page_name %}
+Register
+{% endblock page_name %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="card col-sm-10 col-md-6 mx-auto" style="margin-top: 60px;margin-bottom: 30px;">
+            <div class="card-body">
+                <form class="form" action="/socialnetwork/register" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <span class="text-danger errorlist">{{message}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="">Username</label>
+                        <input type="text" class="form-control" name="username" placeholder=""
+                            id="id_username" />
+                    </div>
+                    <div class="form-group">
+                        <label class="">Password</label>
+                        <input type="password" class="form-control" name="password" placeholder=""
+                            id="id_password" />
+                    </div>
+                    <div class="form-group">
+                        <label class="">Confirm</label>
+                        <input type="password" class="form-control" name="confirmPassword" placeholder=""
+                            id="id_confirm_password" />
+                    </div>
+                    <div class="form-group">
+                        <label class="">E-mail</label>
+                        <input type="text" class="form-control" name="email" placeholder="" id="id_email" />
+                    </div>
+                    <div class="form-group">
+                        <label class="">First Name</label>
+                        <input type="text" class="form-control" name="firstName" placeholder=""
+                            id="id_first_name" />
+                    </div>
+                    <div class="form-group">
+                        <label class="">Last Name</label>
+                        <input type="text" class="form-control" name="lastName" placeholder=""
+                            id="id_last_name" />
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="id_register_button">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

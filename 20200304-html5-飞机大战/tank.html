@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" />
+    <title></title>
+</head>
+
+<body οnkeydοwn="getCommand()">
+        <h1>html5-经典的坦克大战</h1>
+        <canvas id="tankMap" width="400px" height="300px"         style="background-color:black"></canvas>
+       
+    <!--把tankGams.js引入到本页面-->
+       
+    <script type="text/javascript" src="tank.js"></script>
+       
+    <script type="text/javascript">
+        var canvas1 = document.getElementById("tankMap");
+        var cxt = canvas1.getContext("2d");
+        //我的坦克hero
+        var hero = new HeroTank(40, 40, 0, heroColors);
+        //定义个子弹数组
+        var heroBullets = new Array();
+        //定义敌人的坦克（敌人的坦克有多少？思路：是单个单个的定义，还是放在数组中）
+        var enemyTanks = new Array();
+        //先死后活，定义3个，后面我们打敌人坦克的数量，做出变量
+        for (var i = 0; i < 3; i++) {
+            //创建一个坦克
+            var enemyTank = new EnemyTank((i + 1) * 50, 0, 2, enemyColors);
+            //把坦克放进数组中
+            enemyTanks[i] = enemyTank;
+        }
+        //打开页面先刷新一次
+        flashTankMap();
+        //专门写一个函数，用于定时刷新我们的作战区,把要在作战区出现的元素(自己的坦克、
+        //敌人的坦克、子弹、炸弹，障碍物)
+        function flashTankMap() {
+            cxt.clearRect(0, 0, 400, 300);
+            //我的坦克
+            drawTank(hero);
+            //画出自己的子弹
+            //子弹飞效果是怎么出现的：首先我们应该每隔一定时间就去刷新作战区，如果在书信的时候，子弹坐标
+            //变换了，给人的感觉就是子弹在飞
+            drawHeroBullet();
+            //敌人所有的坦克
+            for (var i = 0; i < 3; i++) {
+                drawTank(enemyTanks[i]);
+            }
+        }
+
+
+        //这是一个接收用户按键的函数
+        function getCommand() {
+            var code = event.keyCode;
+            switch (code) {
+                case 87://up
+                    hero.moveUp();
+                    break;
+                case 68://right
+                    hero.moveRight();
+                    break;
+                case 83://down
+                    hero.moveDown();
+                    break;
+                case 65://left
+                    hero.moveLeft();
+                    break;
+                case 74://Bullet
+                    hero.shotEnemy();
+                    break;
+            }
+            //出发这个函数flashTankMap();
+            flashTankMap();
+            //重新绘制所有的敌人的坦克，你可以在这里写代码（）
+
+        }
+        //每隔100毫秒去刷新一次作战区
+        window.setInterval("flashTankMap()", 100);
+    </script>
+</body>
+
+</html>
