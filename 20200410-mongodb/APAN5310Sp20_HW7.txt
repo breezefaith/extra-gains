@@ -1,0 +1,230 @@
+# -- APAN 5310: SQL & RELATIONAL DATABASES SPRING 2020
+
+#   -------------------------------------------------------------------------
+#   --                                                                     --
+#   --                            HONOR CODE                               --
+#   --                                                                     --
+#   --  I affirm that I will not plagiarize, use unauthorized materials,   --
+#   --  or give or receive illegitimate help on assignments, papers, or    --
+#   --  examinations. I will also uphold equity and honesty in the         --
+#   --  evaluation of my work and the work of others. I do so to sustain   --
+#   --  a community built around this Code of Honor.                       --
+#   --                                                                     --
+#   -------------------------------------------------------------------------
+
+
+#     You are responsible for submitting your own, original work. We are
+#     obligated to report incidents of academic dishonesty as per the
+#     Student Conduct and Community Standards.
+
+
+# -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+#
+#
+# -- HOMEWORK ASSIGNMENT 7
+#
+#
+#   NOTES:
+#
+#     - Type your code between the START and END tags. Code should cover all
+#       questions. Do not alter this template file in any way other than
+#       adding your answers. Do not delete the START/END tags. The file you
+#       submit will be validated before grading and will not be graded if it
+#       fails validation due to any alteration of the commented sections.
+#
+#     - Make sure you test each one of your answers. If a query returns an 
+#       error it will earn no points.
+#
+#     - In your CREATE TABLE statements you must provide data types AND
+#       primary/foreign keys (if applicable).
+#
+#     - You may expand your answers in as many lines as you find appropriate
+#       between the START/END tags.
+#
+#   Homework scenario
+#      The following dataset is a record set from a weather tracking
+#      company, which tracks the weather in different stations across US. 
+#      The database consists of multiple weather station logs. 
+#      Each log have the following attributes:
+#
+#         station_id
+#         station_name (e.g., "WTC", "Time Square")
+#         last_status_update_time
+#         last_status (a list of status texts, e.g., 
+#                       ["Sunny", "Warm"], ["Cold", "Snow"])
+#
+#      In addition, depending on the station facility and weather condition, 
+#      each log may have its own attributes. For example, if it is snowing,
+#      the log may have a field called "snow_accumulation". If it is sunny,
+#      the log may have a field called "pollen_index". 
+#      The complete list of 4 log entries are as following:
+
+    station_id: 1,
+    station_type: Commercial,
+    station_name: Portland, ME,
+    last_status_update_time: 2019-10-27 13:00:41.056971,
+    last_status: [Cold, Snow],
+    snow_accumulation: 36,
+    temperature: 18,
+
+    station_id: 6,
+    station_type: Residential,
+    station_name: Boston, MA,
+    lastexecutiontime: 2019-10-30 17:30:46.957382,
+    last_status: [Cold, Snow],
+    snow_accumulation: 11,
+    temperature: 26,
+
+    station_id: 32,
+    station_type: Residential,
+    station_name: New York, NY,
+    lastexecutiontime: 2019-10-30 18:01:02.237338,
+    last_status: [Warm, Sunny],
+    pollen_index: 100,
+    temperature: 42,
+
+    station_id: 79,
+    station_type: Residential,
+    station_name: Miami, FL,
+    lastexecutiontime: 2019-10-31 06:49:08.834731,
+    last_status: [Rainy],
+    temperature: 88,
+
+
+# -----------------------------------------------------------------------------
+
+
+#
+#  QUESTION 1 (2 points)
+#  ---------------------
+#  Type the command that imports all rows of the provided dataset in MongoDB,
+#  in a single command, NO multiple insert commands. Apply nesting for groups
+#  of similar data, for example query statements. Change the key names
+#  of the grouped data as you see fit. 
+#
+#  NOTE: In your answers for this and the following questions, type FULL code
+#        with appropriate spaces and line breaks so that the structure can be
+#        easily read. DO NOT provide flattened and/or single-line answers.
+
+# -- START ANSWER 1 --
+use hw7db
+db.createCollection("hw7c")
+db.hw7c.insert(
+[
+	{
+		"station_id": 1,
+		"station_type": "Commercial",
+		"station_name": "Portland, ME",
+		"last_status_update_time": "2019-10-27 13:00:41.056971",
+		"last_status": ["Cold", "Snow"],
+		"snow_accumulation": 36,
+		"temperature": 18,
+	}, {
+		"station_id": 6,
+		"station_type": "Residential",
+		"station_name": "Boston, MA",
+		"lastexecutiontime": "2019-10-30 17:30:46.957382",
+		"last_status": ["Cold", "Snow"],
+		"snow_accumulation": 11,
+		"temperature": 26
+	}, {
+		"station_id": 32,
+		"station_type": "Residential",
+		"station_name": "New York, NY",
+		"lastexecutiontime": "2019-10-30 18:01:02.237338",
+		"last_status": ["Warm", "Sunny"],
+		"pollen_index": 100,
+		"temperature": 42
+	}, {
+		"station_id": 79,
+		"station_type": "Residential",
+		"station_name": "Miami, FL",
+		"lastexecutiontime": "2019-10-31 06:49:08.834731",
+		"last_status": ["Rainy"],
+		"temperature": 88
+	}
+]
+)
+# -- END ANSWER 1 --
+
+# -----------------------------------------------------------------------------
+
+#  QUESTION 2 (2 point)
+#  --------------------
+#  Provide the command that returns the number of documents (count) where the
+#  station_name is "Miami, FL".
+#
+
+# -- START ANSWER 2 --
+db.hw7c.find({"station_name":"Miami, FL"}).count()
+# -- END ANSWER 2 --
+
+# -----------------------------------------------------------------------------
+
+#  QUESTION 3 (2 point)
+#  --------------------
+#  Provide the command that returns a count of distinct snow_accumulation.
+#
+#  NOTE: Not all documents has an attribute called "snow_accumulation". 
+#     What do you think MongoDB will respond to your request? Will the 
+#     operation fail because some documents do not have "snow_accumulation"?
+#     What if this is a relational database?
+#
+
+# -- START ANSWER 3 --
+db.hw7c.distinct("snow_accumulation").length
+# -- END ANSWER 3 --
+
+# -----------------------------------------------------------------------------
+
+#  QUESTION 4 (2 point)
+#  --------------------
+#  Provide the command that updates the snow_accumulation attribute for 
+#  station_id "6" to "15". Then display the full value of this document 
+#  to confirm your change is successful.
+#
+
+# -- START ANSWER 4 --
+db.hw7c.update(
+{
+	"station_id": 6
+}, {
+	$set: {
+		"snow_accumulation": 15
+	}
+}
+)
+db.hw7c.find().pretty()
+# -- END ANSWER 4 --
+
+# -----------------------------------------------------------------------------
+
+#  QUESTION 5 (2 points)
+#  ---------------------
+#  Provide the command that returns the average temperature of all 
+#  stations which contain the letter "M" in its station name.
+#
+
+# -- START ANSWER 5 --
+db.hw7c.aggregate(
+[
+	{
+		$match: {
+			"station_name": {
+				$regex: "M"
+			}
+		}
+	}, {
+		$group: {
+			_id: "$null",
+			avg_temp: {
+				$avg: "$temperature"
+			}
+		}
+	}
+]
+)
+# -- END ANSWER 5 --
+
+# -----------------------------------------------------------------------------

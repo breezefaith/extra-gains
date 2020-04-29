@@ -1,0 +1,58 @@
+AIRPORT
+INSERT INTO airport VALUES('BDL', 'Bradley International Airport', 'Hartford', 'Connecticut');
+INSERT INTO airport VALUES('JFK', 'John F. Kennedy International Airport', 'New York', 'New York');
+INSERT INTO airport VALUES('DTW', 'Detroit Metropolitan Wayne County Airport', 'Detroit', 'Michigan');
+INSERT INTO airport VALUES('MSP', 'Minneapolis-Saint Paul International Airport', 'St. Paul', 'Minnesota');
+INSERT INTO airport VALUES('SFO', 'San Francisco International Airport', 'San Francisco', 'California');
+INSERT INTO airport VALUES('SAN', 'San Diego International Airport', 'San Diego', 'California');
+INSERT INTO airport VALUES('LAX', 'Los Angeles International Airport', 'Los Angeles', 'California');
+INSERT INTO airport VALUES('SJU', 'Luis Munoz Marin International Airport', 'Carolina', 'Puerto Rico');
+INSERT INTO airport VALUES('MCO', 'Orlando International Airport', 'Orlando', 'Florida');
+INSERT INTO airport VALUES('IAH', 'George Bush Intercontinental Airport', 'Houston', 'Texas');
+INSERT INTO airport VALUES('HOU', 'William P. Hobby Airport', 'Houston', 'Texas');
+INSERT INTO airport VALUES('PHX', 'Phoenix Sky Harbor International Airport', 'Phoenix', 'Arizona');
+
+
+FLIGHT
+INSERT INTO flight VALUES('AA201', 'American Airlines', 'Monday');
+INSERT INTO flight VALUES('AA202', 'American Airlines', 'Wednesday');
+INSERT INTO flight VALUES('AA203', 'American Airlines', 'Friday');
+INSERT INTO flight VALUES('TWA021', 'Trans World Airlines', 'Tuesday');
+INSERT INTO flight VALUES('TWA022', 'Trans World Airlines', 'Wednesday');
+INSERT INTO flight VALUES('TWA023', 'Trans World Airlines', 'Thursday');
+INSERT INTO flight VALUES('SW1385', 'South West Airline', 'Thursday');
+INSERT INTO flight VALUES('SW1386', 'South West Airline', 'Sunday');
+INSERT INTO flight VALUES('SW1387', 'South West Airline', 'Monday');
+
+FLIGHT_LEG
+INSERT INTO flight_leg VALUES('AA201', 1, 'BDL', '0800', 'DTW', '0930');
+INSERT INTO flight_leg VALUES('AA201', 2, 'DTW', '1030', 'MSP', '1130');
+INSERT INTO flight_leg VALUES('AA201', 3, 'MSP', '1230', 'SFO', '1430');
+INSERT INTO flight_leg VALUES('AA202', 1, 'DTW', '0800', 'BDL', '0930');
+INSERT INTO flight_leg VALUES('AA203', 1, 'SFO', '1000', 'LAX', '1045');
+INSERT INTO flight_leg VALUES('AA203', 2, 'LAX', '1400', 'BDL', '2300');
+INSERT INTO flight_leg VALUES('TWA023', 1, 'IAH', '0930', 'SAN', '1100');
+INSERT INTO flight_leg VALUES('TWA023', 2, 'SAN', '1200', 'LAX', '1300');
+INSERT INTO flight_leg VALUES('SW1385', 1, 'HOU', '0930', 'LAX', '1030');
+INSERT INTO flight_leg VALUES('SW1386', 1, 'BDL', '0700', 'MCO', '1000');
+INSERT INTO flight_leg VALUES('SW1386', 2, 'MCO', '1230', 'SJU', '1530');
+INSERT INTO flight_leg VALUES('SW1387', 1, 'BDL', '0930', 'IAH', '1230');
+INSERT INTO flight_leg VALUES('SW1387', 2, 'IAH', '1330', 'PHX', '1430');
+INSERT INTO flight_leg VALUES('SW1387', 3, 'PHX', '1530', 'LAX', '1630');
+
+LEG_INSTANCE
+INSERT INTO leg_instance VALUES('TWA023', 1, '2019-08-29', 5, 'A3301', 'IAH', '0935', 'SAN', '1100');
+INSERT INTO leg_instance VALUES('TWA023', 2, '2019-08-29', 7, 'A3301', 'SAN', '1205', 'LAX', '1250');
+INSERT INTO leg_instance VALUES('SW1386', 1, '2019-09-01', 8, 'A3305', 'BDL', '0725', 'MCO', '1005');
+INSERT INTO leg_instance VALUES('SW1386', 2, '2019-09-01', 3, 'A3305', 'MCO', '1235', 'SJU', '1530');
+INSERT INTO leg_instance VALUES('AA201', 1, '2019-09-02', 6, 'B1234', 'BDL', '0815', 'DTW', '0932');
+INSERT INTO leg_instance VALUES('AA201', 2, '2019-09-02', 10, 'B1234', 'DTW', '1035', 'MSP', '1130');
+INSERT INTO leg_instance VALUES('AA201', 3, '2019-09-02', 11, 'B1234', 'MSP', '1302', 'SFO', '1445');
+INSERT INTO leg_instance VALUES('AA202', 1, '2019-09-04', 12, 'B1235', 'DTW', '0801', 'BDL', '0925');
+INSERT INTO leg_instance VALUES('SW1385', 1, '2019-09-05', 2, 'A3309', 'HOU', '0930', 'LAX', '1025');
+INSERT INTO leg_instance VALUES('TWA023', 1, '2019-09-05', 5, 'A3301', 'IAH', '0925', 'SAN', '1045');
+INSERT INTO leg_instance VALUES('TWA023', 2, '2019-09-05', 1, 'A3301', 'SAN', '1145', 'LAX', '1251');
+INSERT INTO leg_instance VALUES('AA203', 1, '2019-09-06', 7, 'B1236', 'MSP', '1302', 'SFO', '1445');
+INSERT INTO leg_instance VALUES('AA203', 2, '2019-09-06', 9, 'B1236', 'MSP', '1302', 'SFO', '1445');
+INSERT INTO leg_instance VALUES('SW1386', 1, '2019-09-08', 10, 'A3311', 'BDL', '0705', 'MCO', '0950');
+INSERT INTO leg_instance VALUES('SW1386', 2, '2019-09-08', 17, 'A3311', 'MCO', '1230', 'SJU', '1515');

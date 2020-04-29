@@ -1,0 +1,22 @@
+{% extends 'stream.html' %}
+
+{% block page_name %}
+Global Stream
+{% endblock page_name %}
+
+{% block post_form %}
+<div style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="col-sm-12 col-md-4 mx-auto">
+        <form class="form-inline" style="margin-top: 20px; margin-bottom: 20px;" action="post" method="POST">
+            {% csrf_token %}
+            <div class="form-group mx-auto">
+                <label for="postText" class="mx-2">New Post</label>
+                <input type="text" class="form-control mx-2" id="id_post_input_text" name="content">
+                <button type="submit" class="btn btn-secondary mx-2" id="id_post_button">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock post_form %}
+
+{% block refresh_url %}/socialnetwork/refresh-global{% endblock refresh_url %}

@@ -1,0 +1,38 @@
+﻿
+@{ 
+ ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Any-Time</h1>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <p class="lead">Welcome to Any-Time,this is a car rental web app, you can quickly rent your ideal car in this app to experience the fun of driving. </p>
+        <p>This application can be used nationwide.</p>
+        <p><a href="/Account/Login" class="btn btn-primary btn-lg">Login &raquo;</a></p>
+        <p><a href="/Account/Register" class="btn btn-primary btn-lg">Register &raquo;</a></p>
+    }
+    <a></a>
+</div>
+
+<div class="row">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="col-md-4">
+            <h2>Create Order</h2>
+            <p>
+                Choose the ideal vehicle and start traveling
+            <p><a class="btn btn-default" href="/Orders/SelAgency">Go Booking &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>View Order</h2>
+            <p>Manage your rental order</p>
+            <p><a class="btn btn-default" href="/Orders">Manage Order &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>More Information</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="">Learn more &raquo;</a></p>
+        </div>
+    }
+</div>

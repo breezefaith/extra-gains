@@ -1,0 +1,104 @@
+Name: 
+
+Problems:
+1 What happens if your random number generator picks a port number that a student already has allocated? Be specific, include an error message.
+
+The server allccated by other student will be running still. 
+My server will fail to start up, and throw error to console as following.
+
+events.js:174
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use :::8000
+    at Server.setupListenHandle [as _listen2] (net.js:1270:14)
+    at listenInCluster (net.js:1318:12)
+    at Server.listen (net.js:1405:7)
+    at Object.<anonymous> (F:\_node.js\myhttp\myhttp.js:97:29)
+    at Module._compile (internal/modules/cjs/loader.js:701:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)
+    at Module.load (internal/modules/cjs/loader.js:600:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:539:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:531:3)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:754:12)
+Emitted 'error' event at:
+    at emitErrorNT (net.js:1297:8)
+    at process._tickCallback (internal/process/next_tick.js:63:19)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:757:11)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)
+
+2 What happens if your random number generator is incorrect and returns a number below 1024?  Again, be specific, include an error message.
+The process throws an error as following when I try to run it at port 1000.
+
+Listening on http://localhost:1000
+events.js:187
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EACCES: permission denied 0.0.0.0:1000
+    at Server.setupListenHandle [as _listen2] (net.js:1284:19)
+    at listenInCluster (net.js:1349:12)
+    at Server.listen (net.js:1437:7)
+    at Object.<anonymous> (/my_dir/0deliverable/20191110/myhttp/myhttp.js:97:29)
+    at Module._compile (internal/modules/cjs/loader.js:1063:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1103:10)
+    at Module.load (internal/modules/cjs/loader.js:914:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:822:14)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:1143:12)
+    at internal/main/run_main_module.js:16:11
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (net.js:1328:8)
+    at processTicksAndRejections (internal/process/task_queues.js:80:21) {
+  code: 'EACCES',
+  errno: -13,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 1000
+}
+
+3 Why, in a real world deployment with multiple, unknown users, would it be not very useful to use a random port for your server?
+There is a high probability of port number conflicts using random port numbers when there are too many users, and it will cause some users' servers to fail to start normally.
+
+4 How many lines of code (if any) would you need to add if you were told to add "mp4" to handle "video/mp4" file types?
+3 lines.
+Change code in function doFetch()
+"
+if (postfix == VALIDEXT[0][0]) {
+	res.writeHead(200, { "Content-Type": VALIDEXT[0][1] });
+} else if (postfix == VALIDEXT[1][0]) {
+	res.writeHead(200, { "Content-Type": VALIDEXT[1][1] });
+} else if (postfix == VALIDEXT[2][0]) {
+	res.writeHead(200, { "Content-Type": VALIDEXT[2][1] });
+} else if (postfix == VALIDEXT[3][0]) {
+	res.writeHead(200, { "Content-Type": VALIDEXT[3][1] });
+} else {
+	throw "Unsupported file type";
+}
+"
+to
+"
+if (postfix == VALIDEXT[0][0]) {
+	res.writeHead(200, { "Content-Type": VALIDEXT[0][1] });
+} else if (postfix == VALIDEXT[1][0]) {
+	res.writeHead(200, { "Content-Type": VALIDEXT[1][1] });
+} else if (postfix == VALIDEXT[2][0]) {
+	res.writeHead(200, { "Content-Type": VALIDEXT[2][1] });
+} else if (postfix == VALIDEXT[3][0]) {
+	res.writeHead(200, { "Content-Type": VALIDEXT[3][1] });
+} else if (postfix == "mp4") {
+	res.writeHead(200, { "Content-Type": "video/mp4" });
+} else {
+	throw "Unsupported file type";
+}
+"
+
+5 What would happen if a user1 requested a file: /SLOW/DISK/DIRECTORY/foo.html and user2 requested a different file: /FAST/SSD/bar.html Where your program took 20 seconds to read the first file and 1 second to read the second file.
+User2 will get the response from the same server before user1.
+
+What would the perceived time to see the complete contents of their file for each user if they sent their requests, user1 and user2 (1) second apart?
+User1: at least 20s, the wait time also depends on the actual file size of the request.
+User2 will get response immediately, but the wait time depends on the actual file size of the request.
+
+What about user2 and then user1 (1) second apart?
+The answer to this question is the same as the previous one.

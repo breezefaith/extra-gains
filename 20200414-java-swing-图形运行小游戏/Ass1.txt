@@ -1,0 +1,7 @@
+S2: Should you override the draw(), contains() and getArea()? No.
+
+S4: Should you override the draw(), contains() and getArea()? override the draw().
+
+S5: Should you override the draw(), contains() and getArea()? override the draw().
+
+

@@ -1,0 +1,52 @@
+<div>
+  <div class="nav">
+    <div class="search">
+      <input type="text" name="query-name" id="query-name" [(ngModel)]="queryName" placeholder="movie name" />
+      <button (click)="search()"><i>Search</i></button>
+    </div>
+    <div class="toolbar">
+      <button (click)="add()">Add</button>
+      <button (click)="showHelp()">Help</button>
+      <button (click)="showAbout()">About</button>
+    </div>
+  </div>
+  <table class="fl-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Director</th>
+        <th>Year</th>
+        <th>Genre</th>
+        <th>Notes</th>
+        <th>Operation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of movies; index as i">
+        <td>{{i + 1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.director}}</td>
+        <td>{{item.year}}</td>
+        <td>{{item.genre}}</td>
+        <td>{{item.notes}}</td>
+        <td><button (click)="edit(item)">Edit</button> <button (click)="remove(item)">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="modal" #modal>
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">x</span>
+      </div>
+      <div class="modal-body">
+        {{modalMessage}}
+      </div>
+      <div class="modal-footer">
+        <h3></h3>
+      </div>
+    </div>
+  </div>
+</div>

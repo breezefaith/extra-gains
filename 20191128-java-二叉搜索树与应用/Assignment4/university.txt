@@ -1,0 +1,30 @@
+CourseCode,CourseTitle,Professors,StudentCount
+CS1026,Computer Science Fundamentals I,{Bauer;Beauchemin},624
+CS1027,Computer Science Fundamentals II,{Sarlo;Bloch-Hansen},172
+CS1033,Multimedia & Communications I,{Sarlo;Reid},795
+CS2033,Multimedia & Communications II,{Sarlo},268
+PS1091,Intro to Political Science,{Berkowitz;Sauker},489
+PS1400,Communism and Socialism,{DeGrady},78
+PS2120,Politics in Europe,{DeGrady},43
+PS2130,Politics in Asia,{Gonzalez},37
+PS2140,Politics in South America,{Gonzalez},68
+CH1107,Chemistry I,{Miller;Zhao;Fleury},923
+CH1108,Chemistry II,{Zhao;Thompson},670
+CH1325,Chemistry in our Daily Life,{Larkin;Shantz;O'Connor},517
+CH2750,Organic Chemistry,{Fleury},127
+GE1045,Canadian Geography,{King;Glavin},157
+GE1065,World Geography,{Nyquist},84
+GE2144,Oceans and the Water Cycle,{King},41
+MA1097,Linear Algebra,{Cortez;Vilgor},322
+MA1125,Calculus I,{Vilgor},104
+MA2125,Calculus II,{Samsonov},54
+MA2376,Discrete Mathematics,{Walker},77
+MA2803,Probability and Statistics,{Walker},48
+EN1220,English Literature,{Zavitz;Khan},124
+EN1501,Analyzing Shakespeare,{Khan},78
+EN1730,Everyday Poetry,{Smith},42
+EN2219,Victorian and Renaissance Literature,{Zavitz},56
+BI1013,Biology I,{Drouin;Wang;Purjeet},617
+BI1014,Biology II,{Drouin;Purjeet},483
+BI2062,Life on Other Planets,{Purjeet},96
+BI2410,DNA and Genetics,{Wang},80

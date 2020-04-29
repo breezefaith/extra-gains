@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Drag Demo</title>
+
+	<style>
+        .from, .to {
+            width: 240px;
+            height: 240px;
+            background-color: yellowgreen;
+        }
+ 
+        .move {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+	<h3>box1</h3>
+    <div class="from">
+        <div class="move" draggable="true"></div>
+    </div>
+    <h3>box2</h3>
+    <div class="to"></div>
+
+	<script>
+		var from = document.querySelector(".from");
+	    var to = document.querySelector(".to");
+	    var move = document.querySelector(".move");
+	 
+	    to.ondragover = function(target) {
+	        target.preventDefault();
+	    }
+	 
+	    to.ondrop = function() {
+	        to.appendChild(move);
+	    }
+	 
+	    from.ondragover = function(target) {
+	        target.preventDefault();
+	    }
+	 
+	    from.ondrop = function() {
+	        from.appendChild(move);
+	    }
+    
+	</script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.4" encoding: "UTF-8"
+
+new FormModel {
+	"i18n.bundlePackage": "competition.management.system.view.hoster"
+	"i18n.bundleName": "TeamInfoFrame"
+	"i18n.autoExternalize": true
+	"i18n.keyPrefix": "TeamInfoFrame"
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "this"
+			"title": new FormMessage( null, "TeamInfoFrame.this.title" )
+			"$sizePolicy": 1
+			addEvent( new FormEvent( "java.awt.event.WindowListener", "windowClosing", "thisWindowClosing", true ) )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": new FormMessage( null, "TeamInfoFrame.label1.text" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 75
+				"y": 40
+				"width": 25
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": new FormMessage( null, "TeamInfoFrame.label2.text" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 360
+				"y": 35
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": new FormMessage( null, "TeamInfoFrame.label3.text" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 675
+				"y": 35
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label4"
+				"text": new FormMessage( null, "TeamInfoFrame.label4.text" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 65
+				"y": 85
+				"width": 40
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label5"
+				"text": new FormMessage( null, "TeamInfoFrame.label5.text" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 360
+				"y": 85
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label6"
+				"text": new FormMessage( null, "TeamInfoFrame.label6.text" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 650
+				"y": 85
+				"width": 58
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label7"
+				"text": new FormMessage( null, "TeamInfoFrame.label7.text" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 65
+				"y": 135
+				"width": 40
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_id"
+				"editable": false
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 115
+				"y": 30
+				"width": 165
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_code"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 165
+				"height": 30
+				"x": 410
+				"y": 30
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_name"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 165
+				"height": 30
+				"x": 710
+				"y": 30
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_group"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 165
+				"height": 30
+				"x": 115
+				"y": 80
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_school"
+				"editable": false
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 165
+				"height": 30
+				"x": 410
+				"y": 80
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_teacher"
+				"editable": false
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 165
+				"height": 30
+				"x": 710
+				"y": 80
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_production"
+				"editable": false
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 165
+				"height": 30
+				"x": 115
+				"y": 125
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label8"
+				"text": new FormMessage( null, "TeamInfoFrame.label8.text" )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 360
+				"y": 135
+				"width": 29
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "textField_members"
+				"editable": false
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 165
+				"height": 30
+				"x": 410
+				"y": 125
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "table_grade"
+					"autoCreateRowSorter": true
+					"selectionMode": 0
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 70
+				"y": 175
+				"width": 805
+				"height": 295
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button_prodInfo"
+				"text": new FormMessage( null, "TeamInfoFrame.button_prodInfo.text" )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_prodInfoActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 285
+				"y": 125
+				"width": 25
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button_update"
+				"text": new FormMessage( null, "TeamInfoFrame.button_update.text" )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_updateActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 690
+				"y": 125
+				"width": 80
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button_membersInfo"
+				"text": new FormMessage( null, "TeamInfoFrame.button_membersInfo.text" )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_membersInfoActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 25
+				"height": 30
+				"x": 580
+				"y": 125
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button_mark"
+				"text": new FormMessage( null, "TeamInfoFrame.button_mark.text" )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_markActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 785
+				"y": 125
+				"width": 80
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 135, 75 )
+			"size": new java.awt.Dimension( 935, 530 )
+		} )
+	}
+}

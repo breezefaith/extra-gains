@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Exercise 2: Number Tables</title>
+</head>
+
+<body>
+    <script>
+        //write code here ONLY
+        function isNumber(s) {
+            var regex = /^0\.\d+$|^[1-9]+(\.\d+)?|0$/;
+
+            return regex.test(s);
+        }
+
+        function fibonacci(n) {
+            if (n == 0) {
+                return 0;
+            }
+            if (n == 1) {
+                return 1;
+            }
+
+            if (n >= 2) {
+                return fibonacci(n - 1) + fibonacci(n - 2);
+            }
+        }
+
+        function onchange() {
+            if (this.value.toLowerCase() == "done") {
+                this.parentElement.parentElement.parentElement.removeChild(this.parentElement.parentElement);
+                return;
+            }
+
+            if (isNumber(this.value) == false || isNaN(Math.round(this.value))) {
+                this.value = '';
+                alert("Please enter a number!");
+                this.focus();
+                return;
+            }
+
+            this.value = Math.round(this.value);
+            var fv = fibonacci(this.value);
+            this.onchange = null;
+
+            var vsum = document.getElementById("vsum");
+
+            vsum.innerHTML = parseInt(vsum.innerHTML) + parseInt(this.value);
+            this.parentElement.nextSibling.innerHTML = fv;
+            this.parentElement.innerHTML = this.value;
+
+            var tbd = document.getElementsByTagName("tbody")[0];
+            var tr = document.createElement("tr");
+            var td = document.createElement("td");
+            td.innerHTML = steps++;
+            tr.appendChild(td);
+
+            td = document.createElement("td");
+            var input = document.createElement("input");
+            input.setAttribute("type", "text");
+            input.onchange = onchange;
+            td.appendChild(input);
+            tr.appendChild(td);
+
+            td = document.createElement("td");
+            tr.appendChild(td);
+            tbd.appendChild(tr);
+
+            input.focus();
+        }
+
+        var steps = 1;
+
+        // thead
+        var thd = document.createElement("thead");
+        var tr = document.createElement("tr");
+
+        var th = document.createElement("th");
+        th.innerHTML = "Count";
+        tr.appendChild(th);
+
+        th = document.createElement("th");
+        th.innerHTML = "Value";
+        tr.appendChild(th);
+
+        th = document.createElement("th");
+        th.innerHTML = "Fibonacci Value";
+        tr.appendChild(th);
+
+        thd.appendChild(tr);
+
+        // tbody
+        var tbd = document.createElement("tbody");
+        tr = document.createElement("tr");
+
+        var td = document.createElement("td");
+        td.innerHTML = steps++;
+        tr.appendChild(td);
+
+        td = document.createElement("td");
+        var input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.onchange = onchange;
+        td.appendChild(input);
+        tr.appendChild(td);
+
+        td = document.createElement("td");
+        tr.appendChild(td);
+
+        tbd.appendChild(tr);
+
+        //tfoot
+        var tft = document.createElement("tfoot");
+        tr = document.createElement("tr");
+
+        td = document.createElement("td");
+        td.innerHTML = "the sum of all values entered";
+        tr.appendChild(td);
+
+        td = document.createElement("td");
+        td.id = "vsum";
+        td.style.border = "10";
+        td.innerHTML = 0;
+        tr.appendChild(td);
+
+        td = document.createElement("td");
+        tr.appendChild(td);
+
+        tft.appendChild(tr);
+
+        // table
+        var tbl = document.createElement("table");
+        tbl.setAttribute("border", "10");
+        tbl.appendChild(thd);
+        tbl.appendChild(tbd);
+        tbl.appendChild(tft);
+
+        // append to body
+        var body = document.getElementsByTagName("body")[0];
+        body.appendChild(tbl);
+
+        input.focus();
+
+    </script>
+</body>
+
+</html>

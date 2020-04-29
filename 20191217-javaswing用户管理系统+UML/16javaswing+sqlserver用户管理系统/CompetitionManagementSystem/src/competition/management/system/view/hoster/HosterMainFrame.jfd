@@ -1,0 +1,133 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.4" encoding: "UTF-8"
+
+new FormModel {
+	"i18n.bundlePackage": "competition.management.system.view.hoster"
+	"i18n.bundleName": "HosterMainFrame"
+	"i18n.autoExternalize": true
+	"i18n.keyPrefix": "HosterMainFrame"
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			"$sizePolicy": 1
+			"title": "主办方管理员"
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "tabbedPane1"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+					name: "panel1"
+					add( new FormContainer( "javax.swing.JToolBar", new FormLayoutManager( class javax.swing.JToolBar ) ) {
+						name: "toolBar1"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button_team_view"
+							"text": new FormMessage( null, "HosterMainFrame.button_team_view.text" )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_team_viewActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button_team_add"
+							"text": new FormMessage( null, "HosterMainFrame.button_team_add.text" )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_team_addActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button_team_remove"
+							"text": new FormMessage( null, "HosterMainFrame.button_team_remove.text" )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_team_removeActionPerformed", true ) )
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "North"
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane3"
+						add( new FormComponent( "javax.swing.JTable" ) {
+							name: "table_teams"
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "Center"
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": new FormMessage( null, "HosterMainFrame.panel1.tab.title" )
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+					name: "panel2"
+					add( new FormContainer( "javax.swing.JToolBar", new FormLayoutManager( class javax.swing.JToolBar ) ) {
+						name: "toolBar2"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button_schoolAdmin_view"
+							"text": new FormMessage( null, "HosterMainFrame.button_schoolAdmin_view.text" )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button_schoolAdmin_add"
+							"text": new FormMessage( null, "HosterMainFrame.button_schoolAdmin_add.text" )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_schoolAdmin_addActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button_schoolAdmin_remove"
+							"text": new FormMessage( null, "HosterMainFrame.button_schoolAdmin_remove.text" )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_schoolAdmin_removeActionPerformed", true ) )
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "North"
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane4"
+						add( new FormComponent( "javax.swing.JTable" ) {
+							name: "table_schoolAdmins"
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "Center"
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": new FormMessage( null, "HosterMainFrame.panel2.tab.title" )
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+					name: "panel3"
+					add( new FormContainer( "javax.swing.JToolBar", new FormLayoutManager( class javax.swing.JToolBar ) ) {
+						name: "toolBar3"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button_hosterAdmin_view"
+							"text": new FormMessage( null, "HosterMainFrame.button_hosterAdmin_view.text" )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button_housterAdmin_add"
+							"text": new FormMessage( null, "HosterMainFrame.button_housterAdmin_add.text" )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_housterAdmin_addActionPerformed", true ) )
+						} )
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "button_housterAdmin_remove"
+							"text": new FormMessage( null, "HosterMainFrame.button_housterAdmin_remove.text" )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button_housterAdmin_removeActionPerformed", true ) )
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "North"
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane5"
+						add( new FormComponent( "javax.swing.JTable" ) {
+							name: "table_hosterAdmins"
+						} )
+					}, new FormLayoutConstraints( class java.lang.String ) {
+						"value": "Center"
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": new FormMessage( null, "HosterMainFrame.panel3.tab.title" )
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar1"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu1"
+					"text": new FormMessage( null, "HosterMainFrame.menu1.text" )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem_exit"
+						"text": new FormMessage( null, "HosterMainFrame.menuItem_exit.text" )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem_exitActionPerformed", true ) )
+					} )
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 1010, 555 )
+		} )
+	}
+}

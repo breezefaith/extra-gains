@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Exercise 2: Finance</title>
+</head>
+
+<body>
+
+    <script>
+        //write code here ONLY
+        function checkAmount(s) {
+            var regex = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+
+            return regex.test(s);
+        }
+
+        function checkLen(s) {
+            var sf = parseFloat(s);
+            return sf >= 0 && sf <= 100;
+        }
+
+        function checkRate(s) {
+            var sf = parseFloat(s);
+            return sf >= 0 && sf <= 100;
+        }
+
+        /**
+         * I used "equal repayment of principal" method to calculate the three items as below.
+         * total = (months + 1) * loanAmount * rate / 2 + loanAmount;
+         * interest = (months + 1) * loanAmount * rate / 2;
+         * monthlyAmount = total / months;
+         */
+        function calTotal(amount, months, rate) {
+            return ((months + 1) * amount * rate / 2 + amount).toFixed(2);
+        }
+
+        function calInterest(amount, months, rate) {
+            return ((months + 1) * amount * rate / 2).toFixed(2);
+        }
+
+        function calMonthlyAmount(amount, months, rate) {
+            return (((months + 1) * amount * rate / 2 + amount) / months).toFixed(2);
+        }
+
+        function loanCal() {
+            var amount;
+            while (!checkAmount(amount = prompt("Loan Amount:"))) {
+                alert("Please enter a valid loan amount!");
+            }
+            amount = parseFloat(amount);
+
+            var llen;
+            while (!checkLen(llen = prompt("Loan Length(months):"))) {
+                alert("Please enter a valid loan length!");
+            }
+            llen = parseFloat(llen);
+
+            var rate;
+            while (!checkRate(rate = prompt("Percentage Rate(%):"))) {
+                alert("Please enter a valid percentage rate!");
+            }
+            rate = parseFloat(rate) / 100;
+
+            var div = document.getElementById("result");
+            div.innerHTML = "";
+
+            var ul = document.createElement("ul");
+            div.appendChild(ul);
+
+            var li = document.createElement("li");
+            ul.appendChild(li);
+            li.innerHTML = "Loan Total Amount:" + calTotal(amount, llen, rate);
+
+            li = document.createElement("li");
+            ul.appendChild(li);
+            li.innerHTML = "Interest Amount:" + calInterest(amount, llen, rate);
+
+            li = document.createElement("li");
+            ul.appendChild(li);
+            li.innerHTML = "Monthly Payment Amount:" + calMonthlyAmount(amount, llen, rate);
+        }
+
+        function buggeting() {
+            var div = document.getElementById("result");
+            div.innerHTML = "";
+
+            var billAndLabels = [];
+            var bills = 0;
+            var s;
+
+            var ul = document.createElement("ul");
+            div.appendChild(ul);
+
+            var li = document.createElement("li");
+            ul.appendChild(li);
+            li.innerHTML = "Bills List:";
+            var cul = document.createElement("ul");
+            li.appendChild(cul);
+            while ((s = prompt("Bill amounts and their labels(End by entering \"-999\"):")) != '-999') {
+                s = s.trim();
+                if (s.charAt(",") == -1 || !checkAmount(s.split(",")[0])) {
+                    alert("Please enter valid bill amounts and their labels(Ex: 300, Cell Phone)!");
+                    continue;
+                }
+
+                var bill = parseFloat(s.split(",")[0]);
+                var label = s.split(",")[1];
+
+                billAndLabels.push({
+                    bill: bill,
+                    label: label
+                });
+
+                var li = document.createElement("li");
+                li.innerHTML = label + ", " + bill;
+                cul.appendChild(li);
+
+                bills += bill;
+            }
+
+            li = document.createElement("li");
+            li.innerHTML = "Bills Total: " + bills;
+            ul.appendChild(li);
+
+            var income;
+            while (!checkAmount(income = prompt("Income:"))) {
+                alert("Please enter a valid income amount!");
+            }
+            income = parseFloat(income);
+            li = document.createElement("li");
+            li.innerHTML = "Income: " + income;
+            ul.appendChild(li);
+
+            var saving = income * 0.1;
+            li = document.createElement("li");
+            li.innerHTML = "Saving: " + saving;
+            ul.appendChild(li);
+
+            setTimeout(function () {
+                if (income == bills + saving) {
+                    alert("Right on bugget!");
+                } else if (income > bills + saving) {
+                    alert("Over bugget!");
+                } else {
+                    alert("Under bugget!");
+                }
+            }, 0);
+        }
+
+        var btnLoan = document.createElement("button");
+        btnLoan.innerHTML = "Loan Payment Calculator";
+        btnLoan.onclick = loanCal;
+        btnLoan.style.setProperty("margin", "0.5rem");
+
+        var btnBuggeting = document.createElement("button");
+        btnBuggeting.innerHTML = "Buggeting";
+        btnBuggeting.onclick = buggeting;
+        btnBuggeting.style.setProperty("margin", "0.5rem");
+
+        var div = document.createElement("div");
+        div.appendChild(btnLoan);
+        div.appendChild(btnBuggeting);
+
+        var body = document.getElementsByTagName("body")[0];
+        body.appendChild(div);
+
+        var div = document.createElement("div");
+        div.id = "result";
+        body.appendChild(div);
+    </script>
+</body>
+
+</html>

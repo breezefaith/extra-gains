@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Blog Master
+{% endblock title %}
+
+{% block nav_link %}
+<div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <span class="nav-link" id="id_logged_in_user_name">{{user.first_name}} {{user.last_name}}</span>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link" id="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="icon-arrow-down" id="id_show_nav_button"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/socialnetwork/global-stream" id="id_nav_global_stream">Global Stream</a>
+                <a class="dropdown-item" href="/socialnetwork/follower-stream" id="id_nav_follower_stream">Follower
+                    Stream</a>
+                <a class="dropdown-item" href="/socialnetwork/profile" id="id_nav_profile">My Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/socialnetwork/logout" id="id_nav_logout">Logout</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock nav_link %}
+
+{% block content %}
+{% block post_form %}
+{% endblock post_form %}
+
+{% block post_list %}
+<div style="margin-top: 20px; margin-bottom: 20px;" id="div-post-list">
+    {% for post_item in post_list %}
+    <div class="col-sm-12 col-md-4 mx-auto">
+        <div class="col-12">
+            Post by <a id="id_post_profile_{{post_item.id}}"
+                href="/socialnetwork/profile/{{post_item.poster.id}}">{{post_item.poster.first_name}}
+                {{post_item.poster.last_name}}</a> - <span
+                id="id_post_text_{{post_item.id}}">{{post_item.content}}</span> -
+            <span id="id_post_date_time_{{post_item.id}}">{{post_item.post_time}}</span>
+        </div>
+        {% for key, value in comments_dict.items %}
+        {% if key == post_item.id %}
+        {% for comment in value %}
+        <div class="col-10 mx-auto">
+            Comment by <a id="id_comment_profile_{{comment.reviewer.id}}"
+                href="/socialnetwork/profile/{{comment.reviewer.id}}">{{comment.reviewer.first_name}}
+                {{comment.reviewer.last_name}}</a> - <span
+                id="id_comment_text_{{comment.reviewer.id}}">{{comment.comment_text}}</span> - <span
+                id="id_comment_date_time_1">{{comment.comment_time}}</span>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+        <form class="form-inline">
+            <div class="form-group mx-auto">
+                {% csrf_token %}
+                <label class="mx-2">Comment</label>
+                <input type="text" class="form-control mx-2" id="id_comment_input_text_{{post_item.id}}"
+                    name="comment_text" />
+                <button class="btn btn-sm btn-secondary mx-2" id="id_comment_button_{{post_item.id}}">Submit</button>
+            </div>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+<script>
+    var last_refresh = '{{last_refresh_time}}';
+
+    function insertPosts({ post_list, comments_dict }) {
+        var div_post_list = $('#div-post-list');
+        post_list.forEach(post_item => {
+            if($(`#id_post_date_time_${post_item.id}`).length != 0){
+                return;
+            }
+            div_post_list.prepend(
+                `
+                    <div class="col-sm-12 col-md-4 mx-auto">
+                        <div class="col-12">
+                            Post by <a id="id_post_profile_${post_item.id}"
+                                href="/socialnetwork/profile/${post_item.poster.id}">${post_item.poster.first_name}
+                                ${post_item.poster.last_name}</a> - <span
+                                id="id_post_text_${post_item.id}">${post_item.post_content}</span> -
+                            <span id="id_post_date_time_${post_item.id}">${post_item.post_time}</span>
+                        </div>
+                        <form class="form-inline">
+                            <div class="form-group mx-auto">
+                                <label class="mx-2">Comment</label>
+                                <input type="text" class="form-control mx-2" id="id_comment_input_text_${post_item.id}"
+                                    name="comment_text" />
+                                <button class="btn btn-sm btn-secondary mx-2" id="id_comment_button_${post_item.id}">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                `
+            );
+            div_post_list.find(`#id_comment_button_${post_item.id}`).click(commentSubmit);
+        });
+
+        for (var post_id in comments_dict) {
+            var form = $(`#id_comment_button_${post_id}`).parent().parent();
+            comments_dict[post_id].forEach(comment => {
+                if($(`#id_comment_date_time_${comment.id}`).length != 0){
+                    return;
+                }
+                form.before(
+                    `
+                        <div class="col-10 mx-auto">
+                            Comment by <a id="id_comment_profile_${comment.reviewer.id}" href="/socialnetwork/profile/${comment.reviewer.id}">${comment.reviewer.first_name} ${comment.reviewer.last_name}</a> - <span
+                                id="id_comment_text_${comment.reviewer.id}">${comment.comment_text}</span> - <span
+                                id="id_comment_date_time_${comment.id}">${comment.comment_time}</span>
+                        </div>
+                    `
+                );
+            });
+        }
+    }
+
+    function commentSubmit() {
+        var token = $(this.parentElement).children('input[name=csrfmiddlewaretoken]').val();
+        var post_id = this.id.substr("id_comment_button_".length);
+        var comment_text = $("#id_comment_input_text_" + post_id).val();
+        $.ajax(
+            {
+                url: `/socialnetwork/add-comment?last_refresh=${encodeURIComponent(last_refresh)}`,
+                type: "POST",
+                data: {
+                    csrfmiddlewaretoken: token,
+                    post_id: post_id,
+                    comment_text: comment_text,
+                    is_global: window.location.href.indexOf("follower") == -1
+                },
+                success: function ({ post_list, comments_dict, last_refresh_time }, status) {
+                    $("#id_comment_input_text_" + post_id).val(null);
+                    refresh();
+                },
+                error: function (error, status) {
+
+                }
+            }
+        )
+        return false;
+    }
+
+    function refresh() {
+        $.ajax(
+            {
+                url: `{% block refresh_url %}{% endblock refresh_url %}?last_refresh=${encodeURIComponent(last_refresh)}`,
+                method: "get",
+                dataType: "json",
+                success: function ({ post_list, comments_dict, last_refresh_time }, status) {
+                    last_refresh = last_refresh_time;
+                    insertPosts({ post_list, comments_dict });
+                },
+                error: function (error, status) {
+
+                }
+            }
+        );
+    }
+
+    $(function () {
+        setInterval(function () {
+            refresh();
+        }, 5000);
+    });
+
+    $(function () {
+        $("button[id^=id_comment_button_]").click(commentSubmit);
+    });
+</script>
+{% endblock post_list %}
+{% endblock content %}

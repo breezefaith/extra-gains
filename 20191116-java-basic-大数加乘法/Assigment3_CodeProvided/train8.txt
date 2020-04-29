@@ -1,0 +1,6 @@
+Weight,Colour
+1,Blue
+2,Blue
+3,Red
+2,Red
+2,Yellow

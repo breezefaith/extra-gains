@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Profile
+{% endblock title %}
+
+{% block nav_link %}
+<div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <span class="nav-link" id="id_logged_in_user_name">{{user.first_name}} {{user.last_name}}</span>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link" id="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="icon-arrow-down" id="id_show_nav_button"></span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/socialnetwork/global-stream" id="id_nav_global_stream">Global Stream</a>
+                <a class="dropdown-item" href="/socialnetwork/follower-stream" id="id_nav_follower_stream">Follower
+                    Stream</a>
+                <a class="dropdown-item" href="/socialnetwork/profile" id="id_nav_profile">My Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/socialnetwork/logout" id="id_nav_logout">Logout</a>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock nav_link %}
+
+{% block page_name %}
+{% if target_profile != None %}
+{{target_profile.user.first_name}} {{target_profile.user.last_name}} Profile
+{% else %}
+{{user.first_name}} {{user.last_name}} Profile
+{% endif %}
+{% endblock page_name %}
+
+{% block content %}
+{% if target_profile == None %}
+<div class="text-center" style="margin-top: 20px; margin-bottom: 20px;">
+	<img src="{{ MEDIA_URL }}{{profile.img.name }}" width="200px" height="200px" alt="" class="" id="id_user_picture" />
+</div>
+<form class="form" action="/socialnetwork/profile" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="col-sm-12 col-md-4 mx-auto" style="margin-top: 20px; margin-bottom: 20px;">
+        <textarea class="form-control" name="bio" id="id_bio_input_text" rows="5">{{profile.bio}}</textarea>
+    </div>
+
+    <div class="col-sm-12 col-md-4 mx-auto" style="margin-top: 20px; margin-bottom: 20px;">
+        <div class="form-row">
+            <label for="" class="col-auto">Profile Picture</label>
+            <input type="file" class="col-auto" id="id_profile_picture" accept="image/png,image/jpeg" name="img"/>
+        </div>
+        <button type="submit" class="btn btn-secondary" id="id_update_profile_button">Submit</button>
+    </div>
+</form>
+
+<div class="col-sm-12 col-md-4 mx-auto" style="margin-top: 20px; margin-bottom: 20px;">
+    You are following:
+    <ul>
+        {% for follower in followers %}
+        <li><a id="id_profile_link_{{follower.user.username}}" href="/socialnetwork/profile/{{follower.id}}">{{follower.user.first_name}} {{follower.user.last_name}}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+<div class="text-center" style="margin-top: 20px; margin-bottom: 20px;">
+	<img src="{{MEDIA_URL}}{{ target_profile.img.name }}" width="200px" height="200px" alt="" class="" id="id_user_picture" />
+</div>
+<div class="col-sm-12 col-md-4 mx-auto" style="margin-top: 20px; margin-bottom: 20px;">
+    <div class="form-control" name="" id="id_user_bio" style="height: 5rem;" readonly></div>
+</div>
+
+<div class="text-center" style="margin-top: 20px; margin-bottom: 20px;">
+    {% if is_following %}
+    <a class="btn btn-secondary text-light" href="/socialnetwork/unfollow/{{ target_profile.user.id }}"
+        id="id_unfollow">Unfollow</a>
+    {% else %}
+    <a class="btn btn-secondary text-light" href="/socialnetwork/follow/{{ target_profile.user.id }}"
+        id="id_follow">Follow</a>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock content %}

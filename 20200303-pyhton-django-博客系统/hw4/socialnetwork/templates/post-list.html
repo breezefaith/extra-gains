@@ -1,0 +1,83 @@
+<div style="margin-top: 20px; margin-bottom: 20px;" id="div-post-list">
+    {% for post_item in post_list %}
+    <div class="col-sm-12 col-md-4 mx-auto">
+        <div class="col-12">
+            Post by <a id="id_post_profile_{{post_item.id}}"
+                href="/socialnetwork/profile/{{post_item.poster.id}}">{{post_item.poster.first_name}}
+                {{post_item.poster.last_name}}</a> - <span
+                id="id_post_text_{{post_item.id}}">{{post_item.content}}</span> -
+            <span id="id_post_date_time_{{post_item.id}}">{{post_item.post_time}}</span>
+        </div>
+        {% for key, value in comments_dict.items %}
+        {% if key == post_item.id %}
+        {% for comment in value %}
+        <div class="col-10 mx-auto">
+            Comment by <a id="id_comment_profile_{{comment.reviewer.id}}" href="/socialnetwork/profile/{{comment.reviewer.id}}">{{comment.reviewer.first_name}} {{comment.reviewer.last_name}}</a> - <span
+                id="id_comment_text_{{comment.reviewer.id}}">{{comment.comment_text}}</span> - <span
+                id="id_comment_date_time_1">{{comment.comment_time}}</span>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+        <form class="form-inline">
+            <div class="form-group mx-auto">
+                {% csrf_token %}
+                <label class="mx-2">Comment</label>
+                <input type="text" class="form-control mx-2" id="id_comment_input_text_{{post_item.id}}"
+                    name="comment_text" />
+                <button class="btn btn-sm btn-secondary mx-2" id="id_comment_button_{{post_item.id}}">Submit</button>
+            </div>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+<script>
+    $(function () {
+        var last_refresh = '{{last_refresh_time}}';
+        setInterval(function () {
+            $.ajax(
+                {
+                    url: `{% block refresh_url %}{% endblock refresh_url %}?last_refresh=${last_refresh}`,
+                    method: "get",
+                    dataType: "json",
+                    success: function (data, status) {
+                        last_refresh = data.last_refresh_time;
+                        console.log(data);
+                    },
+                    error: function (error, status) {
+
+                    }
+                }
+            );
+        }, 5000);
+    });
+
+
+    $(function () {
+        $("button[id^=id_comment_button_]").click(function () {
+            var token = $(this.parentElement).children('input[name=csrfmiddlewaretoken]').val();
+            var post_id = this.id.substr("id_comment_button_".length);
+            var comment_text = $("#id_comment_input_text_" + post_id).val();
+            $.ajax(
+                {
+                    url: `/socialnetwork/add-comment`,
+                    type: "POST",
+                    data: {
+                        csrfmiddlewaretoken: token,
+                        post_id: post_id,
+                        comment_text: comment_text
+                    },
+                    success: function (data, status) {
+                        last_refresh = data.last_refresh_time;
+                        console.log(data);
+                    },
+                    error: function (error, status) {
+
+                    }
+                }
+            )
+            console.log(comment_text);
+            return false;
+        });
+    });
+</script>
