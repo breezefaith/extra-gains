@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "supervisor app.js --watch . -x node app.js",
+    "dev": "supervisor TweetBot.js --watch . -x node TweetBot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.3",
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "supervisor": "^0.12.0"
