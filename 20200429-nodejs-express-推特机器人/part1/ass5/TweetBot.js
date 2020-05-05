@@ -1,6 +1,11 @@
 var Twitter = require('twitter');
 const express = require('express');
+var Sentiment = require('sentiment');
+var sentiment = new Sentiment();
 const server = express();
+
+var fs = require("fs");
+var tweets = JSON.parse(fs.readFileSync('part1.txt').toString());
 
 var client = new Twitter({
     consumer_key: 'WC3HvtIQdLbE99rEFK1N0SCSG',
@@ -10,15 +15,49 @@ var client = new Twitter({
 });
 
 server.get("/api/tweets/:param", function (req, res, next) {
-    var param = req.params.param;
-    console.log(param);
-    client.get("search/tweets", { q: param, count: 50 }, function (error, tweets, response) {
-        console.error(error);
-        console.log(tweets);
-        console.log(response);
-        res.json(tweets).end();
-    })
+    // var param = req.params.param;
+    // client.get("search/tweets", { q: param, count: 50 }, function (error, tweets, response) {
+    //     if(!error){
+    //         console.error(error);
+    //         res.end();
+    //     }else{
+    //         tweets.statuses.forEach(element => {
+    //             console.log(element.text);
+    //         });
+    //         res.json(tweets).end();
+    //     }
+    // })
+    var texts = tweets.statuses.map(elt => elt.text);
+    res.json(basic(req, res, texts)).end();
 });
+
+function basic(req, res, texts) {
+    var result = {};
+    texts.forEach(txt => {
+        // console.log(txt);
+        // txt.split("[\\p{Punct}\\s]+").forEach(word=>{
+        // txt.replace("[\\p{Punct}\\s]+","#tweetbot#").split("#tweetbot#").forEach(word => {
+            // console.log(word);
+            // if (result[word] == null) {
+            //     result[word] = 1;
+            // } else {
+            //     result[word]++;
+            // }
+        // });
+        var resu= sentiment.analyze(txt);
+        console.dir(resu);
+    });
+    return result;
+    // res.end();
+}
+
+function intermediate(texts) {
+
+}
+
+function harder(texts) {
+
+}
 
 var host = server.listen(5001, function () {
     var addr = host.address().address;
