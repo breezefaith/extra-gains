@@ -1,12 +1,12 @@
 package phonebook.hashes;
 
-import phonebook.exceptions.UnimplementedMethodException;
 import phonebook.utils.KVPair;
 import phonebook.utils.KVPairList;
 import phonebook.utils.PrimeGenerator;
 import phonebook.utils.Probes;
 
-/**<p>{@link SeparateChainingHashTable} is a {@link HashTable} that implements <b>Separate Chaining</b>
+/**
+ * <p>{@link SeparateChainingHashTable} is a {@link HashTable} that implements <b>Separate Chaining</b>
  * as its collision resolution strategy, i.e the collision chains are implemented as actual
  * Linked Lists. These Linked Lists are <b>not assumed ordered</b>. It is the easiest and most &quot; natural &quot; way to
  * implement a hash table and is useful for estimating hash function quality. In practice, it would
@@ -21,7 +21,7 @@ import phonebook.utils.Probes;
  * @see OrderedLinearProbingHashTable
  * @see CollisionResolver
  */
-public class SeparateChainingHashTable implements HashTable{
+public class SeparateChainingHashTable implements HashTable {
 
     /* ****************************************************************** */
     /* ***** PRIVATE FIELDS / METHODS PROVIDED TO YOU: DO NOT EDIT! ***** */
@@ -33,17 +33,18 @@ public class SeparateChainingHashTable implements HashTable{
 
     // We mask the top bit of the default hashCode() to filter away negative values.
     // Have to copy over the implementation from OpenAddressingHashTable; no biggie.
-    private int hash(String key){
+    private int hash(String key) {
         return (key.hashCode() & 0x7fffffff) % table.length;
     }
 
     /* **************************************** */
     /*  IMPLEMENT THE FOLLOWING PUBLIC METHODS:  */
     /* **************************************** */
+
     /**
-     *  Default constructor. Initializes the internal storage with a size equal to the default of {@link PrimeGenerator}.
+     * Default constructor. Initializes the internal storage with a size equal to the default of {@link PrimeGenerator}.
      */
-    public SeparateChainingHashTable(){
+    public SeparateChainingHashTable() {
         count = 0;
         primeGenerator = new PrimeGenerator();
         table = new KVPairList[primeGenerator.getCurrPrime()];
@@ -58,18 +59,17 @@ public class SeparateChainingHashTable implements HashTable{
             throw new IllegalArgumentException();
         }
 
-        // Makes sure the key is not already in the hashtable.
-        int hash = hash(key);
-        int index = (hash & 0x7FFFFFFF) % table.length;
-        KVPairList list = table[index];
-        if(list.containsKey(key) == false){
+        KVPairList list = table[hash(key)];
+        Probes probes = list.getValue(key);
+        if (probes.getValue() == null) {
             list.addBack(key, value);
-            if(++count > table.length){
+            if (++count > table.length) {
                 enlarge();
             }
             return new Probes(value, 1);
-        }else{
-            return list.getValue(key);
+        } else {
+            list.updateValue(key, value);
+            return new Probes(value, probes.getProbes());
         }
     }
 
@@ -78,23 +78,9 @@ public class SeparateChainingHashTable implements HashTable{
         if (key == null) {
             return new Probes(null, 0);
         }
-        int hash = hash(key);
-        int index = (hash & 0x7FFFFFFF) % table.length;
-        int probes = 0;
-        int i = 0;
-        KVPairList list = table[index];
-        if(list == null){
-            probes++;
-            return new Probes(null, probes);
-        }
-        for (KVPair item : list){
-            probes++;
-            if(hash(item.getKey()) == hash && item.getKey().equals(key)){
-                return new Probes(item.getValue(), probes);
-            }
-        }
-        probes++;
-        return new Probes(null, probes);
+        Probes probes = table[hash(key)].getValue(key);
+
+        return new Probes(probes.getValue(), probes.getProbes());
     }
 
     @Override
@@ -102,26 +88,11 @@ public class SeparateChainingHashTable implements HashTable{
         if (key == null) {
             return new Probes(null, 0);
         }
-        int hash = hash(key);
-        int index = (hash & 0x7FFFFFFF) % table.length;
-        int probes = 0;
-        int i = 0;
-        KVPairList list = table[index];
-        if(list == null){
-            probes++;
-            return new Probes(null, probes);
-        }
-        for (KVPair item : list){
-            probes++;
-            if(hash(item.getKey()) == hash && item.getKey().equals(key)){
-                String old = item.getValue();
-                list.remove(item.getKey(), item.getValue());
-                count--;
-                return new Probes(old, probes);
-            }
-        }
-        probes++;
-        return new Probes(null, probes);
+
+        KVPairList list = table[hash(key)];
+        Probes probes = list.removeByKey(key);
+        count--;
+        return probes;
     }
 
     @Override
@@ -133,7 +104,7 @@ public class SeparateChainingHashTable implements HashTable{
     @Override
     public boolean containsValue(String value) {
         for (int i = 0; i < table.length; i++) {
-            if(table[i].containsValue(value) == true){
+            if (table[i].containsValue(value) == true) {
                 return true;
             }
         }
@@ -142,7 +113,11 @@ public class SeparateChainingHashTable implements HashTable{
 
     @Override
     public int size() {
-        return count;
+        int cnt = 0;
+        for (int i = 0; i < table.length; i++) {
+            cnt += table[i].size();
+        }
+        return cnt;
     }
 
     @Override
@@ -154,18 +129,19 @@ public class SeparateChainingHashTable implements HashTable{
      * Enlarges this hash table. At the very minimum, this method should increase the <b>capacity</b> of the hash table and ensure
      * that the new size is prime. The class {@link PrimeGenerator} implements the enlargement heuristic that
      * we have talked about in class and can be used as a black box if you wish.
+     *
      * @see PrimeGenerator#getNextPrime()
      */
     public void enlarge() {
         KVPairList[] oldTable = table;
         KVPairList[] newTable = new KVPairList[primeGenerator.getNextPrime()];
         table = newTable;
-        count = 0;
         for (int i = 0; i < newTable.length; i++) {
-            newTable[i]=new KVPairList();
+            newTable[i] = new KVPairList();
         }
+        count = 0;
         for (int i = 0; i < oldTable.length; ++i) {
-            for(KVPair item : oldTable[i]){
+            for (KVPair item : oldTable[i]) {
                 put(item.getKey(), item.getValue());
             }
         }
@@ -178,17 +154,17 @@ public class SeparateChainingHashTable implements HashTable{
      *
      * @see PrimeGenerator#getPreviousPrime()
      */
-    public void shrink(){
+    public void shrink() {
         KVPairList[] oldTable = table;
         KVPairList[] newTable = new KVPairList[primeGenerator.getPreviousPrime()];
         table = newTable;
         count = 0;
 
         for (int i = 0; i < newTable.length; i++) {
-            newTable[i]=new KVPairList();
+            newTable[i] = new KVPairList();
         }
         for (int i = 0; i < oldTable.length; ++i) {
-            for(KVPair item : oldTable[i]){
+            for (KVPair item : oldTable[i]) {
                 put(item.getKey(), item.getValue());
             }
         }
