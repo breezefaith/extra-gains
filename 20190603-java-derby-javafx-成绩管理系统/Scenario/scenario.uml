@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>scenario</OriginalElement>
+  <nodes>
+    <node x="1529.652357017981" y="1831.5">scenario.controller.AddPersonController</node>
+    <node x="1540.1168175574417" y="217.0">scenario.entity.Person</node>
+    <node x="1308.1168175574417" y="767.5">scenario.dao.RoleDao</node>
+    <node x="10.5" y="768.0">scenario.Main</node>
+    <node x="274.25815850815843" y="536.0">scenario.entity.Student</node>
+    <node x="1045.6168175574417" y="989.0">scenario.jdbc.JDBCTool</node>
+    <node x="284.52157946220336" y="1762.0">scenario.controller.StudentContrlloer</node>
+    <node x="148.21942727411397" y="228.5">scenario.entity.Grade</node>
+    <node x="396.7261904761905" y="1410.0">scenario.controller.AddGradeController</node>
+    <node x="711.469427274114" y="733.0">scenario.dao.GradeDao</node>
+    <node x="1426.7087129883996" y="1479.5">scenario.dao.PersonDao</node>
+    <node x="1428.0658508158508" y="0.0">scenario.entity.Role</node>
+    <node x="1093.8980675574417" y="2423.0">scenario.controller.MainController</node>
+    <node x="794.6168175574417" y="1128.0">scenario.util.AlertUtil</node>
+    <node x="1088.1168175574417" y="779.5">scenario.dao.StudentDao</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="scenario.controller.StudentContrlloer" target="scenario.entity.Grade">
+      <point x="-91.0769230769231" y="-280.5" />
+      <point x="341.44465638528027" y="1722.0" />
+      <point x="207.0" y="1722.0" />
+      <point x="207.0" y="506.0" />
+      <point x="197.21942727411397" y="506.0" />
+      <point x="-98.0" y="108.0" />
+    </edge>
+    <edge source="scenario.dao.StudentDao" target="scenario.jdbc.JDBCTool">
+      <point x="75.0" y="26.5" />
+      <point x="1263.1168175574417" y="929.0" />
+      <point x="1199.2706637112879" y="929.0" />
+      <point x="36.15384615384619" y="-165.5" />
+    </edge>
+    <edge source="scenario.controller.AddGradeController" target="scenario.jdbc.JDBCTool">
+      <point x="117.85714285714289" y="-131.0" />
+      <point x="652.0833333333334" y="1390.0" />
+      <point x="1060.3043175574417" y="1390.0" />
+      <point x="-102.8125" y="165.5" />
+    </edge>
+    <edge source="scenario.controller.AddPersonController" target="scenario.entity.Person">
+      <point x="58.875" y="-211.0" />
+      <point x="1745.527357017981" y="1742.0" />
+      <point x="1759.652357017981" y="1742.0" />
+      <point x="1759.652357017981" y="516.0" />
+      <point x="1755.2668175574418" y="516.0" />
+      <point x="49.65000000000009" y="119.5" />
+    </edge>
+    <edge source="scenario.entity.Person" target="scenario.entity.Role">
+      <point x="-82.75" y="-119.5" />
+      <point x="1622.8668175574417" y="197.0" />
+      <point x="1545.715850815851" y="197.0" />
+      <point x="27.15000000000009" y="73.5" />
+    </edge>
+    <edge source="scenario.jdbc.JDBCTool" target="scenario.dao.PersonDao">
+      <point x="102.8125" y="165.5" />
+      <point x="1265.9293175574417" y="1360.0" />
+      <point x="1514.2087129883996" y="1360.0" />
+      <point x="-12.5" y="-61.5" />
+    </edge>
+    <edge source="scenario.controller.MainController" target="scenario.Main">
+      <point x="-144.96428571428555" y="-245.5" />
+      <point x="1133.433781843156" y="2393.0" />
+      <point x="27.729912795536848" y="2393.0" />
+      <point x="27.729912795536848" y="969.0" />
+      <point x="32.375" y="969.0" />
+      <point x="-65.625" y="38.0" />
+    </edge>
+    <edge source="scenario.dao.RoleDao" target="scenario.entity.Role">
+      <point x="-50.0" y="-38.5" />
+      <point x="1358.1168175574417" y="708.0" />
+      <point x="1402.6168175574417" y="708.0" />
+      <point x="1402.6168175574417" y="187.0" />
+      <point x="1473.3158508158508" y="187.0" />
+      <point x="-45.25" y="73.5" />
+    </edge>
+    <edge source="scenario.entity.Student" target="scenario.entity.Grade">
+      <point x="-166.0" y="-73.5" />
+      <point x="315.75815850815843" y="516.0" />
+      <point x="327.8860939407806" y="516.0" />
+      <point x="32.66666666666663" y="108.0" />
+    </edge>
+    <edge source="scenario.jdbc.JDBCTool" target="scenario.dao.RoleDao">
+      <point x="90.38461538461547" y="-165.5" />
+      <point x="1253.5014329420571" y="959.0" />
+      <point x="1408.1168175574417" y="959.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="scenario.jdbc.JDBCTool" target="scenario.Main">
+      <point x="-108.46153846153845" y="-165.5" />
+      <point x="1054.655279095903" y="949.0" />
+      <point x="163.625" y="949.0" />
+      <point x="65.625" y="38.0" />
+    </edge>
+    <edge source="scenario.controller.MainController" target="scenario.dao.PersonDao">
+      <point x="13.178571428571331" y="-245.5" />
+      <point x="1291.576638986013" y="2343.0" />
+      <point x="1450.102357017981" y="2343.0" />
+      <point x="1450.102357017981" y="1742.0" />
+      <point x="1476.7087129883996" y="1742.0" />
+      <point x="-50.0" y="61.5" />
+    </edge>
+    <edge source="scenario.entity.Student" target="scenario.entity.Person">
+      <point x="83.0" y="-73.5" />
+      <point x="564.7581585081584" y="496.0" />
+      <point x="1556.6668175574416" y="496.0" />
+      <point x="-148.95000000000005" y="119.5" />
+    </edge>
+    <edge source="scenario.controller.MainController" target="scenario.entity.Role">
+      <point x="-171.32142857142844" y="-245.5" />
+      <point x="1107.0766389860132" y="2403.0" />
+      <point x="0.0" y="2403.0" />
+      <point x="0.0" y="167.0" />
+      <point x="1437.1158508158508" y="167.0" />
+      <point x="-81.45000000000005" y="73.5" />
+    </edge>
+    <edge source="scenario.Main" target="scenario.controller.MainController">
+      <point x="-21.875" y="38.0" />
+      <point x="76.125" y="969.0" />
+      <point x="59.75" y="969.0" />
+      <point x="59.75" y="2383.0" />
+      <point x="1159.7909247002988" y="2383.0" />
+      <point x="-118.60714285714289" y="-245.5" />
+    </edge>
+    <edge source="scenario.controller.AddGradeController" target="scenario.util.AlertUtil">
+      <point x="78.57142857142856" y="-131.0" />
+      <point x="612.797619047619" y="1380.0" />
+      <point x="823.4918175574417" y="1380.0" />
+      <point x="-86.625" y="26.5" />
+    </edge>
+    <edge source="scenario.dao.GradeDao" target="scenario.entity.Student">
+      <point x="-92.33333333333337" y="-73.0" />
+      <point x="757.6360939407805" y="708.0" />
+      <point x="647.7581585081584" y="708.0" />
+      <point x="166.0" y="73.5" />
+    </edge>
+    <edge source="scenario.dao.PersonDao" target="scenario.jdbc.JDBCTool">
+      <point x="-87.5" y="-61.5" />
+      <point x="1439.2087129883996" y="1390.0" />
+      <point x="1177.8043175574417" y="1390.0" />
+      <point x="14.6875" y="165.5" />
+    </edge>
+    <edge source="scenario.controller.MainController" target="scenario.controller.StudentContrlloer">
+      <point x="-65.89285714285711" y="-245.5" />
+      <point x="1212.5052104145846" y="2363.0" />
+      <point x="432.52157946220336" y="2363.0" />
+      <point x="0.0" y="280.5" />
+    </edge>
+    <edge source="scenario.controller.StudentContrlloer" target="scenario.jdbc.JDBCTool">
+      <point x="136.61538461538464" y="-280.5" />
+      <point x="569.136964077588" y="1742.0" />
+      <point x="1108.0543175574417" y="1742.0" />
+      <point x="1108.0543175574417" y="1390.0" />
+      <point x="1089.6793175574417" y="1390.0" />
+      <point x="-73.4375" y="165.5" />
+    </edge>
+    <edge source="scenario.controller.AddGradeController" target="scenario.dao.GradeDao">
+      <point x="39.28571428571428" y="-131.0" />
+      <point x="573.5119047619048" y="1390.0" />
+      <point x="575.6122844169711" y="1390.0" />
+      <point x="575.6122844169711" y="969.0" />
+      <point x="770.8265701312569" y="969.0" />
+      <point x="-79.14285714285711" y="73.0" />
+    </edge>
+    <edge source="scenario.controller.AddGradeController" target="scenario.entity.Grade">
+      <point x="-78.57142857142856" y="-131.0" />
+      <point x="455.6547619047619" y="1380.0" />
+      <point x="262.0" y="1380.0" />
+      <point x="262.0" y="516.0" />
+      <point x="295.21942727411397" y="516.0" />
+      <point x="0.0" y="108.0" />
+    </edge>
+    <edge source="scenario.controller.MainController" target="scenario.controller.AddPersonController">
+      <point x="39.53571428571422" y="-245.5" />
+      <point x="1317.9337818431559" y="2353.0" />
+      <point x="1581.9856903513144" y="2353.0" />
+      <point x="-104.66666666666674" y="211.0" />
+    </edge>
+    <edge source="scenario.dao.RoleDao" target="scenario.jdbc.JDBCTool">
+      <point x="40.0" y="38.5" />
+      <point x="1448.1168175574417" y="969.0" />
+      <point x="1271.57835601898" y="969.0" />
+      <point x="108.46153846153834" y="-165.5" />
+    </edge>
+    <edge source="scenario.controller.MainController" target="scenario.entity.Person">
+      <point x="171.32142857142867" y="-245.5" />
+      <point x="1449.7194961288703" y="2403.0" />
+      <point x="1925.6168175574417" y="2403.0" />
+      <point x="1925.6168175574417" y="496.0" />
+      <point x="1854.5668175574417" y="496.0" />
+      <point x="148.95000000000005" y="119.5" />
+    </edge>
+    <edge source="scenario.dao.GradeDao" target="scenario.entity.Grade">
+      <point x="92.33333333333337" y="-73.0" />
+      <point x="942.3027606074472" y="708.0" />
+      <point x="975.7325174825176" y="708.0" />
+      <point x="975.7325174825176" y="476.0" />
+      <point x="425.8860939407806" y="476.0" />
+      <point x="130.66666666666663" y="108.0" />
+    </edge>
+    <edge source="scenario.controller.AddGradeController" target="scenario.entity.Student">
+      <point x="-39.28571428571428" y="-131.0" />
+      <point x="494.9404761904762" y="1390.0" />
+      <point x="481.75815850815843" y="1390.0" />
+      <point x="0.0" y="73.5" />
+    </edge>
+    <edge source="scenario.controller.StudentContrlloer" target="scenario.Main">
+      <point x="-136.61538461538476" y="-280.5" />
+      <point x="295.9061948468186" y="1742.0" />
+      <point x="87.19230769230762" y="1742.0" />
+      <point x="87.19230769230762" y="969.0" />
+      <point x="119.875" y="969.0" />
+      <point x="21.875" y="38.0" />
+    </edge>
+    <edge source="scenario.controller.StudentContrlloer" target="scenario.controller.AddGradeController">
+      <point x="0.0" y="-280.5" />
+      <point x="432.52157946220336" y="1742.0" />
+      <point x="442.55952380952385" y="1742.0" />
+      <point x="-91.66666666666669" y="131.0" />
+    </edge>
+    <edge source="scenario.controller.AddPersonController" target="scenario.jdbc.JDBCTool">
+      <point x="-98.125" y="-211.0" />
+      <point x="1588.527357017981" y="1722.0" />
+      <point x="1130.0543175574417" y="1722.0" />
+      <point x="1130.0543175574417" y="1390.0" />
+      <point x="1148.4293175574417" y="1390.0" />
+      <point x="-14.6875" y="165.5" />
+    </edge>
+    <edge source="scenario.dao.GradeDao" target="scenario.jdbc.JDBCTool">
+      <point x="118.71428571428578" y="73.0" />
+      <point x="968.6837129883997" y="909.0" />
+      <point x="1126.9629714035955" y="909.0" />
+      <point x="-36.15384615384619" y="-165.5" />
+    </edge>
+    <edge source="scenario.controller.MainController" target="scenario.dao.GradeDao">
+      <point x="-92.25" y="-245.5" />
+      <point x="1186.1480675574417" y="2373.0" />
+      <point x="70.75" y="2373.0" />
+      <point x="70.75" y="1390.0" />
+      <point x="240.0" y="1390.0" />
+      <point x="240.0" y="959.0" />
+      <point x="731.2551415598282" y="959.0" />
+      <point x="-118.71428571428567" y="73.0" />
+    </edge>
+    <edge source="scenario.controller.StudentContrlloer" target="scenario.entity.Student">
+      <point x="-45.53846153846155" y="-280.5" />
+      <point x="386.9831179237418" y="1702.0" />
+      <point x="229.0" y="1702.0" />
+      <point x="229.0" y="708.0" />
+      <point x="315.75815850815843" y="708.0" />
+      <point x="-166.0" y="73.5" />
+    </edge>
+    <edge source="scenario.controller.MainController" target="scenario.util.AlertUtil">
+      <point x="-39.53571428571422" y="-245.5" />
+      <point x="1238.8623532717274" y="2353.0" />
+      <point x="938.9918175574417" y="2353.0" />
+      <point x="28.875" y="26.5" />
+    </edge>
+    <edge source="scenario.controller.AddPersonController" target="scenario.dao.RoleDao">
+      <point x="-19.625" y="-211.0" />
+      <point x="1667.027357017981" y="1732.0" />
+      <point x="1705.6168175574417" y="1732.0" />
+      <point x="1705.6168175574417" y="969.0" />
+      <point x="1488.1168175574417" y="969.0" />
+      <point x="80.0" y="38.5" />
+    </edge>
+    <edge source="scenario.controller.MainController" target="scenario.jdbc.JDBCTool">
+      <point x="-13.178571428571331" y="-245.5" />
+      <point x="1265.2194961288703" y="2343.0" />
+      <point x="1119.0543175574417" y="2343.0" />
+      <point x="-44.0625" y="165.5" />
+    </edge>
+    <edge source="scenario.entity.Student" target="scenario.entity.Role">
+      <point x="0.0" y="-73.5" />
+      <point x="481.75815850815843" y="516.0" />
+      <point x="482.96942727411397" y="516.0" />
+      <point x="482.96942727411397" y="177.0" />
+      <point x="1455.215850815851" y="177.0" />
+      <point x="-63.34999999999991" y="73.5" />
+    </edge>
+    <edge source="scenario.controller.AddPersonController" target="scenario.dao.PersonDao">
+      <point x="-58.875" y="-211.0" />
+      <point x="1627.777357017981" y="1712.0" />
+      <point x="1576.7087129883996" y="1712.0" />
+      <point x="50.0" y="61.5" />
+    </edge>
+    <edge source="scenario.controller.StudentContrlloer" target="scenario.dao.GradeDao">
+      <point x="91.0769230769231" y="-280.5" />
+      <point x="523.5985025391265" y="1722.0" />
+      <point x="784.1168175574417" y="1722.0" />
+      <point x="784.1168175574417" y="969.0" />
+      <point x="810.3979987026853" y="969.0" />
+      <point x="-39.571428571428555" y="73.0" />
+    </edge>
+    <edge source="scenario.controller.AddPersonController" target="scenario.controller.MainController">
+      <point x="0.0" y="211.0" />
+      <point x="1686.652357017981" y="2363.0" />
+      <point x="1344.2909247002988" y="2363.0" />
+      <point x="65.89285714285711" y="-245.5" />
+    </edge>
+    <edge source="scenario.jdbc.JDBCTool" target="scenario.dao.GradeDao">
+      <point x="-72.30769230769226" y="-165.5" />
+      <point x="1090.8091252497493" y="929.0" />
+      <point x="889.5408558455424" y="929.0" />
+      <point x="39.571428571428555" y="73.0" />
+    </edge>
+    <edge source="scenario.controller.AddGradeController" target="scenario.controller.StudentContrlloer">
+      <point x="91.66666666666669" y="131.0" />
+      <point x="625.8928571428571" y="1702.0" />
+      <point x="478.0600410006649" y="1702.0" />
+      <point x="45.53846153846155" y="-280.5" />
+    </edge>
+    <edge source="scenario.controller.AddPersonController" target="scenario.entity.Role">
+      <point x="98.125" y="-211.0" />
+      <point x="1784.777357017981" y="1732.0" />
+      <point x="1881.6168175574417" y="1732.0" />
+      <point x="1881.6168175574417" y="177.0" />
+      <point x="1581.9158508158507" y="177.0" />
+      <point x="63.34999999999991" y="73.5" />
+    </edge>
+    <edge source="scenario.dao.PersonDao" target="scenario.entity.Person">
+      <point x="62.5" y="-61.5" />
+      <point x="1589.2087129883996" y="1380.0" />
+      <point x="1646.0303113553114" y="1380.0" />
+      <point x="1646.0303113553114" y="516.0" />
+      <point x="1655.9668175574416" y="516.0" />
+      <point x="-49.65000000000009" y="119.5" />
+    </edge>
+    <edge source="scenario.controller.StudentContrlloer" target="scenario.entity.Person">
+      <point x="68.30769230769226" y="-280.5" />
+      <point x="500.8292717698956" y="1712.0" />
+      <point x="699.7581585081584" y="1712.0" />
+      <point x="699.7581585081584" y="516.0" />
+      <point x="1622.8668175574417" y="516.0" />
+      <point x="-82.75" y="119.5" />
+    </edge>
+    <edge source="scenario.dao.PersonDao" target="scenario.entity.Role">
+      <point x="37.5" y="-61.5" />
+      <point x="1564.2087129883996" y="1340.0" />
+      <point x="1529.6168175574417" y="1340.0" />
+      <point x="1529.6168175574417" y="197.0" />
+      <point x="1527.6158508158508" y="197.0" />
+      <point x="9.049999999999955" y="73.5" />
+    </edge>
+    <edge source="scenario.jdbc.JDBCTool" target="scenario.dao.StudentDao">
+      <point x="0.0" y="-165.5" />
+      <point x="-25.0" y="26.5" />
+    </edge>
+    <edge source="scenario.controller.StudentContrlloer" target="scenario.util.AlertUtil">
+      <point x="113.84615384615381" y="-280.5" />
+      <point x="546.3677333083572" y="1732.0" />
+      <point x="927.9918175574417" y="1732.0" />
+      <point x="927.9918175574417" y="1380.0" />
+      <point x="881.2418175574417" y="1380.0" />
+      <point x="-28.875" y="26.5" />
+    </edge>
+    <edge source="scenario.controller.AddPersonController" target="scenario.util.AlertUtil">
+      <point x="-137.375" y="-211.0" />
+      <point x="1549.277357017981" y="1732.0" />
+      <point x="949.9918175574417" y="1732.0" />
+      <point x="949.9918175574417" y="1380.0" />
+      <point x="996.7418175574417" y="1380.0" />
+      <point x="86.625" y="26.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8" x="989.125" y="325.625" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="138.0" prefWidth="295.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iTravel.RemoveProfileController">
+   <children>
+      <Button layoutX="116.0" layoutY="101.0" mnemonicParsing="false" text="Remove" fx:id="btnRemove" onAction="#removeProfile"/>
+      <TextField layoutX="67.0" layoutY="46.0" promptText="Employee Number" fx:id="textFieldEmployeeNumber"/>
+   </children>
+</AnchorPane>

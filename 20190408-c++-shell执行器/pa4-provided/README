@@ -1,0 +1,18 @@
+Author:
+
+Contents:
+    shell.h:    provided
+    parse.cpp:  provided
+    shell.cpp:  source file with main method
+    run-tests:  provided
+
+Running:
+    Compile:    sudo make all
+    Run:        sudo ./shell
+
+Implementation notes:
+    function execute_cmd is used for external call;
+    The built-in commands are distinguished by strcmp.
+
+Limitations:
+    command's max length is not more than 512
