@@ -19,8 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use("/", createProxyMiddleware({ target: 'http://localhost:3001', changeOrigin: true }));
 app.use("/api/employees", employeesRouter);
+app.use("/", createProxyMiddleware({ target: 'http://localhost:3001', changeOrigin: true }));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
