@@ -1,0 +1,92 @@
+[
+	{
+		"id": {
+			"$numberInt": "1"
+		},
+		"emp_name": "Mike",
+		"emp_age": {
+			"$numberInt": "35"
+		},
+		"emp_salary": {
+			"$numberDouble": "5000.5"
+		},
+		"join_date": {
+			"$date": {
+				"$numberLong": "1451577600000"
+			}
+		},
+		"phone": ""
+	},
+	{
+		"id": {
+			"$numberInt": "2"
+		},
+		"emp_name": "Michale",
+		"emp_age": {
+			"$numberInt": "30"
+		},
+		"emp_salary": {
+			"$numberInt": "4000"
+		},
+		"join_date": {
+			"$date": {
+				"$numberLong": "1462032000000"
+			}
+		},
+		"phone": "042-4521-458452"
+	},
+	{
+		"id": {
+			"$numberInt": "3"
+		},
+		"emp_name": "Jimmy",
+		"emp_age": {
+			"$numberInt": "27"
+		},
+		"emp_salary": {
+			"$numberDouble": "2700.5"
+		},
+		"join_date": {
+			"$date": {
+				"$numberLong": "1467302400000"
+			}
+		},
+		"phone": "321-1041-542541"
+	},
+	{
+		"id": {
+			"$numberInt": "4"
+		},
+		"emp_name": "Hina",
+		"emp_age": {
+			"$numberInt": "45"
+		},
+		"emp_salary": {
+			"$numberInt": "3000"
+		},
+		"join_date": {
+			"$date": {
+				"$numberLong": "1514736000000"
+			}
+		},
+		"phone": "+86123456789"
+	},
+	{
+		"id": {
+			"$numberInt": "5"
+		},
+		"emp_name": "Emp5",
+		"emp_age": {
+			"$numberInt": "20"
+		},
+		"emp_salary": {
+			"$numberInt": "2000"
+		},
+		"join_date": {
+			"$date": {
+				"$numberLong": "1577808000000"
+			}
+		},
+		"phone": ""
+	}
+]
