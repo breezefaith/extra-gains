@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var { createProxyMiddleware } = require('http-proxy-middleware');
+var AccessControl = require('express-ip-access-control');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -8,6 +9,22 @@ var logger = require('morgan');
 var employeesRouter = require('./routes/employees');
 
 var app = express();
+
+var options = {
+  mode: 'deny',
+  denys: [
+    //change it if nessesary
+  ],
+  allows: [],
+  forceConnectionAddress: false,
+  log: function (clientIp, access) {
+    console.log(clientIp + (access ? ' accessed.' : ' denied.'));
+  },
+
+  statusCode: 401,
+  message: 'Unauthorized'
+};
+app.use(AccessControl(options));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,6 +37,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/api/employees", employeesRouter);
+app.use("/404", function (req, res, next) {
+  next(createError(404));
+});
 app.use("/", createProxyMiddleware({ target: 'http://localhost:3001', changeOrigin: true }));
 
 // catch 404 and forward to error handler

@@ -7,7 +7,8 @@ export function router() {
     return (
         <Router>
             <Route exact path="/employees" component={EmployeeList} />
-            <Route exact path="/employees/:id" component={EmployeeDetail} />
+            <Route exact path="/employee" component={EmployeeDetail} />
+            <Route exact path="/employee/:id" component={EmployeeDetail} />
             <Redirect from="/" to="/employees" />
         </Router>
     );
