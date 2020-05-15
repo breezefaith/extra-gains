@@ -109,9 +109,15 @@ export class EmployeeDetail extends React.Component {
             }).then(
                 res => res.json()
             ).then((employees) => {
+                var maxId = -1;
+                employees.forEach(employee => {
+                    if (maxId < employee.id) {
+                        maxId = employee.id;
+                    }
+                });
                 this.setState({
                     employee: {
-                        id: employees.length + 1,
+                        id: maxId + 1,
                         emp_name: "",
                         emp_age: 0,
                         emp_salary: 0,
