@@ -3,9 +3,7 @@ package task1;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * This class extends from JFrame, and has a main method for running the application.
  *
- * @see javax.swing.JFrame
+ * @see JFrame
  */
 public class NetAnalyser extends JFrame {
     /**
@@ -89,10 +87,28 @@ public class NetAnalyser extends JFrame {
     private void buttonProcessActionPerformed(ActionEvent e) {
         // clear textarea
         textAreaOutput.setText("");
-        // get the test url
-        String url = textFieldUrl.getText();
-        // get probes' number
-        String no = String.valueOf(spinnerNo.getValue());
+
+        // execute the command and analyze result
+        try {
+            InputStream inputStream = executeCommand(textFieldUrl.getText(), String.valueOf(spinnerNo.getValue()));
+            analysisResult(inputStream);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Execute a command by using Process.
+     * @param url the test url
+     * @param no the probes
+     * @return a input stream object
+     * @throws IOException IOException
+     * @throws InterruptedException InterruptedException
+     */
+    public InputStream executeCommand(String url, String no) throws IOException, InterruptedException {
         // the actual command
         String cmd = null;
         if (os.startsWith("Windows")) {
@@ -105,26 +121,52 @@ public class NetAnalyser extends JFrame {
             // in Linux OS
             cmd = String.format("ping -c %s %s", no, url);
         }
-        // execute the command
-        execCommand(cmd);
+
+        //get the system process of the command execution
+        Process p = Runtime.getRuntime().exec(cmd);
+        // wait for ending
+        p.waitFor();
+        //if exit normally
+        if (p.exitValue() == 0) {
+            return p.getInputStream();
+        } else {
+            return null;
+        }
     }
 
     /**
-     * Execute a command by using Process. This method also displays
-     * the results of the execution on the corresponding control.
-     *
-     * @param cmd the actual command.
+     * This method analyzes the result and displays the results of the execution on the corresponding control.
+     * @param inputStream the input stream object after executing command
+     * @throws IOException IOException
      */
-    public void execCommand(String cmd) {
-        //system process
-        Process p = null;
-        // read the output of process line by line
-        String line = null;
+    public void analysisResult(InputStream inputStream) throws IOException {
+        if (inputStream == null) {
+            return;
+        }
+        //pattern for every probe line
+        Pattern pattern4One = Pattern.compile("=[+-]?(0|([1-9]\\d*))(\\.\\d+)?\\s*ms");
+        //pattern for the last statistical line
+        Pattern pattern4Total = null;
+        //pattern for extracting digital
+        Pattern pattern4NoNumber = Pattern.compile("[^0-9\\.]");
+        Matcher m4One = null;
+        Matcher m4Total = null;
+
+        if (os.startsWith("Windows")) {
+            // in Windows OS
+            pattern4Total = Pattern.compile("=(\\s+|\\t+)[+-]?(0|([1-9]\\d*))(\\.\\d+)?\\s*ms");
+        } else if (os.startsWith("Mac")) {
+            // in Mac OS
+            pattern4Total = Pattern.compile("=(\\s+|\\t+)[+-]?(0|([1-9]\\d*))(\\.\\d+)?/(0|([1-9]\\d*))(\\.\\d+)?/(0|([1-9]\\d*))(\\.\\d+)?/(0|([1-9]\\d*))(\\.\\d+)?(\\s*|\\t*)ms");
+        } else if (os.startsWith("Linux")) {
+            // in Linux OS
+            pattern4Total = Pattern.compile("=(\\s+|\\t+)[+-]?(0|([1-9]\\d*))(\\.\\d+)?/(0|([1-9]\\d*))(\\.\\d+)?/(0|([1-9]\\d*))(\\.\\d+)?/(0|([1-9]\\d*))(\\.\\d+)?(\\s*|\\t*)ms");
+        }
 
         // store the RTTs of all probes
-        ArrayList<Integer> RTTs = new ArrayList<>();
+        ArrayList<Double> RTTs = new ArrayList<>();
         // store the RTTs' min(0), max(1), average(2)
-        ArrayList<Integer> RTTStatistics = new ArrayList<>();
+        ArrayList<Double> RTTStatistics = new ArrayList<>();
         // integer value of max RTT
         int maxRTT = -1;
         // integer value of min RTT
@@ -143,84 +185,86 @@ public class NetAnalyser extends JFrame {
         String s2 = "";
         //strip3
         String s3 = "";
-        //pattern for every probe line
-        Pattern pattern4One = Pattern.compile("=\\d*ms");
-        //pattern for the last statistical line
-        Pattern pattern4Total = Pattern.compile("=(\\s+|\\t+)\\d*ms");
-        //pattern for extracting digital
-        Pattern pattern4NoNumber = Pattern.compile("[^0-9]");
-        Matcher m4One = null;
-        Matcher m4Total = null;
-        try {
-            //get the system process of the command execution
-            p = Runtime.getRuntime().exec(cmd);
-            // wait for ending
-            p.waitFor();
-            //if exit normally
-            if (p.exitValue() == 0) {
-                //read the output to buffer
-                BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream(), "GBK"));
-                //read line by line
-                while ((line = reader.readLine()) != null) {
-                    //output to textarea
-                    textAreaOutput.append(line + "\n");
 
-                    m4One = pattern4One.matcher(line);
-                    m4Total = pattern4Total.matcher(line);
-                    // if the last statistical line
-                    while (m4Total.find()) {
-                        RTTStatistics.add(Integer.valueOf(pattern4NoNumber.matcher(m4Total.group(0)).replaceAll("")));
+        // read the output of process line by line
+        String line = null;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "GBK"));
+        //read line by line
+        while ((line = reader.readLine()) != null) {
+            //output to textarea
+            textAreaOutput.append(line + "\n");
+
+            m4One = pattern4One.matcher(line);
+            m4Total = pattern4Total.matcher(line);
+            // if the last statistical line
+            while (m4Total.find()) {
+                if (os.startsWith("Windows")) {
+                    RTTStatistics.add(Double.valueOf(pattern4NoNumber.matcher(m4Total.group(0)).replaceAll("")));
+                } else if (os.startsWith("Mac")) {
+                    String tmp[] = pattern4NoNumber.matcher(m4Total.group(0)).replaceAll(" ").trim().split("\\s+");
+                    for (String s : tmp) {
+                        RTTStatistics.add(Double.valueOf(s));
                     }
-                    //every probe line
-                    while (m4One.find()) {
-                        RTTs.add(Integer.valueOf(pattern4NoNumber.matcher(m4One.group(0)).replaceAll("")));
+                } else if (os.startsWith("Linux")) {
+                    String tmp[] = pattern4NoNumber.matcher(m4Total.group(0)).replaceAll(" ").trim().split("\\s+");
+                    for (String s : tmp) {
+                        RTTStatistics.add(Double.valueOf(s));
                     }
                 }
-
-                minRTT = RTTStatistics.get(0);
-                maxRTT = RTTStatistics.get(1);
-                // calculate the interval
-                div = (int) Math.ceil((maxRTT - minRTT) / 3.0);
-                div = div <= 0 ? 1 : div;
-
-                // count the frequencies
-                for (Integer RTT : RTTs) {
-                    if (RTT >= minRTT && RTT < minRTT + div) {
-                        bin1Freq++;
-                    } else if (RTT >= minRTT + div && RTT < minRTT + 2 * div) {
-                        bin2Freq++;
-                    } else if (RTT >= minRTT + 2 * div && RTT <= minRTT + 3 * div) {
-                        bin3Freq++;
-                    }
-                }
-
-                // generate the strips
-                for (int i = 0; i < bin1Freq; i++) {
-                    s1 += "*  ";
-                }
-                for (int i = 0; i < bin2Freq; i++) {
-                    s2 += "*  ";
-                }
-                for (int i = 0; i < bin3Freq; i++) {
-                    s3 += "*  ";
-                }
-
-                // show in UI
-                bin1.setText(String.format("%d<=RTT<%d", minRTT, minRTT + div));
-                bin2.setText(String.format("%d<=RTT<%d", minRTT + div, minRTT + 2 * div));
-                bin3.setText(String.format("%d<=RTT<=%d", minRTT + 2 * div, minRTT + 3 * div));
-                strip1.setText(s1);
-                strip2.setText(s2);
-                strip3.setText(s3);
-
-                scrollPaneOutput.setVisible(true);
-                labelOutput.setVisible(false);
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
+            //every probe line
+            while (m4One.find()) {
+                RTTs.add(Double.valueOf(pattern4NoNumber.matcher(m4One.group(0)).replaceAll("")));
+            }
         }
+
+        if (os.startsWith("Windows")) {
+            minRTT = (int) Math.floor(RTTStatistics.get(0));
+            maxRTT = (int) Math.ceil(RTTStatistics.get(1));
+        } else if (os.startsWith("Mac")) {
+            minRTT = (int) Math.floor(RTTStatistics.get(0));
+            maxRTT = (int) Math.ceil(RTTStatistics.get(2));
+        } else if (os.startsWith("Linux")) {
+            minRTT = (int) Math.floor(RTTStatistics.get(0));
+            maxRTT = (int) Math.ceil(RTTStatistics.get(2));
+        }
+
+        // calculate the interval
+        div = (int) Math.ceil((maxRTT - minRTT) / 3.0);
+        div = div <= 0 ? 1 : div;
+
+        // count the frequencies
+        for (Double RTT : RTTs) {
+            if (RTT >= minRTT && RTT < minRTT + div) {
+                bin1Freq++;
+            } else if (RTT >= minRTT + div && RTT < minRTT + 2 * div) {
+                bin2Freq++;
+            } else if (RTT >= minRTT + 2 * div && RTT <= minRTT + 3 * div) {
+                bin3Freq++;
+            }
+        }
+
+        // generate the strips
+        for (int i = 0; i < bin1Freq; i++) {
+            s1 += "*  ";
+        }
+        for (int i = 0; i < bin2Freq; i++) {
+            s2 += "*  ";
+        }
+        for (int i = 0; i < bin3Freq; i++) {
+            s3 += "*  ";
+        }
+
+        // show in UI
+        bin1.setText(String.format("%d<=RTT<%d", minRTT, minRTT + div));
+        bin2.setText(String.format("%d<=RTT<%d", minRTT + div, minRTT + 2 * div));
+        bin3.setText(String.format("%d<=RTT<=%d", minRTT + 2 * div, minRTT + 3 * div));
+        strip1.setText(s1);
+        strip2.setText(s2);
+        strip3.setText(s3);
+
+        scrollPaneOutput.setVisible(true);
+        labelOutput.setVisible(false);
     }
 
     /**
