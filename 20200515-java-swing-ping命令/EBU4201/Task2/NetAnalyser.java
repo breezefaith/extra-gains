@@ -1,5 +1,3 @@
-package task2;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -369,7 +367,7 @@ public class NetAnalyser extends JFrame {
             public void run() {
                 try {
                     //get the first command parameter
-                    int maxProbes = Integer.valueOf(args[0]);
+                    int maxProbes = args.length == 0? 10 : Integer.valueOf(args[0]);
                     if (maxProbes < 10 || maxProbes > 20) {
                         return;
                     }

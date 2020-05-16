@@ -1,0 +1,6 @@
+taobao-com-2020-05-16-13-58-21.txt
+
+RTT(ms) histogram
+22<=RTT<23:2
+23<=RTT<24:2
+24<=RTT<=25:0

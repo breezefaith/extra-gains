@@ -11,64 +11,167 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author Brainrain
+ * This class extends from JFrame, and has a main method for running the application.
+ *
+ * @see javax.swing.JFrame
  */
 public class NetAnalyser extends JFrame {
+    /**
+     * The name of OS.
+     */
     private String os = System.getProperty("os.name");
+    /**
+     * The textfield of test url.
+     */
+    private JTextField textFieldUrl;
+    /**
+     * The spinner of probes' number.
+     */
+    private JSpinner spinnerNo;
+    /**
+     * The button for executing ping command.
+     */
+    private JButton buttonProcess;
+    /**
+     * The label of output.
+     */
+    private JLabel labelOutput;
+    /**
+     * The scroll panel of output.
+     */
+    private JScrollPane scrollPaneOutput;
+    /**
+     * The textarea of output.
+     */
+    private JTextArea textAreaOutput;
+    /**
+     * The label of histogram bin1.
+     */
+    private JLabel bin1;
+    /**
+     * The label of histogram bin1.
+     */
+    private JLabel bin2;
+    /**
+     * The label of histogram bin2.
+     */
+    private JLabel bin3;
+    /**
+     * The label of histogram strip1.
+     */
+    private JLabel strip1;
+    /**
+     * The label of histogram strip2.
+     */
+    private JLabel strip2;
+    /**
+     * The label of histogram strip3.
+     */
+    private JLabel strip3;
 
+    private JLabel label1;
+    private JLabel label2;
+    private JLabel label3;
+    private JLabel label5;
+
+    /**
+     * The default constructor.
+     */
     public NetAnalyser() {
         initComponents();
     }
 
-    private void button1ActionPerformed(ActionEvent e) {
-        // TODO add your code here
+    /**
+     * The event handler for clicking the Process button.
+     *
+     * @param e click event
+     */
+    private void buttonProcessActionPerformed(ActionEvent e) {
+        // clear textarea
         textAreaOutput.setText("");
+        // get the test url
         String url = textFieldUrl.getText();
+        // get probes' number
         String no = String.valueOf(spinnerNo.getValue());
+        // the actual command
         String cmd = null;
         if (os.startsWith("Windows")) {
+            // in Windows OS
             cmd = String.format("cmd /c ping -n %s %s", no, url);
         } else if (os.startsWith("Mac")) {
+            // in Mac OS
             cmd = String.format("ping -c %s %s", no, url);
         } else if (os.startsWith("Linux")) {
+            // in Linux OS
             cmd = String.format("ping -c %s %s", no, url);
         }
+        // execute the command
         execCommand(cmd);
     }
 
+    /**
+     * Execute a command by using Process. This method also displays
+     * the results of the execution on the corresponding control.
+     *
+     * @param cmd the actual command.
+     */
     public void execCommand(String cmd) {
+        //system process
         Process p = null;
+        // read the output of process line by line
         String line = null;
 
+        // store the RTTs of all probes
         ArrayList<Integer> RTTs = new ArrayList<>();
+        // store the RTTs' min(0), max(1), average(2)
         ArrayList<Integer> RTTStatistics = new ArrayList<>();
+        // integer value of max RTT
         int maxRTT = -1;
+        // integer value of min RTT
         int minRTT = -1;
+        // interval size
         int div = 0;
+        // bin1's frequecy
         int bin1Freq = 0;
+        // bin2's frequecy
         int bin2Freq = 0;
+        // bin3's frequecy
         int bin3Freq = 0;
+        //strip1
         String s1 = "";
+        //strip2
         String s2 = "";
+        //strip3
         String s3 = "";
+        //pattern for every probe line
         Pattern pattern4One = Pattern.compile("=\\d*ms");
+        //pattern for the last statistical line
         Pattern pattern4Total = Pattern.compile("=(\\s+|\\t+)\\d*ms");
+        //pattern for extracting digital
         Pattern pattern4NoNumber = Pattern.compile("[^0-9]");
         Matcher m4One = null;
         Matcher m4Total = null;
         try {
+            //get the system process of the command execution
             p = Runtime.getRuntime().exec(cmd);
+            // wait for ending
             p.waitFor();
+            //if exit normally
             if (p.exitValue() == 0) {
+                //read the output to buffer
                 BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream(), "GBK"));
+                //read line by line
                 while ((line = reader.readLine()) != null) {
+                    //output to textarea
                     textAreaOutput.append(line + "\n");
 
                     m4One = pattern4One.matcher(line);
                     m4Total = pattern4Total.matcher(line);
+                    // if the last statistical line
                     while (m4Total.find()) {
                         RTTStatistics.add(Integer.valueOf(pattern4NoNumber.matcher(m4Total.group(0)).replaceAll("")));
                     }
+                    //every probe line
                     while (m4One.find()) {
                         RTTs.add(Integer.valueOf(pattern4NoNumber.matcher(m4One.group(0)).replaceAll("")));
                     }
@@ -76,9 +179,11 @@ public class NetAnalyser extends JFrame {
 
                 minRTT = RTTStatistics.get(0);
                 maxRTT = RTTStatistics.get(1);
+                // calculate the interval
                 div = (int) Math.ceil((maxRTT - minRTT) / 3.0);
                 div = div <= 0 ? 1 : div;
 
+                // count the frequencies
                 for (Integer RTT : RTTs) {
                     if (RTT >= minRTT && RTT < minRTT + div) {
                         bin1Freq++;
@@ -89,6 +194,7 @@ public class NetAnalyser extends JFrame {
                     }
                 }
 
+                // generate the strips
                 for (int i = 0; i < bin1Freq; i++) {
                     s1 += "*  ";
                 }
@@ -99,6 +205,7 @@ public class NetAnalyser extends JFrame {
                     s3 += "*  ";
                 }
 
+                // show in UI
                 bin1.setText(String.format("%d<=RTT<%d", minRTT, minRTT + div));
                 bin2.setText(String.format("%d<=RTT<%d", minRTT + div, minRTT + 2 * div));
                 bin3.setText(String.format("%d<=RTT<=%d", minRTT + 2 * div, minRTT + 3 * div));
@@ -116,8 +223,10 @@ public class NetAnalyser extends JFrame {
         }
     }
 
+    /**
+     * Initialize the controls.
+     */
     private void initComponents() {
-        // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         label1 = new JLabel();
         label2 = new JLabel();
         textFieldUrl = new JTextField();
@@ -164,7 +273,7 @@ public class NetAnalyser extends JFrame {
 
         //---- buttonProcess ----
         buttonProcess.setText("Process");
-        buttonProcess.addActionListener(e -> button1ActionPerformed(e));
+        buttonProcess.addActionListener(e -> buttonProcessActionPerformed(e));
         contentPane.add(buttonProcess);
         buttonProcess.setBounds(new Rectangle(new Point(135, 195), buttonProcess.getPreferredSize()));
 
@@ -202,7 +311,7 @@ public class NetAnalyser extends JFrame {
         {
             // compute preferred size
             Dimension preferredSize = new Dimension();
-            for(int i = 0; i < contentPane.getComponentCount(); i++) {
+            for (int i = 0; i < contentPane.getComponentCount(); i++) {
                 Rectangle bounds = contentPane.getComponent(i).getBounds();
                 preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
                 preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
@@ -216,28 +325,13 @@ public class NetAnalyser extends JFrame {
 
         setSize(1280, 315);
         setLocationRelativeTo(getOwner());
-        // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    private JLabel label1;
-    private JLabel label2;
-    private JTextField textFieldUrl;
-    private JLabel label3;
-    private JSpinner spinnerNo;
-    private JButton buttonProcess;
-    private JLabel labelOutput;
-    private JScrollPane scrollPaneOutput;
-    private JTextArea textAreaOutput;
-    private JLabel label5;
-    private JLabel bin1;
-    private JLabel bin2;
-    private JLabel bin3;
-    private JLabel strip1;
-    private JLabel strip2;
-    private JLabel strip3;
-    // JFormDesigner - End of variables declaration  //GEN-END:variables
-
+    /**
+     * Application entry.
+     *
+     * @param args click event
+     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {

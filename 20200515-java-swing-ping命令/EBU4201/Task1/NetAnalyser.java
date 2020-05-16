@@ -1,14 +1,9 @@
-package task2;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -85,17 +80,6 @@ public class NetAnalyser extends JFrame {
     }
 
     /**
-     * The constructor with a parameter as max probes.
-     *
-     * @param maxProbes the max probes of ping
-     */
-    public NetAnalyser(int maxProbes) {
-        initComponents();
-        // set the spinnerNo's model
-        spinnerNo.setModel(new SpinnerNumberModel(1, 1, maxProbes, 1));
-    }
-
-    /**
      * The event handler for clicking the Process button.
      *
      * @param e click event
@@ -131,11 +115,9 @@ public class NetAnalyser extends JFrame {
      */
     public void execCommand(String cmd) {
         //system process
-        Process p;
-        //printWriter for outputing file
-        PrintWriter printWriter;
+        Process p = null;
         // read the output of process line by line
-        String line;
+        String line = null;
 
         // store the RTTs of all probes
         ArrayList<Integer> RTTs = new ArrayList<>();
@@ -231,22 +213,6 @@ public class NetAnalyser extends JFrame {
 
                 scrollPaneOutput.setVisible(true);
                 labelOutput.setVisible(false);
-
-                // get current time
-                DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
-                LocalDateTime time = LocalDateTime.now();
-                // get the file name
-                String filename = String.format("%s-%s.txt", textFieldUrl.getText().replace(".", "-"), format.format(time));
-                //create print writer and write the results
-                printWriter = new PrintWriter(filename);
-                printWriter.println(filename);
-                printWriter.println();
-                printWriter.println("RTT(ms) histogram");
-                printWriter.println(String.format("%d<=RTT<%d:%d", minRTT, minRTT + div, bin1Freq));
-                printWriter.println(String.format("%d<=RTT<%d:%d", minRTT + div, minRTT + 2 * div, bin2Freq));
-                printWriter.println(String.format("%d<=RTT<=%d:%d", minRTT + 2 * div, minRTT + 3 * div, bin3Freq));
-                // close it
-                printWriter.close();
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -368,12 +334,7 @@ public class NetAnalyser extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    //get the first command parameter
-                    int maxProbes = Integer.valueOf(args[0]);
-                    if (maxProbes < 10 || maxProbes > 20) {
-                        return;
-                    }
-                    JFrame frame = new NetAnalyser(maxProbes);
+                    JFrame frame = new NetAnalyser();
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     frame.setVisible(true);
                 } catch (Exception e) {
