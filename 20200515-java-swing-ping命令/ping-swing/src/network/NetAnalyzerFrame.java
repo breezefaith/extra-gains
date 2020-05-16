@@ -9,6 +9,9 @@ import java.awt.event.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.*;
 
 /**
@@ -24,26 +27,52 @@ public class NetAnalyzerFrame extends JFrame {
 
     private void button1ActionPerformed(ActionEvent e) {
         // TODO add your code here
+        String cmd = null;
         if (os.startsWith("Windows")) {
-            pingInWindows();
+            cmd = String.format("cmd /c ping -n %s %s", String.valueOf(spinner1.getValue()), textField1.getText());
         } else if (os.startsWith("Mac")) {
-            pingInMac();
+            cmd = String.format("ping -c %s %s", String.valueOf(spinner1.getValue()), textField1.getText());
         } else if (os.startsWith("Linux")) {
-            pingInLinux();
+            cmd = String.format("ping -c %s %s", String.valueOf(spinner1.getValue()), textField1.getText());
         }
+        execCommand(cmd);
     }
 
-    private void pingInWindows() {
+    public void execCommand(String cmd) {
         Process p = null;
         String line = null;
+
+        ArrayList<Integer> RTTs = new ArrayList<>();
+        ArrayList<Integer> RTTStatistics = new ArrayList<>();
+        int maxRTT = -1;
+        int minRTT = -1;
+        Pattern pattern4One = Pattern.compile("=\\d*ms");
+        Pattern pattern4Total = Pattern.compile("=(\\s+|\\t+)\\d*ms");
+        Pattern pattern4NoNumber = Pattern.compile("[^0-9]");
+        Matcher m4One = null;
+        Matcher m4Total = null;
         try {
-            p = Runtime.getRuntime().exec(String.format("cmd /c ping -n %s %s", String.valueOf(spinner1.getValue()), textField1.getText()));
+            p = Runtime.getRuntime().exec(cmd);
             p.waitFor();
             if (p.exitValue() == 0) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream(), "GBK"));
                 while ((line = reader.readLine()) != null) {
                     textArea1.append(line + "\n");
+                    System.out.println(line);
+
+                    m4One = pattern4One.matcher(line);
+                    m4Total = pattern4Total.matcher(line);
+                    while (m4Total.find()) {
+                        RTTStatistics.add(Integer.valueOf(pattern4NoNumber.matcher(m4Total.group(0)).replaceAll("")));
+                    }
+                    while (m4One.find()) {
+                        RTTs.add(Integer.valueOf(pattern4NoNumber.matcher(m4One.group(0)).replaceAll("")));
+                    }
                 }
+
+                minRTT = RTTStatistics.get(0);
+                maxRTT = RTTStatistics.get(1);
+
                 scrollPane1.setVisible(true);
                 label4.setVisible(false);
             } else {
@@ -57,14 +86,6 @@ public class NetAnalyzerFrame extends JFrame {
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-    }
-
-    private void pingInLinux() {
-
-    }
-
-    private void pingInMac() {
-
     }
 
     private void initComponents() {
@@ -163,4 +184,8 @@ public class NetAnalyzerFrame extends JFrame {
     private JTextArea textArea1;
     private JLabel label5;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
+
+    public static void main(String[] args) {
+        new NetAnalyzerFrame().execCommand("ping -n 4 www.baidu.com");
+    }
 }
