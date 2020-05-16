@@ -120,9 +120,9 @@ public class NetAnalyser extends JFrame {
         String line = null;
 
         // store the RTTs of all probes
-        ArrayList<Integer> RTTs = new ArrayList<>();
+        ArrayList<Double> RTTs = new ArrayList<>();
         // store the RTTs' min(0), max(1), average(2)
-        ArrayList<Integer> RTTStatistics = new ArrayList<>();
+        ArrayList<Double> RTTStatistics = new ArrayList<>();
         // integer value of max RTT
         int maxRTT = -1;
         // integer value of min RTT
@@ -142,11 +142,11 @@ public class NetAnalyser extends JFrame {
         //strip3
         String s3 = "";
         //pattern for every probe line
-        Pattern pattern4One = Pattern.compile("=\\d*ms");
+        Pattern pattern4One = Pattern.compile("=[+-]?(0|([1-9]\\d*))(\\.\\d+)?ms");
         //pattern for the last statistical line
-        Pattern pattern4Total = Pattern.compile("=(\\s+|\\t+)\\d*ms");
+        Pattern pattern4Total = Pattern.compile("=(\\s+|\\t+)[+-]?(0|([1-9]\\d*))(\\.\\d+)?ms");
         //pattern for extracting digital
-        Pattern pattern4NoNumber = Pattern.compile("[^0-9]");
+        Pattern pattern4NoNumber = Pattern.compile("[^0-9\\.]");
         Matcher m4One = null;
         Matcher m4Total = null;
         try {
@@ -167,22 +167,22 @@ public class NetAnalyser extends JFrame {
                     m4Total = pattern4Total.matcher(line);
                     // if the last statistical line
                     while (m4Total.find()) {
-                        RTTStatistics.add(Integer.valueOf(pattern4NoNumber.matcher(m4Total.group(0)).replaceAll("")));
+                        RTTStatistics.add(Double.valueOf(pattern4NoNumber.matcher(m4Total.group(0)).replaceAll("")));
                     }
                     //every probe line
                     while (m4One.find()) {
-                        RTTs.add(Integer.valueOf(pattern4NoNumber.matcher(m4One.group(0)).replaceAll("")));
+                        RTTs.add(Double.valueOf(pattern4NoNumber.matcher(m4One.group(0)).replaceAll("")));
                     }
                 }
 
-                minRTT = RTTStatistics.get(0);
-                maxRTT = RTTStatistics.get(1);
+                minRTT = (int)Math.floor(RTTStatistics.get(0));
+                maxRTT = (int)Math.ceil(RTTStatistics.get(1));
                 // calculate the interval
                 div = (int) Math.ceil((maxRTT - minRTT) / 3.0);
                 div = div <= 0 ? 1 : div;
 
                 // count the frequencies
-                for (Integer RTT : RTTs) {
+                for (Double RTT : RTTs) {
                     if (RTT >= minRTT && RTT < minRTT + div) {
                         bin1Freq++;
                     } else if (RTT >= minRTT + div && RTT < minRTT + 2 * div) {
