@@ -1,9 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -67,13 +66,20 @@ public class NetAnalyserPanel extends JPanel {
      * the default constructor
      */
     public NetAnalyserPanel() {
-        createUI();
+        createUI(10);
+    }
+
+    /**
+     * the default constructor
+     */
+    public NetAnalyserPanel(int probes) {
+        createUI(probes);
     }
 
     /**
      * initialize components
      */
-    private void createUI() {
+    private void createUI(int probes) {
         setPreferredSize(new Dimension(1100, 400));
         setLayout(new BorderLayout());
 
@@ -100,7 +106,7 @@ public class NetAnalyserPanel extends JPanel {
 
         spinner_no = new JSpinner();
         panel_main.add(spinner_no);
-        spinner_no.setModel(new SpinnerNumberModel(1, 1, 10, 1));
+        spinner_no.setModel(new SpinnerNumberModel(1, 1, probes, 1));
         spinner_no.setBounds(175, 150, 100, 30);
 
         button_process = new JButton("Process");
@@ -208,6 +214,8 @@ public class NetAnalyserPanel extends JPanel {
                 calResult();
                 // paint histogram
                 paintHistogram();
+                //write to file
+                writeToFile();
             } else {
                 textArea_result.append("Test URL: " + textField_url.getText().trim() + "\n");
                 textArea_result.append("The ping command failed to execute.\n");
@@ -235,12 +243,12 @@ public class NetAnalyserPanel extends JPanel {
      * analyze the execution result
      */
     private void calResult() {
-		if (max - min < 3) {
+        if (max - min < 3) {
             interval = 1;
         } else {
             interval = (int) Math.ceil((max - min) / 3.0);
         }
-		
+
         for (int i = 0; i < arr_rtt.length; i++) {
             if (arr_rtt[i] >= min && arr_rtt[i] < min + interval) {
                 bar1len++;
@@ -323,5 +331,26 @@ public class NetAnalyserPanel extends JPanel {
             min = min > arr[i] ? arr[i] : min;
         }
         return min;
+    }
+
+    /**
+     * write the result to a file
+     *
+     * @throws FileNotFoundException FileNotFoundException
+     */
+    private void writeToFile() throws FileNotFoundException {
+        // get time
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+        LocalDateTime time = LocalDateTime.now();
+        // generate file
+        String file = textField_url.getText().trim().replace(".", "-") + "-" + format.format(time) + ".txt";
+        PrintWriter printWriter = new PrintWriter(file);
+        printWriter.println(file);
+        printWriter.println();
+        printWriter.println("RTT(ms) histogram");
+        printWriter.println(min + "<=RTT<" + (min + interval) + ": " + bar1len);
+        printWriter.println((min + interval) + "<=RTT<" + (min + 2 * interval) + ": " + bar2len);
+        printWriter.println((min + 2 * interval) + "<=RTT<=" + (min + 3 * interval) + ": " + bar3len);
+        printWriter.close();
     }
 }
