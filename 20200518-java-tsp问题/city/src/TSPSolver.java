@@ -43,6 +43,7 @@ public class TSPSolver {
             }
             citiesToVisit.remove(minCity);
             routine.add(minCity);
+            current = minCity;
         }
 
         return routine;
