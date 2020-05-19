@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="378.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iTravel.AddFlightController">
+   <children>
+      <Button fx:id="btnAdd" layoutX="110.0" layoutY="332.0" mnemonicParsing="false" onAction="#addFlight" text="Add" />
+      <TextField fx:id="textfieldFlightNumber" layoutX="50.0" layoutY="23.0" promptText="Flight Number" />
+      <TextField fx:id="textfieldOrigin" layoutX="50.0" layoutY="63.0" promptText="Origin" />
+      <TextField fx:id="textfieldDestination" layoutX="50.0" layoutY="101.0" promptText="Destination" />
+      <TextField fx:id="textfieldBusinessSeats" layoutX="50.0" layoutY="136.0" promptText="Business Seats" />
+      <TextField fx:id="textfieldExecutiveSeats" layoutX="50.0" layoutY="173.0" promptText="Executive Seats" />
+      <TextField fx:id="textfieldBusinessFare" layoutX="50.0" layoutY="212.0" promptText="Business Fare" />
+      <TextField fx:id="textfieldExecutiveFare" layoutX="50.0" layoutY="250.0" promptText="Executive Fare" />
+      <TextField fx:id="textfieldAircraftType" layoutX="50.0" layoutY="288.0" promptText="Aircraft Type" />
+   </children>
+</AnchorPane>

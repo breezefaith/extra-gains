@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "supervisor app.js --watch . -x node bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-ip-access-control": "^1.0.5",
+    "http-errors": "~1.6.3",
+    "http-proxy-middleware": "^1.0.3",
+    "jade": "~1.11.0",
+    "mongoose": "^5.9.12",
+    "morgan": "~1.9.1",
+    "validator": "^13.0.0"
+  },
+  "devDependencies": {
+    "supervisor": "^0.12.0"
+  }
+}

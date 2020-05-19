@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="161.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iTravel.AddProfileController">
+   <children>
+      <Button fx:id="btnAdd" layoutX="105.0" layoutY="123.0" mnemonicParsing="false" onAction="#addProfile" text="Add" />
+      <TextField fx:id="textfieldEmployeeNumber" layoutX="45.0" layoutY="29.0" promptText="Employee Number" />
+      <TextField fx:id="textfieldEmployeeName" layoutX="45.0" layoutY="73.0" promptText="Employee Name" />
+   </children>
+</AnchorPane>

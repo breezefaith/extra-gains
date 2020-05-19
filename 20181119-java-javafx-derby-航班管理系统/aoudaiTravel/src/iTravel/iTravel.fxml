@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="727.0" prefWidth="1030.0" style="-fx-background-image: url(&quot;file:src/iTravel/WesternBackground.png&quot;);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iTravel.MainController">
+    <top>
+        <MenuBar fx:id="mainMenu" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#exit" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Flights">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Add Flight" onAction="#addFlight"/>
+                  <MenuItem mnemonicParsing="false" text="Remove Flight" onAction="#removeFlight"/>
+                  <MenuItem mnemonicParsing="false" text="Analyze Flights Performance" />
+                  <MenuItem mnemonicParsing="false" text="Manage Frequent Flier" />
+                    </items></Menu>
+                <Menu mnemonicParsing="false" text="Manage Employee">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Add profiles" onAction="#addProfile"/>
+                  <MenuItem mnemonicParsing="false" text="Change Profiles" onAction="#modifyProfile"/>
+                  <MenuItem mnemonicParsing="false" text="Remove Profiles" onAction="#removeProfile"/>
+                    </items></Menu>
+                <Menu mnemonicParsing="false" text="Manage Users Accounts">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Create New Account" />
+                  <MenuItem mnemonicParsing="false" text="Change Accounts" />
+                  <MenuItem mnemonicParsing="false" text="Delete Accounts" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" text="Manage Servers">
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Analyze Network Usages" />
+                  <Menu mnemonicParsing="false" text="Web Server">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Analyze Logs" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Database Server">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Analyze Logs" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Application Server">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Analyze Logs" />
+                     </items>
+                  </Menu>
+              </items>
+            </Menu>
+                <Menu mnemonicParsing="false" text="About">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About Us" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+</BorderPane>

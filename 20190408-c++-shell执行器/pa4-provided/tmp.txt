@@ -1,0 +1,13 @@
+Makefile
+parser.cpp
+parser.o
+README
+run-tests
+shell
+shell.cpp
+shell.h
+shell.o
+tests
+test.sh
+test.txt
+tmp.txt
