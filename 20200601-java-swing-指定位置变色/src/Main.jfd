@@ -1,0 +1,73 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.4" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) {
+			"hgap": 2
+			"vgap": 2
+		} ) {
+			name: "this"
+			"$sizePolicy": 1
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) {
+				"columns": 3
+				"rows": 2
+				"hgap": 2
+				"vgap": 2
+			} ) {
+				name: "panelDisplay"
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+				name: "panel2"
+				"componentOrientation": sfield java.awt.ComponentOrientation LEFT_TO_RIGHT
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "X"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textFieldX"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label2"
+					"text": "Y"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textFieldY"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label3"
+					"text": "R"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textFieldR"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label4"
+					"text": "G"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textFieldG"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label5"
+					"text": "B"
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textFieldB"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "buttonOk"
+					"text": "OK"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "buttonOkActionPerformed", true ) )
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "South"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 885, 440 )
+		} )
+	}
+}
