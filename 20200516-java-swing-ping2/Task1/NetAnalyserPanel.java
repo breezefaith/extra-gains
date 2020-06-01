@@ -5,13 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.*;
 /*
  * Created by JFormDesigner on Sat May 16 21:11:14 CST 2020
  */
-
 
 /**
  * @author Brainrain
@@ -166,19 +164,20 @@ public class NetAnalyserPanel extends JPanel {
      * click event of button Process
      */
     private void clickBtnProcess() {
-        //reset histogram
+        // reset histogram
         resetHistogram();
         Process p = null;
+        String url = textField_url.getText().trim();
         try {
-            if (validateUrl(textField_url.getText().trim()) == false) {
+            if (validateUrl(url) == false) {
                 textArea_result.append("The test url \"" + textField_url.getText() + "\" is invalid.\n");
                 return;
             }
             // execute the ping cmd
-            p = Runtime.getRuntime().exec("cmd /c ping -n " + spinner_no.getValue() + " " + textField_url.getText().trim());
+            p = Runtime.getRuntime().exec("cmd /c ping -n " + spinner_no.getValue() + " " + url);
             p.waitFor();
 
-            //if ping executed successfully
+            // if ping executed successfully
             if (p.exitValue() == 0) {
                 ArrayList<Integer> integers = new ArrayList<>();
                 int i = 0;
@@ -186,10 +185,9 @@ public class NetAnalyserPanel extends JPanel {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream(), "GBK"));
                 while ((line = reader.readLine()) != null) {
                     textArea_result.append(line + "\n");
-                    // extract RTTs
-                    Matcher matcher = pattern.matcher(line);
-                    while (matcher.find()) {
-                        integers.add(Integer.valueOf(matcher.group().replaceAll("[^0-9]", "")));
+                    if (line.matches("^(.*)(=\\d+ms)(.*)$")) {
+                        integers.add(Integer.valueOf(
+                                line.substring(line.indexOf("=", line.indexOf("=") + 1) + 1, line.indexOf("ms"))));
                     }
                 }
 
@@ -235,12 +233,12 @@ public class NetAnalyserPanel extends JPanel {
      * analyze the execution result
      */
     private void calResult() {
-		if (max - min < 3) {
+        if (max - min < 3) {
             interval = 1;
         } else {
             interval = (int) Math.ceil((max - min) / 3.0);
         }
-		
+
         for (int i = 0; i < arr_rtt.length; i++) {
             if (arr_rtt[i] >= min && arr_rtt[i] < min + interval) {
                 bar1len++;
