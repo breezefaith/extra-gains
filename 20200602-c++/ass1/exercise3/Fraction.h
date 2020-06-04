@@ -1,7 +1,7 @@
 #pragma once
 class Fraction
 {
-private:
+protected:
 	int numerator;
 	int denominator;
 public:
