@@ -1,6 +1,7 @@
 //=======================
 //		swordsman.cpp
 //=======================
+#include "swordsman.h"
 
 // constructor. default values don't need to be repeated here
 swordsman::swordsman(int lv_in, string name_in)

@@ -6,10 +6,10 @@
 // For the job Swordsman
 
 #include "player.h"
-class swordsman : 5_?????????		// subclass swordsman publicly inherited from base player
+class swordsman : public player		// subclass swordsman publicly inherited from base player
 {
 public:
-	swordsman(int lv_in=1, string name_in="Not Given");	
+	swordsman(int lv_in=1, std::string name_in="Not Given");	
 		// constructor with default level of 1 and name of "Not given"
 	void isLevelUp();
 	bool attack (player &p);

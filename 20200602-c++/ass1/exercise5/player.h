@@ -8,9 +8,12 @@
 #ifndef _PLAYER
 #define _PLAYER
 
+#include <iostream>		// use for setting field width
 #include <iomanip>		// use for setting field width
 #include <time.h>		// use for generating random factor
 #include "container.h"
+
+using namespace std;
 
 enum job {sw, ar, mg};	/* define 3 jobs by enumerate type
 							   sword man, archer, mage */

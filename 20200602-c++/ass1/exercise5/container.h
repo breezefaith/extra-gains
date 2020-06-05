@@ -5,6 +5,7 @@
 // The so-called inventory of a player in RPG games
 // contains two items, heal and magic water
 
+//1_???????????
 #ifndef _CONTAINER // Conditional compilation
 
 #define _CONTAINER

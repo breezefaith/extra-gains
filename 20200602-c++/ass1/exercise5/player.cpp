@@ -1,7 +1,10 @@
 //=======================
 //		player.cpp
 //=======================
-
+#include <iostream>
+#include <string>
+#include "player.h"
+using namespace std;
 
 // character's HP and MP resume
 void player::reFill()
@@ -74,7 +77,8 @@ void player::transfer(player &p)
 {
 	cout<<name<<" got"<<p.bag.nOfHeal()<<" Heal, and "<<p.bag.nOfMW()<<" Magic Water."<<endl;
 	system("pause");
-	3_???????????
+	//3_???????????
+	bag.set(bag.nOfHeal() + p.bag.nOfHeal(), bag.nOfMW() + p.bag.nOfMW);
 	// set the character's bag, get opponent's items
 }
 
@@ -99,7 +103,8 @@ void player::showRole()
 
 
 // display character's job
-4_??????????????	
+//5_???????????
+void showinfo(player &p1, player &p2)
 {
 	system("cls");
 	cout<<"##############################################################"<<endl;

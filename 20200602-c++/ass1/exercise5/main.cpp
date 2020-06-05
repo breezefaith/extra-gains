@@ -97,13 +97,14 @@ int main()
 			{
 				system("cls");
 				cout<<endl<<setw(50)<<"GAME OVER"<<endl;
-				6_???????????		// player is dead, program is getting to its end, what should we do here?
+				//6_???????????		// player is dead, program is getting to its end, what should we do here?
 				system("pause");
 				return 0;
 			}
 		}
 	}
-	7_?????????			// You win, program is getting to its end, what should we do here?
+	//7_?????????			// You win, program is getting to its end, what should we do here?
+	
 	system("cls");
 	cout<<"Congratulations! You defeated all opponents!!"<<endl;
 	system("pause");
