@@ -15,43 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="container.cpp">
+    <ClCompile Include="Fraction.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="swordsman.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="archer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="mage.cpp">
+    <ClCompile Include="exercise2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="container.h">
+    <ClInclude Include="Fraction.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="swordsman.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="archer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="mage.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

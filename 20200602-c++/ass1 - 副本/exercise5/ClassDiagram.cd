@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Comment CommentText="AP: Attack power&#xD;&#xA;DP: Defense power&#xD;&#xA;EXP: Experience&#xD;&#xA;HP: Current health value&#xD;&#xA;HPMax: max health value&#xD;&#xA;LV: level&#xD;&#xA;MP: current magic power&#xD;&#xA;MPMax: max magic power&#xD;&#xA;name: player's name&#xD;&#xA;playerdeath: if player is dead&#xD;&#xA;speed: speed value&#xD;&#xA;&#xD;&#xA;attack: attack a player&#xD;&#xA;death: report whether character is dead&#xD;&#xA;isDead: check whether character is dead&#xD;&#xA;isLevelUp: level up judgement&#xD;&#xA;reFill: character's HP and MP resume&#xD;&#xA;showRole: display character's job&#xD;&#xA;specialatt: special attack&#xD;&#xA;transfer: possess opponent's items after victory&#xD;&#xA;useHeal: consume heal, irrelevant to job&#xD;&#xA;useMW: consume magic water, irrelevant to job">
+    <Position X="0.5" Y="0.5" Height="5.07" Width="2.315" />
+  </Comment>
+  <Comment CommentText="numOfHeal: number of heal&#xD;&#xA;numOfMW: number of magic water&#xD;&#xA;&#xD;&#xA;container: constuctor&#xD;&#xA;display: display the items;&#xD;&#xA;nOfHeal: get the number of heal&#xD;&#xA;nOfMW: get the number of magic water&#xD;&#xA;set: set the items numbers&#xD;&#xA;useHeal: use heal&#xD;&#xA;useMW: use magic water">
+    <Position X="9.5" Y="1.104" Height="1.969" Width="3.065" />
+  </Comment>
+  <Comment CommentText="sw: swardsman&#xD;&#xA;ar: archer&#xD;&#xA;mg: mage">
+    <Position X="9.656" Y="3.896" Height="0.74" Width="1.544" />
+  </Comment>
+  <Comment CommentText="AI: Computer opponent&#xD;&#xA;the origin implemention: use heal when health is low, otherwise attack the player and have a chance to perform special attacks.&#xD;&#xA;&#xD;&#xA;the modified easy implemention: only attack players.">
+    <Position X="3" Y="9" Height="1.271" Width="3.742" />
+  </Comment>
+  <Class Name="archer">
+    <Position X="0.5" Y="6.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAEAAAAAAAAAAAABAAAAAAACAAAAAAAAAAAQ=</HashCode>
+      <FileName>archer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="container">
+    <Position X="6.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAgAEAAAgAAABQAAAIAAAEAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>container.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="mage">
+    <Position X="3.25" Y="6.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AwAAAAAAAEAAAAAAAAAAAABAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>mage.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="player">
+    <Position X="3" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQACAAgAEBAgAAAACAAABDkQpEEAQCAAAEAIAAAAAA=</HashCode>
+      <FileName>player.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="role" />
+      <Field Name="bag" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="swordsman">
+    <Position X="6.25" Y="6.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAEAAAAAAAAAAAABAAAAQAACAAAAAAAAAAAA=</HashCode>
+      <FileName>swordsman.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="job">
+    <Position X="6.75" Y="3.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAgAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>player.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

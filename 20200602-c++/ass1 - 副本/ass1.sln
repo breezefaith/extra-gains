@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.757
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "exercise1", "exercise1\exercise1.vcxproj", "{9ABD1F81-67AE-4F66-8D52-16BDD2FD64C4}"
 EndProject
@@ -12,11 +12,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "exercise5", "exercise5\exercise5.vcxproj", "{33557BFB-0B46-4718-90F4-EFE9D2A096BD}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "exercise4", "exercise4\exercise4.vcxproj", "{5191BC31-124F-486F-B958-C60AFB846F08}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8AF83FCE-0B16-4C2A-AFC9-223492AB06B2}"
-	ProjectSection(SolutionItems) = preProject
-		ClassDiagram.png = ClassDiagram.png
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
