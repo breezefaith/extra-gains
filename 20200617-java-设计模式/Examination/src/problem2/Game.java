@@ -1,33 +1,22 @@
 package problem2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private List<Character> characters;
-    private List<Brick> bricks;
-    private List<Enemy> enemies;
+    private List<Character> characters = new ArrayList<>();
+    private List<Brick> bricks = new ArrayList<>();
+    private List<Enemy> enemies = new ArrayList<>();
 
-    public List<Character> getCharacters() {
-        return characters;
+    public void addCharacter(Character character) {
+        characters.add(character);
     }
 
-    public void setCharacters(List<Character> characters) {
-        this.characters = characters;
+    public void addBrick(Brick brick) {
+        bricks.add(brick);
     }
 
-    public List<Brick> getBricks() {
-        return bricks;
-    }
-
-    public void setBricks(List<Brick> bricks) {
-        this.bricks = bricks;
-    }
-
-    public List<Enemy> getEnemies() {
-        return enemies;
-    }
-
-    public void setEnemies(List<Enemy> enemies) {
-        this.enemies = enemies;
+    public void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
     }
 }

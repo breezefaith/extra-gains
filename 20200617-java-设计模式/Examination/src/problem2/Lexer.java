@@ -1,5 +1,7 @@
 package problem2;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Lexer {
@@ -7,14 +9,23 @@ public class Lexer {
 
     private Scanner scanner;
 
-    public String nextToken() {
-        while (scanner.hasNext()) {
-            return scanner.next();
+    public Lexer(String filename) {
+        this.filename = filename;
+        try {
+            this.scanner = new Scanner(new File(this.filename));
+        } catch (FileNotFoundException e) {
+            this.scanner = null;
         }
-        return null;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public String nextToken() throws GameLoadException {
+        try {
+            while (scanner != null && scanner.hasNext()) {
+                return scanner.next();
+            }
+            return null;
+        } catch (Exception e) {
+            throw new GameLoadException();
+        }
     }
 }
