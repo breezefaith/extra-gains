@@ -1,9 +1,9 @@
 package problem1;
 
-public class AbstractObserver {
-    protected Subject subject;
+public abstract class AbstractObserver {
+    protected AbstractGameSubject subject;
 
-    public AbstractObserver(Subject subject) {
+    public AbstractObserver(AbstractGameSubject subject) {
         this.subject = subject;
         this.subject.attach(this);
     }

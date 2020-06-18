@@ -1,38 +1,6 @@
 package problem1;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Subject {
-    private List<Player> players = new ArrayList<>();
-    private List<Enemy> enemies = new ArrayList<>();
-
-    /**
-     * register an observer.
-     *
-     * @param observer
-     */
-    public void attach(AbstractObserver observer) {
-        if (observer instanceof Player) {
-            this.players.add((Player) observer);
-        } else if (observer instanceof Enemy) {
-            this.enemies.add((Enemy) observer);
-        }
-    }
-
-    /**
-     * remove an observer.
-     *
-     * @param observer
-     */
-    public void detach(AbstractObserver observer) {
-        if (observer instanceof Player) {
-            this.players.remove(observer);
-        } else if (observer instanceof Enemy) {
-            this.enemies.remove(observer);
-        }
-    }
-
+public class GameSubject extends AbstractGameSubject {
     /**
      * Event: collision
      *

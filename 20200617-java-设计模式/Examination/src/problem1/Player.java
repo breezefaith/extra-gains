@@ -6,7 +6,7 @@ public class Player extends AbstractObserver {
     private boolean isDead;
     private int number;
 
-    public Player(int number, Subject subject) {
+    public Player(int number, AbstractGameSubject subject) {
         super(subject);
         this.number = number;
     }

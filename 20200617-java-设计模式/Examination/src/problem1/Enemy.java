@@ -4,7 +4,7 @@ public class Enemy extends AbstractObserver {
     private int damage = 20;
     private int number;
 
-    public Enemy(int number, Subject subject) {
+    public Enemy(int number, AbstractGameSubject subject) {
         super(subject);
         this.number = number;
     }
