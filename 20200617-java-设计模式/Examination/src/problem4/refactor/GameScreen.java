@@ -1,4 +1,4 @@
-package problem4;
+package problem4.refactor;
 
 import java.util.List;
 

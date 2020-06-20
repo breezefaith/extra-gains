@@ -1,6 +1,6 @@
-package problem4;
+package problem4.origin;
 
-public class CharacterDisplayer implements IDisplay {
+public class CharacterDisplayer {
     public void display() {
 
     }

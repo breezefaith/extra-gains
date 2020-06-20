@@ -9,12 +9,12 @@ public class Lexer {
 
     private Scanner scanner;
 
-    public Lexer(String filename) {
-        this.filename = filename;
+    public Lexer(String filename) throws GameLoadException {
         try {
-            this.scanner = new Scanner(new File(this.filename));
+            this.filename = filename;
+            this.scanner = new Scanner(new File(filename));
         } catch (FileNotFoundException e) {
-            this.scanner = null;
+            throw new GameLoadException();
         }
     }
 

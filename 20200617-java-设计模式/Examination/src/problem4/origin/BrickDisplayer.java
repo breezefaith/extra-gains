@@ -1,6 +1,6 @@
-package problem4;
+package problem4.origin;
 
-public class BrickDisplayer implements IDisplay{
+public class BrickDisplayer {
     public void display() {
 
     }

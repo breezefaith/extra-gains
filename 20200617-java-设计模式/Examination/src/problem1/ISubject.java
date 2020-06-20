@@ -4,14 +4,20 @@ public interface ISubject {
     /**
      * register an observer.
      *
-     * @param observer
+     * @param handler
      */
-    void attach(AbstractObserver observer);
+    void attach(IEventHandler handler);
 
     /**
      * remove an observer.
      *
-     * @param observer
+     * @param handler
      */
-    void detach(AbstractObserver observer);
+    void detach(IEventHandler handler);
+
+    /**
+     * fire an event.
+     * @param event
+     */
+    void fireEvent(Event event);
 }

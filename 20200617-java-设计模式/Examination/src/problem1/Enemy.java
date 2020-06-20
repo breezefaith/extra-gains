@@ -1,12 +1,30 @@
 package problem1;
 
-public class Enemy extends AbstractObserver {
+public class Enemy extends GameWorldElement {
     private int damage = 20;
     private int number;
+    private boolean isDead;
 
-    public Enemy(int number, AbstractGameSubject subject) {
+    public Enemy(int number, ISubject subject) {
         super(subject);
         this.number = number;
+    }
+
+    @Override
+    protected void handleLevelUp(Event event) {
+        this.reduceDamage();
+    }
+
+    @Override
+    protected void handleArriving(Event event) {
+        this.die();
+    }
+
+    @Override
+    protected void handleCollision(Event event) {
+        if (event.getSource() == this) {
+            this.die();
+        }
     }
 
     /**
@@ -16,7 +34,7 @@ public class Enemy extends AbstractObserver {
      */
     public void hit(Player player) {
         System.out.println(String.format("Enemy %d hit the player %d.", this.number, player.getNumber()));
-        this.subject.collision(player, this);
+        this.subject.fireEvent(new Event(EventType.Collision, this, player));
     }
 
     /**
@@ -36,11 +54,14 @@ public class Enemy extends AbstractObserver {
     }
 
     /**
-     * An enemy dies and it should be remove from the observers' list.
+     * An enemy dies.
      */
     public void die() {
+        if (this.isDead == true) {
+            return;
+        }
         System.out.println(String.format("Enemy %d is dead.", this.number));
-        this.subject.detach(this);
+        this.isDead = true;
     }
 
     public int getDamage() {
@@ -57,5 +78,13 @@ public class Enemy extends AbstractObserver {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
     }
 }

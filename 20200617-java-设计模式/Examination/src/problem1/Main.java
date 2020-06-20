@@ -3,7 +3,7 @@ package problem1;
 public class Main {
     public static void main(String[] args) {
         // create the subject
-        GameSubject subject = new GameSubject();
+        GameWorldSubject subject = new GameWorldSubject();
 
         //create a player object and register it as an observer
         Player player = new Player(0, subject);

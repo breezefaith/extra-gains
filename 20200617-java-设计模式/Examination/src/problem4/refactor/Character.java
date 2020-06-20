@@ -1,8 +1,7 @@
-package problem4;
+package problem4.refactor;
 
 public class Character extends Element {
-    @Override
     public int[] getImageData() {
-        return super.getImageData();
+        return null;
     }
 }

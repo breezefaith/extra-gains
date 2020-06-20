@@ -1,14 +1,34 @@
 package problem1;
 
-public class Player extends AbstractObserver {
+public class Player extends GameWorldElement {
     private int health = 100;
     private int maxHealth = 100;
     private boolean isDead;
     private int number;
 
-    public Player(int number, AbstractGameSubject subject) {
+    public Player(int number, ISubject subject) {
         super(subject);
         this.number = number;
+    }
+
+    @Override
+    protected void handleLevelUp(Event event) {
+        if (event.getSource() == this) {
+            this.increaseMaxHealth();
+            this.refillHealth();
+        }
+    }
+
+    @Override
+    protected void handleArriving(Event event) {
+        this.refillHealth();
+    }
+
+    @Override
+    protected void handleCollision(Event event) {
+        if (event.getTarget() == this) {
+            this.beHit(((Enemy) event.getSource()).getDamage());
+        }
     }
 
     /**
@@ -16,7 +36,8 @@ public class Player extends AbstractObserver {
      */
     public void arrive() {
         System.out.println(String.format("Player %d reached the end.", this.number));
-        this.subject.playerArrived(this);
+        Event event = new Event(EventType.Arriving, this, null);
+        this.subject.fireEvent(event);
     }
 
     /**
@@ -24,7 +45,8 @@ public class Player extends AbstractObserver {
      */
     public void levelUp() {
         System.out.println(String.format("Player %d leveled up.", this.number));
-        this.subject.playerLevelUp(this);
+        Event event = new Event(EventType.LevelUp, this, null);
+        this.subject.fireEvent(event);
     }
 
     /**
