@@ -10,18 +10,18 @@ typedef struct Student
     int phy;
 } Student, *StudentPtr;
 
-StudentPtr create(char no[], char name[], int clang, int elec, int phy);
+// StudentPtr create(char no[], char name[], int clang, int elec, int phy);
 
-void addOne(Student stus[], int n, StudentPtr pstu);
+// void addOne(Student stus[], int n, StudentPtr pstu);
 
-void removeOne(Student stus[], int n, StudentPtr pstu);
+// void removeOne(Student stus[], int n, StudentPtr pstu);
 
-StudentPtr findByNo(Student stus[], int n, char no[]);
+// StudentPtr findByNo(Student stus[], int n, char no[]);
 
-StudentPtr findByName(Student stus[], int n, char name[]);
+// StudentPtr findByName(Student stus[], int n, char name[]);
 
-void showList(Student stus[], int n);
+// void showList(Student stus[], int n);
 
-void showDetail(StudentPtr pstu);
+// void showDetail(StudentPtr pstu);
 
 #endif

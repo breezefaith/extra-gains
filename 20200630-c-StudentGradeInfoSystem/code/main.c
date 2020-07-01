@@ -9,7 +9,7 @@ int main()
     while (1)
     {
         showMenus();
-        break;
+        execMenu();
     }
     getchar();
     return 0;

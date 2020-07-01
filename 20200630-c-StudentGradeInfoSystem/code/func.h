@@ -5,22 +5,30 @@
 
 #define MAX_NUM 50
 
-StudentPtr stus[MAX_NUM];
+Student stus[MAX_NUM];
 int stuNum;
 
 void showMenus();
 
-void execMenu(int menu);
+void execMenu();
 
 void inputStudents();
 
 void showStudents();
 
-void addStudent();
+void findStudents();
+
+void addStudents();
 
 void removeStudent();
 
 void statistics();
+
+void statisticsClang();
+
+void statisticsElec();
+
+void statisticsPhy();
 
 void exitSystem();
 
