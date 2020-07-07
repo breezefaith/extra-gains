@@ -17,17 +17,18 @@ public class ArithmeticExpression {
      * [2,3) *
      * [3,4) /
      */
-    private double operator;
+    private char operator;
 
     /**
      * (3) A constructor for creating objects based on concrete binary expressions.
+     *
      * @param x
      * @param y
      * @param operator
      * @throws IllegalArgumentException
      */
-    public ArithmeticExpression(double x, double y, double operator) throws IllegalArgumentException {
-        if (operator < 0 || operator >= 4) {
+    public ArithmeticExpression(double x, double y, char operator) throws IllegalArgumentException {
+        if (operator != '+' && operator != '-' && operator != '*' && operator != '/') {
             throw new IllegalArgumentException();
         }
         this.x = x;
@@ -37,23 +38,25 @@ public class ArithmeticExpression {
 
     /**
      * (5) getResult() method to evaluate the expression’s value.
+     *
      * @return
-     * @throws Exception
+     * @throws ArithmeticException
      */
-    public double getResult() throws Exception {
-        if (operator >= 0 && operator < 1) {
-            return x + y;
-        } else if (operator >= 1 && operator < 2) {
-            return x - y;
-        } else if (operator >= 2 && operator < 3) {
-            return x * y;
-        } else if (operator >= 3 && operator < 4) {
-            if (y == 0) {
-                throw new ArithmeticException("/ by zero");
-            }
-            return x / y;
-        } else {
-            throw new Exception();
+    public double getResult() throws ArithmeticException {
+        switch (operator) {
+            case '+':
+                return x + y;
+            case '-':
+                return x - y;
+            case '*':
+                return x * y;
+            case '/':
+                if (y == 0) {
+                    throw new ArithmeticException("/ by zero");
+                }
+                return x / y;
+            default:
+                throw new ArithmeticException();
         }
     }
 
@@ -68,7 +71,7 @@ public class ArithmeticExpression {
         return y;
     }
 
-    public double getOperator() {
+    public char getOperator() {
         return operator;
     }
 
@@ -78,6 +81,7 @@ public class ArithmeticExpression {
      * with random Numbers, and write the expression and operation results into
      * the file; If the file exists, all expressions are read from the file and
      * displayed in line.
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -99,6 +103,7 @@ public class ArithmeticExpression {
 
     /**
      * all expressions are read from the file and displayed in line
+     *
      * @param file
      * @throws IOException
      */
@@ -113,6 +118,7 @@ public class ArithmeticExpression {
 
     /**
      * create the file, and create 100 binary arithmetic expression objects with random Numbers, and write the expression and operation results into the file;
+     *
      * @param file
      * @throws FileNotFoundException
      */
@@ -120,23 +126,30 @@ public class ArithmeticExpression {
         PrintWriter printWriter = new PrintWriter(file);
         Random random = new Random();
         for (int i = 0; i < 100; i++) {
-            //x:[0,1000), y:[0,1000), operator: [0,4)
-            ArithmeticExpression expression = new ArithmeticExpression(random.nextDouble() * 1000, random.nextDouble() * 1000, random.nextDouble() * 4);
+            //x:[0,1000), y:[0,1000)
+            double x = random.nextDouble() * 1000;
+            double y = random.nextDouble() * 1000;
+
+            double op = random.nextDouble() * 4;
+            char operator = '+';
+            //judge operator
+            if (op >= 0 && op < 1) {
+                operator = '+';
+            } else if (op >= 1 && op < 2) {
+                operator = '-';
+            } else if (op >= 2 && op < 3) {
+                operator = '*';
+            } else if (op >= 3 && op < 4) {
+                operator = '/';
+            }
+
+            ArithmeticExpression expression = new ArithmeticExpression(x, y, operator);
 
             StringBuffer stringBuffer = new StringBuffer();
             stringBuffer.append(expression.getX());
             stringBuffer.append(" ");
 
-            //judge operator
-            if (expression.getOperator() >= 0 && expression.getOperator() < 1) {
-                stringBuffer.append("+");
-            } else if (expression.getOperator() >= 1 && expression.getOperator() < 2) {
-                stringBuffer.append("-");
-            } else if (expression.getOperator() >= 2 && expression.getOperator() < 3) {
-                stringBuffer.append("*");
-            } else if (expression.getOperator() >= 3 && expression.getOperator() < 4) {
-                stringBuffer.append("/");
-            }
+            stringBuffer.append(expression.getOperator());
             stringBuffer.append(" ");
 
             stringBuffer.append(expression.getY());
