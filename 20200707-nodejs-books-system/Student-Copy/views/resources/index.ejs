@@ -29,13 +29,13 @@
 
       <div class="card-body">
         <p class="card-text">
-          <%= resource.abstract %>
+          <%- resource.abstract %>
         </p>
         <a href="/resources/<%= resource.id %>">more...</a>
       </div>
 
-      <% if (authorized && (typeof resource.author === 'undefined' || resource.author.email === email)) { %>
       <div class="card-footer">
+        <% if (authorized && (typeof resource.author === 'undefined' || resource.author.email === email)) { %>
           <a href="/resources/<%= resource.id %>/edit">
             <i class="fa fa-edit"></i>
           </a>
@@ -47,8 +47,12 @@
             <i class="fa fa-trash"></i>
           </button>
         </form>
+        <% } %>
+
+        <div class="float-right">
+          <div>$<%= resource.price %>&nbsp;&nbsp;<small>published by <%= resource.publisher %></small></div>
+        </div>
       </div>
-      <% } %>
     </div>
     <% } %>
   </div>
