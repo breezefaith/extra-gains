@@ -11,8 +11,10 @@ exports.new = (req, res) => {
 // Step 1: Create an action that will authenticate the user using Passport
 exports.create = (req, res, next) => {
   passport.authenticate('local', {
-    successRedirect: 'You were successfully logged in.',
-    failureFlash: 'Invalid credentials'
+    successFlash: 'You were successfully logged in.',
+    successRedirect: '/',
+    failureFlash: 'Invalid credentials',
+    failureRedirect: '/login',
   })(req, res, next);
 };
 

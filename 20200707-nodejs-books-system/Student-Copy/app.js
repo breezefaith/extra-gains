@@ -32,10 +32,10 @@ app.use(session({
 const passport = require('passport');
 app.use(passport.initialize());
 app.use(passport.session());
-// const User = require('./models/user');
-// passport.use(User.createStrategy());
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
+const User = require('./models/User');
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 /*
   Step 4: Setup the asset pipeline, path, the static paths,

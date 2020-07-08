@@ -15,13 +15,34 @@
 const mongoose = require('mongoose');
 
 const BookSchema = new mongoose.Schema({
+  isbn: {
+    type: String,
+    required: true,
+    unique: true
+  },
   title: {
     type: String,
-    required: true // This must exist
+    required: true
   },
-  strategy: {
+  abstract: {
     type: String,
     required: false
+  },
+  price: {
+    type: Number,
+    required: false
+  },
+  publisher: {
+    type: String,
+    required: false
+  },
+  published_date: {
+    type: Date,
+    required: false
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 }, {
   timestamps: true
