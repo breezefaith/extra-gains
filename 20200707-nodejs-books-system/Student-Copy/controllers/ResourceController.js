@@ -99,7 +99,7 @@ exports.update = async (req, res) => {
     let book = await Book.findById(req.body.id).populate('author');
     if (!book) throw new Error('Resource could not be found');
 
-    const attributes = { user: user._id, ...req.body };
+    const attributes = { author: user._id, ...req.body };
     await Book.validate(attributes);
     await Book.findByIdAndUpdate(attributes.id, attributes);
 

@@ -36,10 +36,6 @@ const BookSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  published_date: {
-    type: Date,
-    required: false
-  },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
