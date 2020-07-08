@@ -1,0 +1,35 @@
+  
+
+Week1
+  Form group, select a project 
+  
+
+Week2
+  Initial database and function design
+  write project management and sprint schedule
+  write jira sprints and components
+
+Week3
+  Writing front end collection page (using git hub account: haoboh)
+  do some Adaptive of webpage       (using git hub account: haoboh)
+
+Week4 
+  Writing add collection form and page  (using git hub account: haoboh)
+  Writing back end of sign in and register  (using git hub account: haoboh)
+  write user_info table, and connect data base with back end (using git hub account: haoboh)
+  connecting front end with backend (sign in and register function)  (using git hub account: haoboh)
+  doing some improve of collect-end front design  (using git hub account: haoboh)
+  
+week5
+  first demo presentation
+  
+  testing and debuging signin and register function  (using git hub account: haoboh)
+  finishing signin and register function  (using git hub account: haoboh)
+  
+  designing collection_list table  (using git hub account: haoboh)
+  creating book_info with team member  (using git hub account: haoboh)
+  creating collection_info table  (using git hub account: haoboh)
+  
+  writting add collection function  (using git hub account: haoboh)
+  testing and debuging add collection function  (using git hub account: haoboh)
+  finishing add collection function  (using git hub account: haoboh)

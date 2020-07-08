@@ -1,0 +1,24 @@
+Work Diary
+
+Week 1
+Group formed. After discussion in the weekend, we choose the ReadRecommend topic in this project.
+We preliminarily determined the technology stack needed for this project and the main functions to be implemented. 
+Created the Github and Jira account.
+
+Week 2
+In this week, we have a discussion about project proposal after the lab. 
+For me, I will do the Problem Statement and The purpose of the system and features two parts. 
+We also talk more details about database system, and we decide to use Mysql as the database management system.
+
+Week 3
+Having the Project Proposal in the tutorial.
+Designing and writing some front end webpages.
+
+Week 4
+Designing and writing back end of register and sign in.
+Writing initial database.
+
+Week 5
+Having the team presentation in the tutorial.
+Writing and dubuging back end of register,sign in and database.
+Discussed next plan.

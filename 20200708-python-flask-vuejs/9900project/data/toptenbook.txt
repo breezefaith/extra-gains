@@ -1,0 +1,16 @@
+bookname bookpics booktype bookrate
+"science book"    "www.xxx.com" "science"     1
+"poetry book"     "www.xxx.com" "poetry"      2
+"novel book"      "www.xxx.com" "novel"       3
+"comic book"      "www.xxx.com" "comic"       4
+"thriller sbook"  "www.xxx.com" "thrillers"   5
+"biography book"  "www.xxx.com" "biographies" 4
+"literary book"   "www.xxx.com" "literary"    3
+"essay book"      "www.xxx.com" "essays"      2
+"book science"    "www.xxx.com" "science"     3
+"historical book" "www.xxx.com" "historical"  1
+"classics book"   "www.xxx.com" "classics"    2
+"romance book"    "www.xxx.com" "romance"     3
+"women's book"    "www.xxx.com" "women's"     4
+"cook books"      "www.xxx.com" "cookbooks"   5
+"memoir book"     "www.xxx.com" "memoir"      4
