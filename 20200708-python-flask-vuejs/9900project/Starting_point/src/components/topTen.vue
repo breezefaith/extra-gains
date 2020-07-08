@@ -27,16 +27,17 @@
                   </div>
                 </div> -->
 
-                <div class = 'bookInfo1'></div>
-                <div class = 'bookInfo2'></div>
-                <div class = 'bookInfo3'></div>
-                <div class = 'bookInfo4'></div>
-                <div class = 'bookInfo5'></div>
-                <div class = 'bookInfo6'></div>
-                <div class = 'bookInfo7'></div>
-                <div class = 'bookInfo8'></div>
-                <div class = 'bookInfo9'></div>
-                <div class = 'bookInfo10'></div>
+                <div v-for="(book, index) in bookinfo" :class="'bookInfo'+index">
+                  <br/>
+                  <div align = 'center'>
+                    <div class = 'bookPic'>
+                      <img v-bind:src= "book.book_pics"/>
+                    </div>
+                  </div>
+                  <div class = 'bookname'>
+                    <a @click="tobooklink">{{book.book_name}}</a>
+                  </div>
+                </div>
                 <!-- <div class = 'bookInfo1'>
                   <br/>
                   <div align = 'center'>
@@ -164,6 +165,8 @@
 </template>
 
 <script>
+import axio from '../js/axio'
+
 export default {
   name: 'topTen',
   data () {
@@ -181,13 +184,16 @@ export default {
     tobooklink(){
       this.$router.push('/bookInfo')
     },
+    topten(){
+      return axio('/topten');
+    },
 
     get_bookinfo: async function () {
-            let res = await topten();
-
+            let res = await this.topten();
+            
             if (res.data.state == 'True'){
                 let msg = res.data.msg;
-                this.bookInfo = msg
+                this.bookinfo.push(...msg);
             }
             else{
                 this.$Message.warning('Error');
@@ -325,6 +331,25 @@ b {
   height: 1000px;
   border-top: solid #fcfcfc 1px;
   z-index: 1003;
+}
+.bookInfo{
+  /* opacity: 1; */
+  /* float:left; */
+  width: 22%;
+  height: 68%;
+  /* padding: 50px; */
+  /* margin-top: 10px; */
+  /* margin-right: 10px; */
+  text-align: left;
+  position: absolute;
+  top: 28%;
+  left: 2%;
+  z-index:1003;
+/*    border:1px #000000 solid;
+    border-width:2px; */
+  background-color:#f36e15;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 .bookInfo1{
   /* opacity: 1; */
