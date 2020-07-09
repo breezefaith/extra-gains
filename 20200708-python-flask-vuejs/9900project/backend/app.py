@@ -12,8 +12,8 @@ import numpy as np
 def db_connect():
     connection = pymysql.connect(host='localhost',
                                  user='root',
-                                 password='mysql_990524',
-                                #  password='aaaaaa',
+                                #  password='mysql_990524',
+                                 password='aaaaaa',
                                 #  password='',
                                  db='starting_point',
                                  charset='utf8',

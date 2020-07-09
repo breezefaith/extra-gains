@@ -15,7 +15,7 @@
                     <div class = 'line'></div>
                 </div>
 
-                <div v-for="(book, bookIdx) in bookinfo[tagIdx]" v-bind:key="bookIdx" :class="'bookInfo'+bookIdx">
+                <div v-for="(book, bookIdx) in bookinfo[tagIdx]" v-bind:key="bookIdx" :class="'bookInfo'+(bookIdx+1)">
                   <template v-if="bookIdx<10">
                     <div align = 'center'>
                       <div class = 'bookPic'>
@@ -128,7 +128,6 @@ export default {
                     this.bookinfo.push(bookinfo[type]);
                   }
                 }
-                debugger;
             }
             else{
                 this.$Message.warning('Error');
