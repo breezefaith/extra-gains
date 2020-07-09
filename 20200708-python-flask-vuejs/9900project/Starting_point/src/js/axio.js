@@ -1,6 +1,7 @@
 import axios from 'axios'
 export default async (url = '', data = {}, type = 'POST', isUrl = 0) => {
 const basicUrl = 'http://127.0.0.1:5000'
+// const basicUrl = 'http://127.0.0.1:3000'
 //const basicUrl = 'http://47.93.31.176:5000'
   // const basicUrl = 'http://192.168.6.155:8081/servlet';
   type = type.toUpperCase()

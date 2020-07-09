@@ -9,155 +9,24 @@
             </div>
         </nav>
         <div class = 'topTen_page'>
-            <div class = 'userRecommend' v-for="item in usertags">
+            <div class = 'userRecommend' v-for="(item,tagIdx) in usertags" v-bind:key="tagIdx">
                 <div class = 'subtitle'>
                     <p><b>{{item}}</b></p>
                     <div class = 'line'></div>
                 </div>
 
-<!--                <div class = 'bookInfo1'>
-                  <br/>
-                  <div align = 'center'>
-                    <div class = 'bookPic'>
-                      <img v-bind:src= "this.bookInfo[0].book_pics"/>
+                <div v-for="(book, bookIdx) in bookinfo[tagIdx]" v-bind:key="bookIdx" :class="'bookInfo'+bookIdx">
+                  <template v-if="bookIdx<10">
+                    <div align = 'center'>
+                      <div class = 'bookPic'>
+                        <img v-bind:src= "book.book_pics"/>
+                      </div>
                     </div>
-                  </div>
-                  <div class = 'bookname'>
-                    <a @click="tobooklink">{{this.bookInfo[0].book_name}}</a>
-                  </div>
-                </div> -->
-
-                <div v-for="(book, index) in bookinfo" :class="'bookInfo'+index">
-                  <br/>
-                  <div align = 'center'>
-                    <div class = 'bookPic'>
-                      <img v-bind:src= "book.book_pics"/>
+                    <div class = 'bookname'>
+                      <a @click="tobooklink">{{book.book_name}}</a>
                     </div>
-                  </div>
-                  <div class = 'bookname'>
-                    <a @click="tobooklink">{{book.book_name}}</a>
-                  </div>
+                  </template>
                 </div>
-                <!-- <div class = 'bookInfo1'>
-                  <br/>
-                  <div align = 'center'>
-                    <div class = 'bookPic'>
-                      <img v-bind:src= "this.bookInfo[0].book_pics"/>
-                    </div>
-                  </div>
-                  <div class = 'bookname'>
-                    <a @click="tobooklink">{{this.bookInfo[0].book_name}}</a>
-                  </div>
-                </div>
-
-                <div class = 'bookInfo2'>
-                  <br/>
-                  <div align = 'center'>
-                    <div class = 'bookPic'>
-                      <img v-bind:src= "this.bookInfo[1].book_pics"/>
-                    </div>
-                  </div>
-                  <div class = 'bookname'>
-                    <a @click="tobooklink">{{this.bookInfo[1].book_name}}</a>
-                  </div>
-                </div>
-
-                <div class = 'bookInfo3'>
-                  <br/>
-                  <div align = 'center'>
-                    <div class = 'bookPic'>
-                      <img v-bind:src= "this.bookInfo[2].book_pics"/>
-                    </div>
-                  </div>
-                  <div class = 'bookname'>
-                    <a @click="tobooklink">{{this.bookInfo[2].book_name}}</a>
-                  </div>
-                </div>
-
-                <div class = 'bookInfo4'>
-                  <br/>
-                  <div align = 'center'>
-                    <div class = 'bookPic'>
-                      <img v-bind:src= "this.bookInfo[3].book_pics"/>
-                    </div>
-                  </div>
-                  <div class = 'bookname'>
-                    <a @click="tobooklink">{{this.bookInfo[3].book_name}}</a>
-                  </div>
-                </div>
-
-                <div class = 'bookInfo5'>
-                  <br/>
-                  <div align = 'center'>
-                    <div class = 'bookPic'>
-                      <img v-bind:src= "this.bookInfo[4].book_pics"/>
-                    </div>
-                  </div>
-                  <div class = 'bookname'>
-                    <a @click="tobooklink">{{this.bookInfo[4].book_name}}</a>
-                  </div>
-                </div>
-
-                <div class = 'bookInfo6'>
-                  <br/>
-                  <div align = 'center'>
-                    <div class = 'bookPic'>
-                      <img v-bind:src= "this.bookInfo[5].book_pics"/>
-                    </div>
-                  </div>
-                  <div class = 'bookname'>
-                    <a @click="tobooklink">{{this.bookInfo[5].book_name}}</a>
-                  </div>
-                </div>
-
-                <div class = 'bookInfo7'>
-                  <br/>
-                  <div align = 'center'>
-                    <div class = 'bookPic'>
-                      <img v-bind:src= "this.bookInfo[6].book_pics"/>
-                    </div>
-                  </div>
-                  <div class = 'bookname'>
-                    <a @click="tobooklink">{{this.bookInfo[6].book_name}}</a>
-                  </div>
-                </div>
-
-                <div class = 'bookInfo8'>
-                  <br/>
-                  <div align = 'center'>
-                    <div class = 'bookPic'>
-                      <img v-bind:src= "this.bookInfo[7].book_pics"/>
-                    </div>
-                  </div>
-                  <div class = 'bookname'>
-                    <a @click="tobooklink">{{this.bookInfo[7].book_name}}</a>
-                  </div>
-                </div>
-
-                <div class = 'bookInfo9'>
-                  <br/>
-                  <div align = 'center'>
-                    <div class = 'bookPic'>
-                      <img v-bind:src= "this.bookInfo[8].book_pics"/>
-                    </div>
-                  </div>
-                  <div class = 'bookname'>
-                    <a @click="tobooklink">{{this.bookInfo[8].book_name}}</a>
-                  </div>
-                </div>
-
-                <div class = 'bookInfo10'>
-                  <br/>
-                  <div align = 'center'>
-                    <div class = 'bookPic'>
-                      <img v-bind:src= "this.bookInfo[9].book_pics"/>
-                    </div>
-                  </div>
-                  <div class = 'bookname'>
-                    <a @click="tobooklink">{{this.bookInfo[9].book_name}}</a>
-                  </div>
-                </div> -->
-
             </div>
             <!-- </div> -->
         </div>
@@ -165,16 +34,17 @@
 </template>
 
 <script>
-import axio from '../js/axio'
+import {topten} from '../api/getData'
 
 export default {
   name: 'topTen',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      usertags: ['Science', 'Historical','Classics', 'Comic', 'Novel','Literary', 'Romance',
-                'Thrillers', 'Women\'s','Biographies','Cookbooks', 'Essays', 'Poetry', 'Memoir'],
-      bookinfo:[]
+      usertags: ['Science', 'Historical','Classics', 'Comic', 'Novel','Literary', 'Romance', 'Thrillers', 'Women\'s','Biographies','Cookbooks', 'Essays', 'Poetry', 'Memoir'],
+      bookinfo: []
+      // usertags: [],
+      // bookinfo:[]
     }
   },
   methods:{
@@ -184,16 +54,81 @@ export default {
     tobooklink(){
       this.$router.push('/bookInfo')
     },
-    topten(){
-      return axio('/topten');
-    },
 
     get_bookinfo: async function () {
-            let res = await this.topten();
+            let res = await topten();
             
             if (res.data.state == 'True'){
                 let msg = res.data.msg;
-                this.bookinfo.push(...msg);
+                    let bookinfo = {};
+                    bookinfo['Science'] = [];
+                    bookinfo['Historical'] = [];
+                    bookinfo['Classics'] = [];
+                    bookinfo['Comic'] = [];
+                    bookinfo['Novel'] = [];
+                    bookinfo['Literary'] = [];
+                    bookinfo['Romance'] = [];
+                    bookinfo['Thrillers'] = [];
+                    bookinfo['Women\'s'] = [];
+                    bookinfo['Biographies'] = [];
+                    bookinfo['Cookbooks'] = [];
+                    bookinfo['Essays'] = [];
+                    bookinfo['Poetry'] = [];
+                    bookinfo['Memoir'] = [];
+
+                for (const book of msg) {
+                  switch(book.book_type){
+                    case "science":
+                      bookinfo['Science'].push(book);
+                      break;
+                    case "historical":
+                      bookinfo['Historical'].push(book);
+                      break;
+                    case "classics":
+                      bookinfo['Classics'].push(book);
+                      break;
+                    case "comic":
+                      bookinfo['Comic'].push(book);
+                      break;
+                    case "novel":
+                      bookinfo['Novel'].push(book);
+                      break;
+                    case "literary":
+                      bookinfo['Literary'].push(book);
+                      break;
+                    case "romance":
+                      bookinfo['Romance'].push(book);
+                      break;
+                    case "thrillers":
+                      bookinfo['Thrillers'].push(book);
+                      break;
+                    case "women's":
+                      bookinfo['Women\'s'].push(book);
+                      break;
+                    case "biographies":
+                      bookinfo['Biographies'].push(book);
+                      break;
+                    case "cookbooks":
+                      bookinfo['Cookbooks'].push(book);
+                      break;
+                    case "essays":
+                      bookinfo['Essays'].push(book);
+                      break;
+                    case "poetry":
+                      bookinfo['Poetry'].push(book);
+                      break;
+                    case "memoir":
+                      bookinfo['Memoir'].push(book);
+                      break;
+                  }
+                }
+
+                for (const type in bookinfo) {
+                  if (bookinfo.hasOwnProperty(type)) {
+                    this.bookinfo.push(bookinfo[type]);
+                  }
+                }
+                debugger;
             }
             else{
                 this.$Message.warning('Error');

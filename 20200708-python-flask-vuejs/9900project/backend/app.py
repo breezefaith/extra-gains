@@ -12,8 +12,8 @@ import numpy as np
 def db_connect():
     connection = pymysql.connect(host='localhost',
                                  user='root',
-                                #  password='mysql_990524',
-                                 password='aaaaaa',
+                                 password='mysql_990524',
+                                #  password='aaaaaa',
                                 #  password='',
                                  db='starting_point',
                                  charset='utf8',
@@ -178,9 +178,9 @@ def topten():
             sql = "SELECT * FROM `book_info` WHERE book_type = %s "
             for _ in tags:
                 cursor.execute(sql,_)
-                output = cursor.fetchone()
+                output = cursor.fetchmany(10)
                 print(output)
-                result.append(output)
+                result.extend(output)
 
             res = {'state':'True', 'msg':result}
     except Exception as e:
@@ -193,4 +193,5 @@ def topten():
 
     return jsonify(res)
 if __name__ == '__main__':
+    # app.run(port=3000)
     app.run(port=5000)
