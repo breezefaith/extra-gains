@@ -1,0 +1,1 @@
+Character 5 10 Enemy 1 1 Enemy 10 1 Brick 0 0 Brick 3 9 Enemy 5 3

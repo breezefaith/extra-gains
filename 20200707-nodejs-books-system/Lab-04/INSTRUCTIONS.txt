@@ -1,0 +1,40 @@
+LAB 04 - Instructions
+
+OBJECTIVE:
+  Demonstrate your knowledge of the various components that make up MVC (Models, Views, Controllers, and Routing)
+
+STEPS:
+  1) /models/product.js - Create a new model schema and assign
+     it to the ProductSchema constant. The fields you'll need
+     are:
+     - name (String)
+     - description (String)
+     - price (Number)
+
+  2) /controllers/ProductsController.js - Fill out the create
+     and show actions:
+     - The create action should take the form data
+       and create a new product form it.
+     - The create action should redirect to show (not render)
+     - If there's an error just console.error it
+     - The show action should retrieve the requested product
+       from the database
+     - The show action should render the show view passing the
+       selected user
+     - Edit the .env so your environment variables are present
+  
+  3) /views/products/show.js - Create a nice view to display
+     a selected product.
+     - Use Bootstrap to make it look clean and tidy
+     - Display the name, description, and price
+  
+  4) Push all code to Github
+  5) Deploy your application to Heroku
+     - Don't forget to add your environment variables
+
+RUBRIC:
+  15 points - Model
+  30 points - Controller
+  20 points - View
+  50 points - Pushing and Deploying WORKING code
+              (0 if it doesn't work)

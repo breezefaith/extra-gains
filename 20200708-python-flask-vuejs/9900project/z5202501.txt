@@ -1,0 +1,23 @@
+
+Week1
+  Form group, select a project
+
+Week2
+  Initial database and function design
+  Drawing proposal workflow and architecture graph
+  Drawing initial prototype
+
+Week3
+  Writing front end main page banner
+  Main page userpart design
+
+Week4 
+  Writing main page user login form 
+  Writing main page user sign up form
+  Writing main page function entrances and UI design
+ 
+Week5
+  Chatbot component
+  Search page UI change
+  Search page logic change
+  

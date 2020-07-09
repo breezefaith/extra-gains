@@ -1,0 +1,15 @@
+wk1
+ group formed, select the project
+
+wk2
+ make draft database table, 
+ collect material related to our project,
+ discuss the design of our website
+ write story part of our proposal
+
+wk3
+ make frontend of recommendation page and bookInfo page
+
+wk4
+ make frontend of search page and update recommendation and bookInfo page
+ make frontend of topTen page and create a review in bookInfo page

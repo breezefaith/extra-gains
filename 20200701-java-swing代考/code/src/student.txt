@@ -1,0 +1,3 @@
+s1	name1	c1	90
+s2	name2	c2	88
+s3	name3	c3	99

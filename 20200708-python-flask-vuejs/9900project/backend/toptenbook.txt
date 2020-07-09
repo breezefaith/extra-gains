@@ -1,0 +1,16 @@
+bookname bookpics booktype bookrate
+"science book"    "../static/img/books.jpg" "science"     1
+"poetry book"     "../static/img/books.jpg" "poetry"      2
+"novel book"      ""../static/img/books.jpg" "novel"      3
+"comic book"      "../static/img/books.jpg" "comic"       4
+"thrillers book"  "../static/img/books.jpg" "thrillers"   5
+"biography book"  "../static/img/books.jpg" "biographies" 4
+"literary book"   "../static/img/books.jpg" "literary"    3
+"essay book"      "../static/img/books.jpg" "essays"      2
+"book science"    "../static/img/books.jpg" "science"     3
+"historical book" "../static/img/books.jpg" "historical"  1
+"classics book"   "../static/img/books.jpg" "classics"    2
+"romance book"    "../static/img/books.jpg" "romance"     3
+"women's book"    "../static/img/books.jpg" "women's"     4
+"cook books"      "../static/img/books.jpg" "cookbooks"   5
+"memoir book"     "../static/img/books.jpg" "memoir"      4
