@@ -16,16 +16,14 @@
                 </div>
 
                 <div v-for="(book, bookIdx) in bookinfo[tagIdx]" v-bind:key="bookIdx" :class="'bookInfo'+(bookIdx+1)">
-                  <template v-if="bookIdx<10">
-                    <div align = 'center'>
-                      <div class = 'bookPic'>
-                        <img v-bind:src= "book.book_pics"/>
-                      </div>
+                  <div v-if="bookIdx<10" style="height: 100%;position: relative;">
+                    <div style="height: 90%;">
+                        <img v-bind:src= "book.book_pics" style="height:100%;display:block;margin-left:auto;margin-right:auto;"/>
                     </div>
-                    <div class = 'bookname'>
-                      <a @click="tobooklink">{{book.book_name}}</a>
+                    <div style="text-align: center;height:10%;font-size:1.2em;">
+                      <a @click="tobooklink(book.book_id)">{{book.book_name}}</a>
                     </div>
-                  </template>
+                  </div>
                 </div>
             </div>
             <!-- </div> -->
@@ -51,8 +49,8 @@ export default {
     gotolink(){
       this.$router.push('/')
     },
-    tobooklink(){
-      this.$router.push('/bookInfo')
+    tobooklink(book_id){
+      this.$router.push('/bookInfo?book_id=' + book_id)
     },
 
     get_bookinfo: async function () {
@@ -251,7 +249,8 @@ b {
   text-align:center;
   left:30%;
   color:rgba(255, 255, 255, 255);
-  font-size: 80%;
+  font-size: 1.3em;
+  font-weight:bold;
   z-index: 1004;
   /* text-decoration: underline; */
   /* border-bottom: 1px solid black;
@@ -266,25 +265,6 @@ b {
   border-top: solid #fcfcfc 1px;
   z-index: 1003;
 }
-.bookInfo{
-  /* opacity: 1; */
-  /* float:left; */
-  width: 22%;
-  height: 68%;
-  /* padding: 50px; */
-  /* margin-top: 10px; */
-  /* margin-right: 10px; */
-  text-align: left;
-  position: absolute;
-  top: 28%;
-  left: 2%;
-  z-index:1003;
-/*    border:1px #000000 solid;
-    border-width:2px; */
-  background-color:#f36e15;
-  overflow-y: hidden;
-  overflow-x: hidden;
-}
 .bookInfo1{
   /* opacity: 1; */
   /* float:left; */
@@ -295,12 +275,12 @@ b {
   /* margin-right: 10px; */
   text-align: left;
   position: absolute;
-  top: 28%;
+  top: 22%;
   left: 2%;
   z-index:1003;
 /*    border:1px #000000 solid;
     border-width:2px; */
-  background-color:#f36e15;
+  /* background-color:#f36e15; */
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -312,12 +292,12 @@ b {
   /* margin-top: 10px; */
   text-align: left;
   position: absolute;
-  top: 28%;
-  left: 25%;
+  top: 22%;
+  left: 26%;
   z-index:1003;
 /*    border:1px #000000 solid;
     border-width:2px; */
-  background-color:#f36e15;
+  /* background-color:#f36e15; */
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -329,12 +309,12 @@ b {
   margin: 10px auto;
   text-align: left;
   position: absolute;
-  top: 25%;
-  left: 48%;
+  top: 19%;
+  left: 50%;
   z-index:1003;
 /*    border:1px #000000 solid;
     border-width:2px; */
-  background-color:#f36e15;
+  /* background-color:#f36e15; */
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -346,12 +326,12 @@ b {
   margin: 10px auto;
   text-align: left;
   position: absolute;
-  top: 25%;
-  left: 71%;
+  top: 19%;
+  left: 74%;
   z-index:1003;
 /*    border:1px #000000 solid;
     border-width:2px; */
-  background-color:#f36e15;
+  /* background-color:#f36e15; */
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -363,12 +343,12 @@ b {
   margin: 10px auto;
   text-align: left;
   position: absolute;
-  top: 25%;
-  left: 94%;
+  top: 19%;
+  left: 98%;
   z-index:1003;
 /*    border:1px #000000 solid;
     border-width:2px; */
-  background-color:#f36e15;
+  /* background-color:#f36e15; */
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -380,12 +360,12 @@ b {
   margin: 10px auto;
   text-align: left;
   position: absolute;
-  top: 25%;
-  left: 117%;
+  top: 19%;
+  left: 122%;
   z-index:1003;
 /*    border:1px #000000 solid;
     border-width:2px; */
-  background-color:#f36e15;
+  /* background-color:#f36e15; */
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -397,12 +377,12 @@ b {
   margin: 10px auto;
   text-align: left;
   position: absolute;
-  top: 25%;
-  left: 140%;
+  top: 19%;
+  left: 146%;
   z-index:1003;
 /*    border:1px #000000 solid;
     border-width:2px; */
-  background-color:#f36e15;
+  /* background-color:#f36e15; */
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -414,12 +394,12 @@ b {
   margin: 10px auto;
   text-align: left;
   position: absolute;
-  top: 25%;
-  left: 163%;
+  top: 19%;
+  left: 170%;
   z-index:1003;
 /*    border:1px #000000 solid;
     border-width:2px; */
-  background-color:#f36e15;
+  /* background-color:#f36e15; */
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -431,12 +411,12 @@ b {
   margin: 10px auto;
   text-align: left;
   position: absolute;
-  top: 25%;
-  left: 186%;
+  top: 19%;
+  left: 194%;
   z-index:1003;
 /*    border:1px #000000 solid;
     border-width:2px; */
-  background-color:#f36e15;
+  /* background-color:#f36e15; */
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -448,12 +428,12 @@ b {
   margin: 10px auto;
   text-align: left;
   position: absolute;
-  top: 25%;
-  left: 209%;
+  top: 19%;
+  left: 218%;
   z-index:1003;
 /*    border:1px #000000 solid;
     border-width:2px; */
-  background-color:#f36e15;
+  /* background-color:#f36e15; */
   overflow-y: hidden;
   overflow-x: hidden;
 }

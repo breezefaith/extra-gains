@@ -12,7 +12,6 @@ import numpy as np
 def db_connect():
     connection = pymysql.connect(host='localhost',
                                  user='root',
-                                #  password='mysql_990524',
                                  password='aaaaaa',
                                 #  password='',
                                  db='starting_point',
@@ -175,7 +174,7 @@ def topten():
                 'Thrillers', 'Women\'s','Biographies','Cookbooks', 'Essays', 'Poetry', 'Memoir']
         result = []
         with connection.cursor() as cursor:
-            sql = "SELECT * FROM `book_info` WHERE book_type = %s "
+            sql = "SELECT * FROM `book_info` WHERE book_type = %s order by book_rate desc"
             for _ in tags:
                 cursor.execute(sql,_)
                 output = cursor.fetchmany(10)
@@ -193,5 +192,4 @@ def topten():
 
     return jsonify(res)
 if __name__ == '__main__':
-    # app.run(port=3000)
     app.run(port=5000)
