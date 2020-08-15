@@ -1,7 +1,7 @@
 package banking.database.entity;
 
 public class Customer {
-    protected Integer num;
+    protected String num;
     protected String name;
     protected String address;
     protected String phone;
@@ -9,18 +9,18 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Integer num, String name, String address, String phone) {
+    public Customer(String num, String name, String address, String phone) {
         this.num = num;
         this.name = name;
         this.address = address;
         this.phone = phone;
     }
 
-    public Integer getNum() {
+    public String getNum() {
         return num;
     }
 
-    public void setNum(Integer num) {
+    public void setNum(String num) {
         this.num = num;
     }
 

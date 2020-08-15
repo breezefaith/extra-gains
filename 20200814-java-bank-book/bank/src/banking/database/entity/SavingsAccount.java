@@ -9,7 +9,7 @@ public class SavingsAccount extends AbstractAccount {
     public SavingsAccount() {
     }
 
-    public SavingsAccount(Integer accountNum, Integer branchNum, Date dateOpened, Double balance, Double interestRate) {
+    public SavingsAccount(String accountNum, String branchNum, Date dateOpened, Double balance, Double interestRate) {
         super(accountNum, branchNum, dateOpened);
         this.balance = balance;
         this.interestRate = interestRate;

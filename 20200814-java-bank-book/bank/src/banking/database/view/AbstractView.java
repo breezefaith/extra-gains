@@ -1,12 +1,11 @@
 package banking.database.view;
 
-import banking.database.dao.BankDao;
+import banking.database.dao.AdministratorDao;
 
 import java.util.Scanner;
 
 public abstract class AbstractView implements IView {
     protected Scanner scanner;
-    protected BankDao bankDao = new BankDao();
 
     public AbstractView() {
     }

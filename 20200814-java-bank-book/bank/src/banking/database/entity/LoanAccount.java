@@ -9,7 +9,7 @@ public class LoanAccount extends AbstractAccount {
     public LoanAccount() {
     }
 
-    public LoanAccount(Integer accountNum, Integer branchNum, Date dateOpened, LoanType loanType, Double interestRate) {
+    public LoanAccount(String accountNum, String branchNum, Date dateOpened, LoanType loanType, Double interestRate) {
         super(accountNum, branchNum, dateOpened);
         this.loanType = loanType;
         this.interestRate = interestRate;

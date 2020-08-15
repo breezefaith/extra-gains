@@ -11,7 +11,7 @@ public class CheckingAccount extends AbstractAccount {
         super();
     }
 
-    public CheckingAccount(Integer accountNum, Integer branchNum, Date dateOpened, Double balance, Double overdraftAmount, Double checkLimit) {
+    public CheckingAccount(String accountNum, String branchNum, Date dateOpened, Double balance, Double overdraftAmount, Double checkLimit) {
         super(accountNum, branchNum, dateOpened);
         this.balance = balance;
         this.overdraftAmount = overdraftAmount;

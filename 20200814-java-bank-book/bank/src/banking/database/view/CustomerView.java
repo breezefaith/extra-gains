@@ -1,7 +1,5 @@
 package banking.database.view;
 
-import banking.database.dao.BankDao;
-
 import java.util.Scanner;
 
 public class CustomerView extends AbstractView {

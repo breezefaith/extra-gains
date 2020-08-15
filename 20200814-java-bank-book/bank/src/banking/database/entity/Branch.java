@@ -1,24 +1,24 @@
 package banking.database.entity;
 
 public class Branch {
-    protected Integer num;
+    protected String num;
     protected String name;
     protected String address;
 
     public Branch() {
     }
 
-    public Branch(Integer num, String name, String address) {
+    public Branch(String num, String name, String address) {
         this.num = num;
         this.name = name;
         this.address = address;
     }
 
-    public Integer getNum() {
+    public String getNum() {
         return num;
     }
 
-    public void setNum(Integer num) {
+    public void setNum(String num) {
         this.num = num;
     }
 

@@ -3,32 +3,32 @@ package banking.database.entity;
 import java.sql.Date;
 
 public abstract class AbstractAccount {
-    protected Integer accountNum;
-    protected Integer branchNum;
+    protected String accountNum;
+    protected String branchNum;
     protected Date dateOpened;
 
     public AbstractAccount() {
     }
 
-    public AbstractAccount(Integer accountNum, Integer branchNum, Date dateOpened) {
+    public AbstractAccount(String accountNum, String branchNum, Date dateOpened) {
         this.accountNum = accountNum;
         this.branchNum = branchNum;
         this.dateOpened = dateOpened;
     }
 
-    public Integer getAccountNum() {
+    public String getAccountNum() {
         return accountNum;
     }
 
-    public void setAccountNum(Integer accountNum) {
+    public void setAccountNum(String accountNum) {
         this.accountNum = accountNum;
     }
 
-    public Integer getBranchNum() {
+    public String getBranchNum() {
         return branchNum;
     }
 
-    public void setBranchNum(Integer branchNum) {
+    public void setBranchNum(String branchNum) {
         this.branchNum = branchNum;
     }
 
