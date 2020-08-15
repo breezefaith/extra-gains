@@ -5,14 +5,13 @@ import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const New = function (props) {
-
   const [inputs, setInputs] = useState({
     isbn: '',
     title: "",
     abstract: '',
     price: 10.0,
     publisher: '',
-    author: null,
+    // author: null,
   });
 
   const [redirect, setRedirect] = useState(false);
@@ -21,20 +20,20 @@ const New = function (props) {
     event.preventDefault();
 
     try {
-      const resp = await Axios.post('/api/blogs', inputs);
+      const resp = await Axios.post('/api/resources', inputs);
 
-      if (resp.status === 200)  {
-        toast("The blog was created successfully", {
+      if (resp.status === 200) {
+        toast("The book was created successfully", {
           type: toast.TYPE.SUCCESS
         });
         setRedirect(true);
       } else {
-        toast("There was an issue creating the blog", {
+        toast("There was an issue creating the book", {
           type: toast.TYPE.ERROR
         });
       }
     } catch (error) {
-      toast("There was an issue creating the blog", {
+      toast("There was an issue creating the book", {
         type: toast.TYPE.ERROR
       });
     }
@@ -51,19 +50,19 @@ const New = function (props) {
     }));
   };
 
-  if (redirect) return (<Redirect to="/blogs"/>);
+  if (!props.user || redirect) return (<Redirect to="/books" />);
 
   return (
     <Container className="my-5">
       <header>
-        <h1>New Blog Post</h1>
+        <h1>New Book</h1>
       </header>
 
-      <hr/>
+      <hr />
 
       <div>
         <Form onSubmit={handleSubmit}>
-        <Form.Group>
+          <Form.Group>
             <Form.Label>ISBN:</Form.Label>
             <Form.Control
               name="isbn"
@@ -84,8 +83,8 @@ const New = function (props) {
           <Form.Group>
             <Form.Label>Author:</Form.Label>
             <Form.Control
-              name="author"
-              value={inputs.author ? `${props.user.firstName} ${props.user.lastName}` : ""}
+              // name="author"
+              value={props.user.fullname}
               readOnly={true}
             />
           </Form.Group>

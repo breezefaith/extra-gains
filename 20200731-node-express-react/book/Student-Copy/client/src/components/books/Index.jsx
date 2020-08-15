@@ -75,16 +75,23 @@ const Index = function ({ user }) {
               {
                 user ? (
                   <Fragment>
+
                     <Link to={{
                       pathname: "/books/edit",
                       state: {
                         id: book._id
                       }
                     }}>
-                      <i className="fa fa-edit"></i>
+                      {
+                        user._id == book.author._id ? (
+                          <i className="fa fa-edit"></i>
+                        ) : (
+                            <i className="fa fa-eye"></i>
+                          )
+                      }
                     </Link>
 
-                    <button type="button" onClick={() => deleteBook(book)}>
+                    <button type="button" onClick={() => deleteBook(book)} disabled={user._id != book.author._id}>
                       <i className="fa fa-trash"></i>
                     </button>
                   </Fragment>

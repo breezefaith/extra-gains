@@ -83,6 +83,11 @@ app.use('/', (req, res, next) => {
 const routes = require('./routes.js');
 app.use('/api', routes);
 
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
+
 /*
   Step 8: Start the server
 */

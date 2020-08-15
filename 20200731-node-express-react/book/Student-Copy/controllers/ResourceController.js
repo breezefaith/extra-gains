@@ -90,9 +90,9 @@ exports.update = async (req, res) => {
 
     const attributes = { author: user._id, ...req.body };
     await Book.validate(attributes);
-    await Book.findByIdAndUpdate(attributes.id, attributes);
+    book = await Book.findByIdAndUpdate(attributes.id, attributes);
 
-    res.status(200);
+    res.status(200).json(book);
   } catch (error) {
     res.status(400).json({ message: "There was an error updating the book", error });
   }

@@ -30,7 +30,11 @@ const Edit = function (props) {
     event.preventDefault();
 
     try {
-      const resp = await Axios.post('/api/resources/update', inputs);
+      const body = {...inputs};
+      body.id = body._id;
+      delete body.author;
+      delete body._id;
+      const resp = await Axios.post('/api/resources/update', body);
 
       if (resp.status === 200) {
         toast("The book was updated successfully", {
@@ -60,7 +64,7 @@ const Edit = function (props) {
     }));
   };
 
-  if (redirect) return (<Redirect to="/books" />);
+  if (!props.user || redirect) return (<Redirect to="/books" />);
 
   return (
     <Container className="my-5">
@@ -123,7 +127,7 @@ const Edit = function (props) {
           </Form.Group>
 
           <Form.Group>
-            <Form.Label for="abstract">Abstract:</Form.Label>
+            <Form.Label>Abstract:</Form.Label>
             <textarea
               className="form-control summernote"
               name="abstract"
