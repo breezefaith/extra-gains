@@ -1,7 +1,5 @@
 package banking.database.view;
 
-import banking.database.dao.AdministratorDao;
-
 import java.util.Scanner;
 
 public abstract class AbstractView implements IView {

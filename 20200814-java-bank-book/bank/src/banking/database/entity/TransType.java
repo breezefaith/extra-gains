@@ -1,6 +1,10 @@
 package banking.database.entity;
 
 public enum TransType {
-    InterBank,
-    InnerBank
+    Loan,
+    Deposit,
+    Withdraw,
+    TurnIn,
+    TurnOut,
+    Check,
 }

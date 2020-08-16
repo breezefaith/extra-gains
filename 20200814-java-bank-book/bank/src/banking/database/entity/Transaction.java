@@ -69,4 +69,8 @@ public class Transaction {
     public void setTransComments(String transComments) {
         this.transComments = transComments;
     }
+
+    public String getFormatString() {
+        return String.format("%s\t%s\t%s\t%f\t%s\t%s", account.getAccountNum(), accountType.name(), transDate.toLocaleString(), transAmt, transType.name(), transComments);
+    }
 }
