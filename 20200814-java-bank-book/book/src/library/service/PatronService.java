@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PatronService {
-    private Scanner scanner = new Scanner(System.in);
     private Connection con = Tool.getConnection();
 
     private Borrower borrower;
@@ -24,6 +23,7 @@ public class PatronService {
     }
 
     public void checkoutBook() {
+        Scanner scanner = new Scanner(System.in);
         try {
             System.out.println("Book Id:");
             String bookId = scanner.nextLine();
@@ -71,9 +71,46 @@ public class PatronService {
                 return;
             }
 
+            BookCopy bookCopy = null;
+            {
+                String sql = "select \"BOOK_ID\", \"BRANCH_ID\", \"no_of_copies\" from BOOK_COPIES where \"BOOK_ID\"=? and \"BRANCH_ID\"=?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, book.getBookId());
+                ps.setString(2, branch.getBranchId());
+
+                ResultSet resultSet = ps.executeQuery();
+                while (resultSet.next()) {
+                    bookCopy = new BookCopy();
+                    bookCopy.setBook(book);
+                    bookCopy.setBranch(branch);
+                    bookCopy.setNoOfCopies(resultSet.getInt(3));
+                }
+            }
+
+            if (bookCopy == null || bookCopy.getNoOfCopies() < 1) {
+                System.out.println("There is no copy for loaning.");
+                return;
+            }
+
+            {
+                bookCopy.setNoOfCopies(bookCopy.getNoOfCopies() - 1);
+                String sql = "update BOOK_COPIES set \"no_of_copies\" = ? where \"BOOK_ID\"=? and \"BRANCH_ID\"=?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, bookCopy.getNoOfCopies());
+                ps.setString(2, bookCopy.getBook().getBookId());
+                ps.setString(3, bookCopy.getBranch().getBranchId());
+
+                if (ps.executeUpdate() == 1) {
+                    System.out.println("Updated book copies successfully.");
+                } else {
+                    System.out.println("Failed to update book copies.");
+                    con.rollback();
+                    return;
+                }
+            }
+
             System.out.println("Days:");
             Integer days = scanner.nextInt();
-            scanner.next();
 
             {
                 BookLoan bookLoan = new BookLoan();
@@ -95,6 +132,7 @@ public class PatronService {
 
                 if (ps.executeUpdate() == 1) {
                     System.out.println("Checked out successfully.");
+                    System.out.println(String.format("Due date: %s", bookLoan.getDateDue().toLocaleString()));
                 } else {
                     System.out.println("Failed to checked out.");
                 }
@@ -105,6 +143,7 @@ public class PatronService {
     }
 
     public void returnBook() {
+        Scanner scanner = new Scanner(System.in);
         try {
             con.setAutoCommit(false);
 
@@ -154,6 +193,44 @@ public class PatronService {
                 return;
             }
 
+            BookCopy bookCopy = null;
+            {
+                String sql = "select \"BOOK_ID\", \"BRANCH_ID\", \"no_of_copies\" from BOOK_COPIES where \"BOOK_ID\"=? and \"BRANCH_ID\"=?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, book.getBookId());
+                ps.setString(2, branch.getBranchId());
+
+                ResultSet resultSet = ps.executeQuery();
+                while (resultSet.next()) {
+                    bookCopy = new BookCopy();
+                    bookCopy.setBook(book);
+                    bookCopy.setBranch(branch);
+                    bookCopy.setNoOfCopies(resultSet.getInt(3));
+                }
+            }
+
+            if (bookCopy == null) {
+                System.out.println("There is no copy for loaning.");
+                return;
+            }
+
+            {
+                bookCopy.setNoOfCopies(bookCopy.getNoOfCopies() + 1);
+                String sql = "update BOOK_COPIES set \"no_of_copies\" = ? where \"BOOK_ID\"=? and \"BRANCH_ID\"=?";
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, bookCopy.getNoOfCopies());
+                ps.setString(2, bookCopy.getBook().getBookId());
+                ps.setString(3, bookCopy.getBranch().getBranchId());
+
+                if (ps.executeUpdate() == 1) {
+                    System.out.println("Updated book copies successfully.");
+                } else {
+                    System.out.println("Failed to update book copies.");
+                    con.rollback();
+                    return;
+                }
+            }
+
             BookLoan bookLoan = null;
             {
                 String sql = "select \"BOOK_ID\", \"BRANCH_ID\", \"CARD_NO\", \"date_out\", \"date_due\", \"date_returned\" from BOOK_LOANS where \"BOOK_ID\" = ? and \"BRANCH_ID\" = ? and \"CARD_NO\" = ?";
@@ -189,9 +266,9 @@ public class PatronService {
                 ps.setString(4, bookLoan.getBorrower().getCardNo());
 
                 if (ps.executeUpdate() == 1) {
-                    System.out.println("Checked out successfully.");
+                    System.out.println("Returned successfully.");
                 } else {
-                    System.out.println("Failed to checked out.");
+                    System.out.println("Failed to return.");
                     con.rollback();
                     return;
                 }
@@ -213,7 +290,7 @@ public class PatronService {
                 if (preparedStatement.executeUpdate() == 1) {
                     con.commit();
                     borrower.setUnpaidDues(dues);
-                    System.out.println("Successfully. Now your unpaid dues: " + dues);
+                    System.out.println(String.format("Successfully. Now your unpaid dues: %.2f ", dues));
                 } else {
                     System.out.println("Failed.");
                     con.rollback();
@@ -237,6 +314,7 @@ public class PatronService {
     }
 
     public void payFine() {
+        Scanner scanner = new Scanner(System.in);
         try {
             Borrower borrower = getBorrower();
             {
@@ -249,7 +327,7 @@ public class PatronService {
                 }
             }
 
-            System.out.println(String.format("Unpaid Dues: %d", borrower.getUnpaidDues()));
+            System.out.println(String.format("Unpaid Dues: %.2f", borrower.getUnpaidDues()));
             System.out.println("Your payment:");
             Double payment = scanner.nextDouble();
 
@@ -266,12 +344,10 @@ public class PatronService {
                 preparedStatement.setString(2, borrower.getCardNo());
 
                 if (preparedStatement.executeUpdate() == 1) {
-                    con.commit();
                     borrower.setUnpaidDues(diff);
-                    System.out.println("Successfully. Now your unpaid dues: " + diff);
+                    System.out.println(String.format("Successfully. Now your unpaid dues: %.2f ", diff));
                 } else {
                     System.out.println("Failed.");
-                    con.rollback();
                 }
             }
         } catch (SQLException e) {
@@ -308,6 +384,7 @@ public class PatronService {
     }
 
     public void login() {
+        Scanner scanner = new Scanner(System.in);
         try {
             this.borrower = null;
             System.out.println("Card No:");

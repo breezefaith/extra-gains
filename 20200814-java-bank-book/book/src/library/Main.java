@@ -1,12 +1,13 @@
 package library;
 
 import library.service.AdminService;
+import library.service.MainService;
 import library.service.PatronService;
 
 import java.util.Scanner;
 
 public class Main {
-    private Scanner scanner = new Scanner(System.in);
+    private MainService mainService = new MainService();
     private AdminService adminService = new AdminService();
     private PatronService patronService = new PatronService();
 
@@ -18,12 +19,14 @@ public class Main {
     public void run() {
         while (true) {
             showMainMenu();
+            Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextByte();
             if (choice == 1) {
                 runPatron();
             } else if (choice == 2) {
                 runAdmin();
             } else if (choice == 3) {
+                mainService.closeConnection();
                 return;
             } else {
                 System.out.println("Unknown choice!");
@@ -46,6 +49,7 @@ public class Main {
                 return;
             }
             patronService.showMenu();
+            Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextByte();
             if (choice == 1) {
                 patronService.checkoutBook();
@@ -64,6 +68,7 @@ public class Main {
     }
 
     private void runAdmin() {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             adminService.showMenu();
             int choice = scanner.nextByte();

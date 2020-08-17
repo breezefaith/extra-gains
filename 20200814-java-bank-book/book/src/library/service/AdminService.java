@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AdminService {
-    private Scanner scanner = new Scanner(System.in);
     Connection con = Tool.getConnection();
 
     public void showMenu() {
@@ -27,6 +26,7 @@ public class AdminService {
     }
 
     public void addBook() {
+        Scanner scanner = new Scanner(System.in);
         try {
             con.setAutoCommit(false);
             Book book = new Book();
@@ -70,6 +70,7 @@ public class AdminService {
 
                     if (preparedStatement.executeUpdate() == 1) {
                         System.out.println("Added publisher successfully.");
+                        System.out.println(String.format("Publisher Name: %s", publisher.getName()));
                     } else {
                         System.out.println("Failed to add publisher.");
                         con.rollback();
@@ -88,7 +89,10 @@ public class AdminService {
                 preparedStatement.setString(2, book.getTitle());
                 preparedStatement.setString(3, book.getPublisher().getName());
 
-                if (preparedStatement.executeUpdate() != 1) {
+                if (preparedStatement.executeUpdate() == 1) {
+                    System.out.println("Added book successfully.");
+                    System.out.println(String.format("Book Id: %s", book.getBookId()));
+                } else {
                     System.out.println("Failed to add book.");
                     con.rollback();
                     return;
@@ -106,11 +110,13 @@ public class AdminService {
                 preparedStatement.setString(1, bookAuthor.getBook().getBookId());
                 preparedStatement.setString(2, bookAuthor.getAuthorName());
 
-                if (preparedStatement.executeUpdate() != 1) {
+                int res = preparedStatement.executeUpdate();
+                if (res == 1) {
                     con.commit();
-                    System.out.println("Added book successfully.");
+                    System.out.println("Added book author successfully.");
+                    System.out.println(String.format("Author Name: %s", bookAuthor.getAuthorName()));
                 } else {
-                    System.out.println("Failed to add book.");
+                    System.out.println("Failed to add book author.");
                     con.rollback();
                     return;
                 }
@@ -132,6 +138,7 @@ public class AdminService {
     }
 
     public void updateBookHoldings() {
+        Scanner scanner = new Scanner(System.in);
         try {
             con.setAutoCommit(false);
 
@@ -194,6 +201,7 @@ public class AdminService {
 
                     if (preparedStatement.executeUpdate() == 1) {
                         System.out.println("Added branch successfully.");
+                        System.out.println(String.format("Branch Id: %s", branch.getBranchId()));
                     } else {
                         System.out.println("Failed to add branch.");
                         con.rollback();
@@ -225,7 +233,6 @@ public class AdminService {
 
                 System.out.println("Number of copies:");
                 bookCopy.setNoOfCopies(scanner.nextInt());
-                scanner.next();
 
                 {
                     String sql = "insert into BOOK_COPIES(\"BOOK_ID\", \"BRANCH_ID\", \"no_of_copies\") values(?, ?, ?)";
@@ -234,9 +241,10 @@ public class AdminService {
                     preparedStatement.setString(2, bookCopy.getBranch().getBranchId());
                     preparedStatement.setInt(3, bookCopy.getNoOfCopies());
 
-                    if (preparedStatement.executeUpdate() != 1) {
+                    if (preparedStatement.executeUpdate() == 1) {
                         con.commit();
                         System.out.println("Added book copies successfully.");
+                        System.out.println(String.format("Number of copies: %d", bookCopy.getNoOfCopies()));
                     } else {
                         System.out.println("Failed to add book copies.");
                         con.rollback();
@@ -246,7 +254,6 @@ public class AdminService {
             } else {
                 System.out.println("Number of copies:");
                 bookCopy.setNoOfCopies(scanner.nextInt());
-                scanner.next();
 
                 {
                     String sql = "update BOOK_COPIES set \"no_of_copies\"=? where \"BOOK_ID\"=? and \"BRANCH_ID\"=?";
@@ -255,9 +262,10 @@ public class AdminService {
                     preparedStatement.setString(2, bookCopy.getBook().getBookId());
                     preparedStatement.setString(3, bookCopy.getBranch().getBranchId());
 
-                    if (preparedStatement.executeUpdate() != 1) {
+                    if (preparedStatement.executeUpdate() == 1) {
                         con.commit();
                         System.out.println("Updated book copies successfully.");
+                        System.out.println(String.format("Number of copies: %d", bookCopy.getNoOfCopies()));
                     } else {
                         System.out.println("Failed to update book copies.");
                         con.rollback();
@@ -282,6 +290,7 @@ public class AdminService {
     }
 
     public void searchBook() {
+        Scanner scanner = new Scanner(System.in);
         try {
             System.out.println("Book Title:");
             String title = scanner.nextLine();
@@ -302,6 +311,7 @@ public class AdminService {
             }
 
             if (book != null) {
+                System.out.println("BOOK_ID\ttitle\tpublisher");
                 System.out.println(String.format("%s\t%s\t%s", book.getBookId(), book.getTitle(), book.getPublisher().getName()));
             } else {
                 System.out.println("No such a book.");
@@ -313,6 +323,7 @@ public class AdminService {
     }
 
     public void addPatron() {
+        Scanner scanner = new Scanner(System.in);
         try {
             Borrower borrower = new Borrower();
             borrower.setCardNo(Tool.getFixLenthString(11));
@@ -326,9 +337,16 @@ public class AdminService {
 
             String sql = "insert into BORROWERS(\"CARD_NO\", \"name\", \"address\", \"phone\", \"unpaid_dues\") values(?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
+            preparedStatement.setString(1, borrower.getCardNo());
+            preparedStatement.setString(2, borrower.getName());
+            preparedStatement.setString(3, borrower.getAddress());
+            preparedStatement.setString(4, borrower.getPhone());
+            preparedStatement.setDouble(5, borrower.getUnpaidDues());
+
             int res = preparedStatement.executeUpdate();
             if (res == 1) {
-                System.out.println("Successfully.");
+                System.out.println("Added borrower successfully.");
+                System.out.println(String.format("Card No: %s", borrower.getCardNo()));
             } else {
                 System.out.println("Failed.");
             }
@@ -364,7 +382,7 @@ public class AdminService {
 
     public void printTop10Books() {
         try {
-            String sql = "select BOOKS.\"BOOK_ID\", BOOKS.\"title\", BOOKS.\"publisher_name\", count(*) as loan_times from BOOK_LOANS, BOOKS where BOOK_LOANS.\"BOOK_ID\" = BOOKS.\"BOOK_ID\" group by BOOK_LOANS.\"BOOK_ID\" order by \"loan_times\" desc limit 10";
+            String sql = "select BOOKS.\"BOOK_ID\", BOOKS.\"title\", BOOKS.\"publisher_name\", count(*) as \"loan_times\" from BOOK_LOANS, BOOKS where BOOK_LOANS.\"BOOK_ID\" = BOOKS.\"BOOK_ID\" and rownum <= 10 group by BOOKS.\"BOOK_ID\", BOOKS.\"title\", BOOKS.\"publisher_name\" order by \"loan_times\" desc";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
 
             List<Book> list = new ArrayList<>();
