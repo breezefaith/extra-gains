@@ -14,12 +14,9 @@ public class ReportingView extends AbstractView {
     public ReportingView() {
     }
 
-    public ReportingView(Scanner scanner) {
-        super(scanner);
-    }
-
     @Override
     public void launch() {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             showMenu();
             int choice = scanner.nextByte();

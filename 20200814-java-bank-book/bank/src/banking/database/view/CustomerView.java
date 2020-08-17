@@ -13,12 +13,9 @@ public class CustomerView extends AbstractView {
     public CustomerView() {
     }
 
-    public CustomerView(Scanner scanner) {
-        super(scanner);
-    }
-
     @Override
     public void launch() {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             showMenu();
             int choice = scanner.nextByte();
@@ -39,6 +36,7 @@ public class CustomerView extends AbstractView {
     }
 
     private void deposit() {
+        Scanner scanner = new Scanner(System.in);
         try {
             customerDao.setAutoTransaction(false);
             System.out.println("Savings Account Num:");
@@ -53,7 +51,6 @@ public class CustomerView extends AbstractView {
 
             System.out.println("Amount:");
             Double amount = scanner.nextDouble();
-            scanner.next();
 
             account.setBalance(account.getBalance() + amount);
 
@@ -94,6 +91,7 @@ public class CustomerView extends AbstractView {
     }
 
     private void withdraw() {
+        Scanner scanner = new Scanner(System.in);
         try {
             customerDao.setAutoTransaction(false);
             System.out.println("Savings Account Num:");
@@ -108,7 +106,6 @@ public class CustomerView extends AbstractView {
 
             System.out.println("Amount:");
             Double amount = scanner.nextDouble();
-            scanner.next();
 
             Double diff = account.getBalance() - amount;
             if (diff < 0) {
@@ -155,6 +152,7 @@ public class CustomerView extends AbstractView {
     }
 
     private void transfer() {
+        Scanner scanner = new Scanner(System.in);
         try {
             customerDao.setAutoTransaction(false);
             System.out.println("Savings Account Num:");
@@ -179,7 +177,6 @@ public class CustomerView extends AbstractView {
 
             System.out.println("Amount:");
             Double amount = scanner.nextDouble();
-            scanner.next();
 
             Double diff = sourceAccount.getBalance() - amount;
             if (diff < 0) {
@@ -238,6 +235,7 @@ public class CustomerView extends AbstractView {
     }
 
     private void loanPayment() {
+        Scanner scanner = new Scanner(System.in);
         try {
             customerDao.setAutoTransaction(false);
 
@@ -253,7 +251,6 @@ public class CustomerView extends AbstractView {
 
             System.out.println("Amount:");
             Double amount = scanner.nextDouble();
-            scanner.next();
 
             Transaction transaction = new Transaction();
             transaction.setAccount(account);

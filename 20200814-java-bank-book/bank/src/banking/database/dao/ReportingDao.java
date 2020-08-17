@@ -5,10 +5,7 @@ import banking.database.entity.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ReportingDao extends AbstractDao {
     public Map<String, List<Transaction>> getMonthlyStatement() throws SQLException {
@@ -20,10 +17,10 @@ public class ReportingDao extends AbstractDao {
         ResultSet resultSet = ps.executeQuery();
         while (resultSet.next()) {
             Transaction transaction = new Transaction();
-            transaction.setTransType(TransType.values()[resultSet.getInt(1)]);
+            transaction.setAccountType(AccountType.values()[resultSet.getInt(1)]);
             transaction.setTransDate(resultSet.getDate(3));
             transaction.setTransAmt(resultSet.getDouble(4));
-            transaction.setAccountType(AccountType.values()[resultSet.getInt(5)]);
+            transaction.setTransType(TransType.values()[resultSet.getInt(5)]);
             transaction.setTransComments(resultSet.getString(6));
 
             if (transaction.getAccountType().equals(AccountType.Checking)) {
@@ -34,7 +31,9 @@ public class ReportingDao extends AbstractDao {
                 transaction.setAccount(findSavingsAccountByNum(resultSet.getString(2)));
             }
 
-            String key = String.format("%d-%d", transaction.getTransDate().getYear(), transaction.getTransDate().getMonth());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(transaction.getTransDate().getTime());
+            String key = String.format("%d-%d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1);
             List<Transaction> transactions = map.get(key);
             if (transactions == null) {
                 transactions = new ArrayList<>();
@@ -56,10 +55,10 @@ public class ReportingDao extends AbstractDao {
         ResultSet resultSet = ps.executeQuery();
         while (resultSet.next()) {
             Transaction transaction = new Transaction();
-            transaction.setTransType(TransType.values()[resultSet.getInt(1)]);
+            transaction.setAccountType(AccountType.values()[resultSet.getInt(1)]);
             transaction.setTransDate(resultSet.getDate(3));
             transaction.setTransAmt(resultSet.getDouble(4));
-            transaction.setAccountType(AccountType.values()[resultSet.getInt(5)]);
+            transaction.setTransType(TransType.values()[resultSet.getInt(5)]);
             transaction.setTransComments(resultSet.getString(6));
 
             if (transaction.getAccountType().equals(AccountType.Checking)) {
@@ -87,10 +86,10 @@ public class ReportingDao extends AbstractDao {
         ResultSet resultSet = ps.executeQuery();
         while (resultSet.next()) {
             Transaction transaction = new Transaction();
-            transaction.setTransType(TransType.values()[resultSet.getInt(1)]);
+            transaction.setAccountType(AccountType.values()[resultSet.getInt(1)]);
             transaction.setTransDate(resultSet.getDate(3));
             transaction.setTransAmt(resultSet.getDouble(4));
-            transaction.setAccountType(AccountType.values()[resultSet.getInt(5)]);
+            transaction.setTransType(TransType.values()[resultSet.getInt(5)]);
             transaction.setTransComments(resultSet.getString(6));
 
             if (transaction.getAccountType().equals(AccountType.Checking)) {
@@ -101,7 +100,9 @@ public class ReportingDao extends AbstractDao {
                 transaction.setAccount(findSavingsAccountByNum(resultSet.getString(2)));
             }
 
-            String key = String.format("%d", transaction.getTransDate().getYear());
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(transaction.getTransDate().getTime());
+            String key = String.format("%d", calendar.get(Calendar.YEAR));
             List<Transaction> transactions = map.get(key);
             if (transactions == null) {
                 transactions = new ArrayList<>();
@@ -114,7 +115,7 @@ public class ReportingDao extends AbstractDao {
     }
 
     private CheckingAccount findCheckingAccountByNum(String accountNum) throws SQLException {
-        String sql = "select \"ACCOUNT_NUM\", \"branch_num\", \"date_opened\", \"balance\", \"overdraft_amount\", \"check_limit\" from CHECKING_ACCOUNTS where \"ACCOUNT_NUM\" = ? limit 1";
+        String sql = "select \"ACCOUNT_NUM\", \"branch_num\", \"date_opened\", \"balance\", \"overdraft_amount\", \"check_limit\" from CHECKING_ACCOUNTS where \"ACCOUNT_NUM\" = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, accountNum);
 
@@ -134,7 +135,7 @@ public class ReportingDao extends AbstractDao {
     }
 
     private LoanAccount findLoanAccountByNum(String accountNum) throws SQLException {
-        String sql = "select \"ACCOUNT_NUM\", \"branch_num\", \"date_opened\", \"loan_type\", \"interest_rate\" from LOAN_ACCOUNTS where \"ACCOUNT_NUM\" = ? limit 1";
+        String sql = "select \"ACCOUNT_NUM\", \"branch_num\", \"date_opened\", \"loan_type\", \"interest_rate\" from LOAN_ACCOUNTS where \"ACCOUNT_NUM\" = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, accountNum);
 
@@ -153,7 +154,7 @@ public class ReportingDao extends AbstractDao {
     }
 
     private SavingsAccount findSavingsAccountByNum(String accountNum) throws SQLException {
-        String sql = "select \"ACCOUNT_NUM\", \"branch_num\", \"date_opened\", \"balance\", \"interest_rate\" from SAVINGS_ACCOUNTS where \"ACCOUNT_NUM\" = ? limit 1";
+        String sql = "select \"ACCOUNT_NUM\", \"branch_num\", \"date_opened\", \"balance\", \"interest_rate\" from SAVINGS_ACCOUNTS where \"ACCOUNT_NUM\" = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, accountNum);
 

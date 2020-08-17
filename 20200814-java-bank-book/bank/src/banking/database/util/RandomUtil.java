@@ -9,9 +9,13 @@ public class RandomUtil {
     }
 
     public static String getFixLenthString(int strLength) {
-        Random rm = new Random();
-        double pross = (1 + rm.nextDouble()) * Math.pow(10, strLength);
-        String fixLenthString = String.valueOf(pross);
-        return fixLenthString.substring(1, strLength + 1);
+        String str = "0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < strLength; i++) {
+            int number = random.nextInt(10);
+            sb.append(str.charAt(number));
+        }
+        return sb.toString();
     }
 }

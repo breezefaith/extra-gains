@@ -38,7 +38,7 @@ public class AdministratorDao extends AbstractDao {
     }
 
     public Branch findBranchByName(String name) throws SQLException {
-        String sql = "select \"BRANCH_NUM\", \"branch_name\", \"address\" from BRANCHES where \"branch_name\" = ? limit 1";
+        String sql = "select \"BRANCH_NUM\", \"branch_name\", \"address\" from BRANCHES where \"branch_name\" = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, name);
 
@@ -54,7 +54,7 @@ public class AdministratorDao extends AbstractDao {
     }
 
     public Customer findCustomerByNum(String num) throws SQLException {
-        String sql = "select \"CUSTOMER_NUM\", \"name\", \"address\", \"phone\" from CUSTOMERS where \"CUSTOMER_NUM\" = ? limit 1";
+        String sql = "select \"CUSTOMER_NUM\", \"name\", \"address\", \"phone\" from CUSTOMERS where \"CUSTOMER_NUM\" = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, num);
 
@@ -151,7 +151,7 @@ public class AdministratorDao extends AbstractDao {
     }
 
     public CheckingAccount findCheckingAccountByNum(String accountNum) throws SQLException {
-        String sql = "select \"ACCOUNT_NUM\", \"branch_num\", \"date_opened\", \"balance\", \"overdraft_amount\", \"check_limit\" from CHECKING_ACCOUNTS where \"ACCOUNT_NUM\" = ? limit 1";
+        String sql = "select \"ACCOUNT_NUM\", \"branch_num\", \"date_opened\", \"balance\", \"overdraft_amount\", \"check_limit\" from CHECKING_ACCOUNTS where \"ACCOUNT_NUM\" = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, accountNum);
 

@@ -14,16 +14,12 @@ public class AdministratorView extends AbstractView {
     public AdministratorView() {
     }
 
-    public AdministratorView(Scanner scanner) {
-        super(scanner);
-    }
-
     @Override
     public void launch() {
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             showMenu();
             int choice = scanner.nextByte();
-            scanner.next();
             if (choice == 1) {
                 processCheck();
             } else if (choice == 2) {
@@ -39,9 +35,10 @@ public class AdministratorView extends AbstractView {
     }
 
     private void processCheck() {
+        Scanner scanner = new Scanner(System.in);
         try {
             administratorDao.setAutoTransaction(false);
-            System.out.println("Savings Account Num:");
+            System.out.println("Checking Account Num:");
             CheckingAccount account = administratorDao.findCheckingAccountByNum(scanner.nextLine());
 
             if (account == null) {
@@ -51,7 +48,6 @@ public class AdministratorView extends AbstractView {
 
             System.out.println("Amount:");
             Double amount = scanner.nextDouble();
-            scanner.next();
             Double diff = account.getBalance() - amount;
             if (diff < 0) {
                 account.setBalance(0d);
@@ -101,9 +97,11 @@ public class AdministratorView extends AbstractView {
     }
 
     private void addOrDropCustomer() {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Please choice: (1) Add (2) Drop");
         int c = scanner.nextByte();
-        scanner.next();
+
         if (c == 1) {
             addCustomer();
         } else if (c == 2) {
@@ -114,6 +112,7 @@ public class AdministratorView extends AbstractView {
     }
 
     private void addCustomer() {
+        Scanner scanner = new Scanner(System.in);
         try {
             administratorDao.setAutoTransaction(false);
 
@@ -129,6 +128,7 @@ public class AdministratorView extends AbstractView {
             if (administratorDao.insertCustomer(customer)) {
                 administratorDao.commit();
                 System.out.println("Added customer successfully.");
+                System.out.println("Customer Number: " + customer.getNum());
             } else {
                 System.out.println("Failed to add customer.");
                 administratorDao.rollback();
@@ -150,6 +150,7 @@ public class AdministratorView extends AbstractView {
     }
 
     private void dropCustomer() {
+        Scanner scanner = new Scanner(System.in);
         try {
             administratorDao.setAutoTransaction(false);
             Customer customer = new Customer();
@@ -180,9 +181,10 @@ public class AdministratorView extends AbstractView {
     }
 
     private void openOrCloseAccount() {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Please choice: (1) Open (2) Close");
         int c = scanner.nextByte();
-        scanner.next();
         if (c == 1) {
             openAccount();
         } else if (c == 2) {
@@ -193,14 +195,21 @@ public class AdministratorView extends AbstractView {
     }
 
     private void openAccount() {
+        Scanner scanner = new Scanner(System.in);
+
         try {
             administratorDao.setAutoTransaction(false);
             System.out.println("Please select account type: (1) Checking (2) Savings (3) Loan");
             int c = scanner.nextByte();
-            scanner.next();
+            if (c < 1 || c > 3) {
+                System.out.println("Invalid choice!");
+                return;
+            }
 
             System.out.println("Please enter the customer num:");
-            Customer customer = administratorDao.findCustomerByNum(scanner.nextLine());
+            scanner = new Scanner(System.in);
+            String customerNum = scanner.nextLine();
+            Customer customer = administratorDao.findCustomerByNum(customerNum);
             if (customer == null) {
                 System.out.println("The customer doesn't exist.");
                 return;
@@ -238,7 +247,6 @@ public class AdministratorView extends AbstractView {
                 account.setOverdraftAmount(scanner.nextDouble());
                 System.out.println("Check limit:");
                 account.setCheckLimit(scanner.nextDouble());
-                scanner.next();
                 if (administratorDao.insertCheckingAccount(account)) {
                     System.out.println("Inserted account successfully.");
                 } else {
@@ -258,7 +266,6 @@ public class AdministratorView extends AbstractView {
                 account.setBalance(scanner.nextDouble());
                 System.out.println("Interest Rate:");
                 account.setInterestRate(scanner.nextDouble());
-                scanner.next();
 
                 if (administratorDao.insertSavingsAccount(account)) {
                     System.out.println("Inserted account successfully.");
@@ -285,7 +292,7 @@ public class AdministratorView extends AbstractView {
                 account.setLoanType(LoanType.values()[type - 1]);
                 System.out.println("Interest Rate:");
                 account.setInterestRate(scanner.nextDouble());
-                scanner.next();
+
 
                 if (administratorDao.insertLoanAccount(account)) {
                     System.out.println("Inserted account successfully.");
@@ -304,6 +311,7 @@ public class AdministratorView extends AbstractView {
                 if (administratorDao.insertHasAccount(hasAccount)) {
                     administratorDao.commit();
                     System.out.println("Inserted hasAccount successfully.");
+                    System.out.println("Account Number: " + hasAccount.getAccount().getAccountNum());
                 } else {
                     administratorDao.rollback();
                     System.out.println("Failed to inserted hasAccount.");
@@ -329,14 +337,17 @@ public class AdministratorView extends AbstractView {
     }
 
     private void closeAccount() {
+
         try {
             administratorDao.setAutoTransaction(false);
             System.out.println("Please select account type: (1) Checking (2) Savings (3) Loan");
+            Scanner scanner = new Scanner(System.in);
             int c = scanner.nextByte();
-            scanner.next();
+
             if (c == 1) {
                 CheckingAccount account = new CheckingAccount();
                 System.out.println("Please enter the account num:");
+                scanner = new Scanner(System.in);
                 account.setAccountNum(scanner.nextLine());
 
                 HasAccount hasAccount = new HasAccount();
@@ -362,6 +373,7 @@ public class AdministratorView extends AbstractView {
             } else if (c == 2) {
                 SavingsAccount account = new SavingsAccount();
                 System.out.println("Please enter the account num:");
+                scanner = new Scanner(System.in);
                 account.setAccountNum(scanner.nextLine());
 
                 HasAccount hasAccount = new HasAccount();
@@ -387,6 +399,7 @@ public class AdministratorView extends AbstractView {
             } else if (c == 3) {
                 LoanAccount account = new LoanAccount();
                 System.out.println("Please enter the account num:");
+                scanner = new Scanner(System.in);
                 account.setAccountNum(scanner.nextLine());
 
                 HasAccount hasAccount = new HasAccount();
@@ -433,7 +446,7 @@ public class AdministratorView extends AbstractView {
     @Override
     public void showMenu() {
         System.out.println("      ADMINISTRATIVE FUNCTIONS MENU");
-        System.out.println("(1) Process checks (assume a file containing checks received by the bank)");
+        System.out.println("(1) Process checks");
         System.out.println("(2) Add/drop customer");
         System.out.println("(3) Open/close account");
         System.out.println("(4) Quit");

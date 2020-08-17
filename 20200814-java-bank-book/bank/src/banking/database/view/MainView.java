@@ -1,5 +1,7 @@
 package banking.database.view;
 
+import banking.database.dao.MainDao;
+
 import java.util.Scanner;
 
 public class MainView extends AbstractView {
@@ -7,20 +9,21 @@ public class MainView extends AbstractView {
     protected AdministratorView administratorView;
     protected ReportingView reportingView;
 
-    public MainView() {
-    }
+    protected MainDao mainDao;
 
-    public MainView(Scanner scanner) {
-        super(scanner);
-        customerView = new CustomerView(scanner);
-        administratorView = new AdministratorView(scanner);
-        reportingView = new ReportingView(scanner);
+    public MainView() {
+        mainDao = new MainDao();
+
+        customerView = new CustomerView();
+        administratorView = new AdministratorView();
+        reportingView = new ReportingView();
     }
 
     @Override
     public void launch() {
         while (true) {
             showMenu();
+            Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextByte();
             if (choice == 1) {
                 customerView.launch();
@@ -29,6 +32,7 @@ public class MainView extends AbstractView {
             } else if (choice == 3) {
                 reportingView.launch();
             } else if (choice == 4) {
+                mainDao.closeConnection();
                 return;
             } else {
                 System.out.println("Invalid choice! Please reenter");

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class CustomerDao extends AbstractDao {
     public SavingsAccount findSavingsAccountByNum(String accountNum) throws SQLException {
-        String sql = "select \"ACCOUNT_NUM\", \"branch_num\", \"date_opened\", \"balance\", \"interest_rate\" from SAVINGS_ACCOUNTS where \"ACCOUNT_NUM\" = ? limit 1";
+        String sql = "select \"ACCOUNT_NUM\", \"branch_num\", \"date_opened\", \"balance\", \"interest_rate\" from SAVINGS_ACCOUNTS where \"ACCOUNT_NUM\" = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, accountNum);
 
@@ -41,7 +41,7 @@ public class CustomerDao extends AbstractDao {
     }
 
     public LoanAccount findLoanAccountByNum(String accountNum) throws SQLException {
-        String sql = "select \"ACCOUNT_NUM\", \"branch_num\", \"date_opened\", \"loan_type\", \"interest_rate\" from LOAN_ACCOUNTS where \"ACCOUNT_NUM\" = ? limit 1";
+        String sql = "select \"ACCOUNT_NUM\", \"branch_num\", \"date_opened\", \"loan_type\", \"interest_rate\" from LOAN_ACCOUNTS where \"ACCOUNT_NUM\" = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, accountNum);
 

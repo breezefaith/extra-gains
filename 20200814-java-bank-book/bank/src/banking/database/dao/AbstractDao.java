@@ -22,6 +22,16 @@ public class AbstractDao {
         connection.rollback();
     }
 
+    public void closeConnection() {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean insertTransaction(Transaction transaction) throws SQLException {
         String sql = "insert into TRANSACTIONS(\"ACCOUNT_TYPE\", \"ACCOUNT_NUM\", \"TRANS_DATE\", \"TRANS_AMT\", \"TRANS_TYPE\", \"trans_comments\") values(?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -29,7 +39,8 @@ public class AbstractDao {
         ps.setString(2, transaction.getAccount().getAccountNum());
         ps.setDate(3, transaction.getTransDate());
         ps.setDouble(4, transaction.getTransAmt());
-        ps.setString(5, transaction.getTransComments());
+        ps.setInt(5, transaction.getTransType().ordinal());
+        ps.setString(6, transaction.getTransComments());
 
         return ps.executeLargeUpdate() == 1;
     }
