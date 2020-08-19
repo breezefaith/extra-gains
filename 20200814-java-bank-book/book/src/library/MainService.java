@@ -1,6 +1,6 @@
-package library.service;
+package library;
 
-import library.tools.Tool;
+import library.Tool;
 
 import java.sql.Connection;
 import java.sql.SQLException;

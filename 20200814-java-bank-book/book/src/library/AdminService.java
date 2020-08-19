@@ -1,7 +1,7 @@
-package library.service;
+package library;
 
-import library.entity.*;
-import library.tools.Tool;
+import library.*;
+import library.Tool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

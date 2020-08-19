@@ -1,4 +1,4 @@
-package library.tools;
+package library;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,11 +12,10 @@ public class Tool {
     public static Connection getConnection() {
         try {
             if (connection == null) {
-                ResourceBundle bundle = ResourceBundle.getBundle("library/config/jdbc");
-                String driver = bundle.getString("database.driver");
-                String url = bundle.getString("database.url");
-                String user = bundle.getString("database.user");
-                String password = bundle.getString("database.password");
+                String driver = "oracle.jdbc.driver.OracleDriver";
+                String url = "";
+                String user = "";
+                String password = "";
 
                 Class.forName(driver);
                 connection = DriverManager.getConnection(url, user, password);
