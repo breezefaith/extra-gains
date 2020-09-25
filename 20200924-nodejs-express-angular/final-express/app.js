@@ -1,7 +1,19 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var logger = require('morgan');
+var http = require('http');
+var sql = require('mssql')
+
+var dbConfig = {
+    user: 'sa',
+    password: 'zzc123456AA?',
+    server: 'localhost',
+    database: 'employee_db',
+    port: 1433,
+    options: {
+
+    }
+}
 
 var app = express();
 
@@ -9,119 +21,41 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//
-// place your code here
-//
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017";
+app.post("/api/login", async function (req, res, next) {
+    var username = req.body.username;
+    var password = req.body.password;
 
-MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, client) {
-    if (err) throw err;
-    console.log("Connected successfully to server");
-    var db = client.db("Final");
-    client.close();
-});
-
-var fetch = require("node-fetch");
-app.post("/proxy/", function (req, res, next) {
-    fetch('http://oak.cs.ucla.edu/classes/cs144/examples/exam/proxy/', {
-        method: 'post',
-        body: JSON.stringify(req.body),
-        headers: {
-            'Content-Type': req.headers["content-type"],
-            'Content-Length': req.headers["content-length"]
-        },
-    }).then(
-        function (fres) {
-            fres.text().then(
-                function (text) {
-                    res.set({
-                        "Content-Type": fres.headers.get('content-type'),
-                        "Content-Length": fres.headers.get('content-length'),
-                        "Host": req.hostname
-                    });
-                    res.status(fres.status);
-                    res.send(text);
-                    res.end();
-                },
-                function (err) {
-                    res.status(500);
-                    res.send(err);
-                    res.end();
-                }
-            );
-        },
-        function (err) {
-            res.status(500);
-            res.send(err);
-            res.end();
+    try {
+        await sql.connect(dbConfig);
+        const result = await sql.query`select * from [employees].[employee] where Login=${username} and Password=${password}`;
+        if (result.recordset.length > 0) {
+            var emp = result.recordset[0];
+            res.json({
+                id: emp.ID,
+                login: emp.Login,
+                password: emp.Password,
+                firstName: emp.FirstName,
+                lastName: emp.LastName,
+            });
+        } else {
+            res.json(null);
         }
-    )
+    } catch (err) {
+        res.status(500).send('Internal Server Error');
+        throw err;
+    }
 });
 
-app.get("/api/", function (req, res, next) {
-    var sid = req.query.sid;
-    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
-        if (err) throw err;
-        db.db("Final").collection("Students").findOne({ "sid": Number(sid) }).then(
-            (stu) => {
-                try {
-                    res.setHeader('Content-Type', 'application/json; charset=utf-8');
-                    if (stu == null) {
-                        res.status(404).send(createError.NotFound());
-                    } else {
-                        res.status(200);
-                        delete stu._id;
-                        res.send(stu);
-                    }
-                    res.end();
-                } catch (error) {
-                    res.status(500).send(error).end();
-                }
-            },
-            (err) => {
-                res.status(500).send(err).end();
-            }
-        );
-    });
+app.use(express.static(path.join(__dirname, 'client/dist/ng-front')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/dist/ng-front/index.html'));
 });
 
-app.get("/student/", function (req, res, next) {
-    var sid = req.query.sid;
-    MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
-        if (err) throw err;
-        db.db("Final").collection("Students").findOne({ "sid": Number(sid) }).then(
-            (stu) => {
-                try {
-                    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-                    if (stu == null) {
-                        res.status(404).render("error", {
-                            message: "No such student",
-                            error: createError.NotFound()
-                        });
-                    } else {
-                        res.status(200);
-                        res.render("student", stu);
-                    }
-                } catch (error) {
-                    res.status(500).render("error", {
-                        message: "No such student",
-                        error: error
-                    });
-                }
-            },
-            (err) => {
-                res.status(500).render("error", {
-                    message: "No such student",
-                    error: err
-                });
-            }
-        );
-    });
-});
+var port = process.env.PORT || '3000';
+app.set('port', port);
 
-module.exports = app;
+var server = http.createServer(app);
+server.listen(port);
