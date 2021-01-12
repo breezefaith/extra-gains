@@ -11,7 +11,7 @@ Person::Person()
 	this->live = false;
 	this->deathDate = "";
 
-	this->generation = 0;
+	this->generation = 1;
 }
 
 
@@ -67,6 +67,10 @@ bool Person::isLive()
 void Person::setLive(bool live)
 {
 	this->live = live;
+	if (live == true)
+	{
+		this->deathDate = "";
+	}
 }
 
 string Person::getDeathDate()
@@ -76,7 +80,7 @@ string Person::getDeathDate()
 
 void Person::setDeathDate(string deathDate)
 {
-	this->deathDate;
+	this->deathDate = deathDate;
 }
 
 int Person::getId()
@@ -121,10 +125,18 @@ void Person::setFather(Person * father)
 
 void Person::addChild(Person * child)
 {
+	child->setFather(this);
 	children.push_back(child);
 }
 
 void Person::display()
 {
-	cout << this->id << ": " << this->name << endl;
+	cout << this->id << "\t" << this->name << "\t\t"
+		<< (this->getFather() == NULL ? "" : this->getFather()->getName()) << "\t\t"
+		<< this->birthday << "\t"
+		<< (this->married == true ? "ÊÇ" : "·ñ") << "\t"
+		<< (this->live == true ? "ÊÇ" : "·ñ") << "\t"
+		<< (this->deathDate == "" ? "-" : this->deathDate) << "\t"
+		<< this->address << "\t"
+		<< endl;
 }

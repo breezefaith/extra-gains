@@ -5,6 +5,8 @@ class IdGenerator
 private:
 	static int current;/*当前最新id值 + 1*/
 public:
-	int static generate();/*生成id*/
+	/*生成id*/
+	int static generate();
+	void static update(int id);
 };
 

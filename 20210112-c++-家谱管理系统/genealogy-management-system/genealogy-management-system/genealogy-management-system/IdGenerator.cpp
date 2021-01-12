@@ -6,3 +6,11 @@ int IdGenerator::generate()
 {
 	return current++;
 }
+
+void IdGenerator::update(int id)
+{
+	if (id >= IdGenerator::current)
+	{
+		IdGenerator::current++;
+	}
+}
