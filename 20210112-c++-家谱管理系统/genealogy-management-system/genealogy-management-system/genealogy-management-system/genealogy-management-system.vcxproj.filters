@@ -43,7 +43,7 @@
     <None Include="record.gms">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="record.gms.bak">
+    <None Include="record2.gms">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
