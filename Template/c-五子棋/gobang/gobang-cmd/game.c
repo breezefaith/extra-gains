@@ -1,5 +1,5 @@
+#include "pch.h"
 #include "game.h"
-
 
 void init_board(char board[ROWS][COLS], int row, int col)
 {

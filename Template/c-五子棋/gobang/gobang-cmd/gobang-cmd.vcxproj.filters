@@ -23,14 +23,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="gobang-cmd.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="pch.c">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="game.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt">
+      <Filter>资源文件</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -4,7 +4,8 @@
 #include "pch.h"
 #include "game.h"
 
-void game()
+/*运行游戏*/
+void runGame()
 {
 	char board[ROWS][COLS] = { 0 };
 	char ret = 0;
@@ -50,27 +51,29 @@ void game()
 	display_board(board, ROWS, COLS);
 }
 
-void menu()
+/*显示菜单*/
+void showMenu()
 {
 	printf("**********欢迎进入五子棋游戏***********\n");
 	printf("***************记得选择哦**************\n");
-	printf("***********（1.play  0.exit）**********\n");
+	printf("**************（1.play）***************\n");
+	printf("**************（0.exit）***************\n");
 	printf("**************祝您玩的愉快*************\n");
 }
 
-
+/*程序入口*/
 int main()
 {
 	int input = 0;
 	do
 	{
-		menu();
-		printf("请选择^_^:");
+		showMenu();
+		printf("请选择:");
 		scanf("%d", &input);
 		switch (input)
 		{
 		case 1:
-			game();
+			runGame();
 			break;
 		case 0:
 			break;
