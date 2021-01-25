@@ -30,7 +30,62 @@ namespace MvcCodeFirst.Data
                 var players = GetPlayers(context).ToArray();
                 context.Players.AddRange(players);
                 context.SaveChanges();
+
+                // Look for any teams.
+                if (context.Provinces.Any())
+                {
+                    return;   // DB has already been seeded
+                }
+
+                var provices = GetProvinces().ToArray();
+                context.Provinces.AddRange(provices);
+                context.SaveChanges();
+
+                var cities = GetCities(context).ToArray();
+                context.Cities.AddRange(cities);
+                context.SaveChanges();
             }
+        }
+
+        private static List<City> GetCities(ApplicationDbContext context)
+        {
+            List<City> cities = new List<City>() {
+                new City()
+                {
+                    CityName = "Surrey",
+                    Population = 300000,
+                    ProvinceCode = context.Provinces.Find("BC").ProvinceCode,
+                    Province = context.Provinces.Find("BC"),
+                },
+                new City()
+                {
+                    CityName = "Richmond",
+                    Population = 300000,
+                    ProvinceCode = context.Provinces.Find("BC").ProvinceCode,
+                    Province = context.Provinces.Find("BC"),
+                },
+                new City()
+                {
+                    CityName = "Coquitlam",
+                    Population = 300000,
+                    ProvinceCode = context.Provinces.Find("BC").ProvinceCode,
+                    Province = context.Provinces.Find("BC"),
+                },
+            };
+
+            return cities;
+        }
+
+        private static List<Province> GetProvinces()
+        {
+            List<Province> provinces = new List<Province>() {
+                new Province()
+                {
+                    ProvinceCode = "BC",
+                    ProvinceName = "British Columbia",
+                },
+            };
+            return provinces;
         }
 
         public static List<Team> GetTeams()

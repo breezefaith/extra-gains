@@ -47,6 +47,18 @@ namespace MvcCodeFirst.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Provinces",
+                columns: table => new
+                {
+                    ProvinceCode = table.Column<string>(nullable: false),
+                    ProvinceName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Provinces", x => x.ProvinceCode);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Teams",
                 columns: table => new
                 {
@@ -167,6 +179,28 @@ namespace MvcCodeFirst.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cities",
+                columns: table => new
+                {
+                    CityId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CityName = table.Column<string>(nullable: true),
+                    Population = table.Column<int>(nullable: false),
+                    ProvinceCode = table.Column<string>(nullable: true),
+                    ProvinceCode1 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cities", x => x.CityId);
+                    table.ForeignKey(
+                        name: "FK_Cities_Provinces_ProvinceCode1",
+                        column: x => x.ProvinceCode1,
+                        principalTable: "Provinces",
+                        principalColumn: "ProvinceCode",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Players",
                 columns: table => new
                 {
@@ -229,6 +263,11 @@ namespace MvcCodeFirst.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cities_ProvinceCode1",
+                table: "Cities",
+                column: "ProvinceCode1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Players_TeamName1",
                 table: "Players",
                 column: "TeamName1");
@@ -252,6 +291,9 @@ namespace MvcCodeFirst.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Cities");
+
+            migrationBuilder.DropTable(
                 name: "Players");
 
             migrationBuilder.DropTable(
@@ -259,6 +301,9 @@ namespace MvcCodeFirst.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Provinces");
 
             migrationBuilder.DropTable(
                 name: "Teams");

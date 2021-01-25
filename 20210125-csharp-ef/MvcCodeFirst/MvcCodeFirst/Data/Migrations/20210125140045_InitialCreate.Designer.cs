@@ -10,7 +10,7 @@ using MvcCodeFirst.Data;
 namespace MvcCodeFirst.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200328193944_InitialCreate")]
+    [Migration("20210125140045_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -221,6 +221,32 @@ namespace MvcCodeFirst.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("MvcCodeFirst.Models.City", b =>
+                {
+                    b.Property<int>("CityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CityName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Population")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProvinceCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProvinceCode1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CityId");
+
+                    b.HasIndex("ProvinceCode1");
+
+                    b.ToTable("Cities");
+                });
+
             modelBuilder.Entity("MvcCodeFirst.Models.Player", b =>
                 {
                     b.Property<int>("PlayerId")
@@ -248,6 +274,19 @@ namespace MvcCodeFirst.Data.Migrations
                     b.HasIndex("TeamName1");
 
                     b.ToTable("Players");
+                });
+
+            modelBuilder.Entity("MvcCodeFirst.Models.Province", b =>
+                {
+                    b.Property<string>("ProvinceCode")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProvinceName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProvinceCode");
+
+                    b.ToTable("Provinces");
                 });
 
             modelBuilder.Entity("MvcCodeFirst.Models.Team", b =>
@@ -319,6 +358,13 @@ namespace MvcCodeFirst.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MvcCodeFirst.Models.City", b =>
+                {
+                    b.HasOne("MvcCodeFirst.Models.Province", "Province")
+                        .WithMany("Cities")
+                        .HasForeignKey("ProvinceCode1");
                 });
 
             modelBuilder.Entity("MvcCodeFirst.Models.Player", b =>
