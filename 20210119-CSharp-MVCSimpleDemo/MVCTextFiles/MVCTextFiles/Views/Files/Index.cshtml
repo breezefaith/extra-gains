@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //string[] files = new string[] { "text1.txt", "text2.txt", "text3.txt", "text4.txt", "text5.txt", "text6.txt" };
+    //ViewBag.FileList = files.ToList();
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>File Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var file in ViewBag.FileList)
+        {
+            <tr>
+                @* <td><a href="/files/display/@file.Substring(0, file.IndexOf(".txt"))">@file</a></td>*@
+                <td><a href="@Url.Content("~/Files/display/" + file.Substring(0, file.IndexOf(".txt")))">@file</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

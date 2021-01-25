@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "Bogus";
+    string[] days = {"Mon", "Tue", "Wed"};
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to bogus page.</p>
+
+<h4>@ViewData["Msg"], @ViewBag.Greeting</h4>
+
+<ul>
+    @foreach(var item in days) {
+        <li>@item</li>
+    }
+</ul>
+
+<partial name="_Greeting" />

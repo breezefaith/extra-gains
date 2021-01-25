@@ -1,0 +1,12 @@
+@model System.Diagnostics.Process
+
+@{
+    ViewData["Title"] = "Display details of ";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Process ID: @Model.Id</p>
+<p>Process Name: @Model.ProcessName</p>
+<p>Handles: @Model.HandleCount</p>
+<p>Paged memory size: @Model.PagedMemorySize</p>
