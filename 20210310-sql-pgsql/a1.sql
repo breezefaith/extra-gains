@@ -348,5 +348,194 @@ $BODY$
 LANGUAGE plpgsql VOLATILE;
 
 -- 11
+create or replace procedure renew(pno integer) RETURNS INTEGER AS $$ DECLARE
+	is_effective bool;
+	has_same_vehicle bool;
+sql_query_policy VARCHAR;
+old_policy RECORD;
+new_id_policy INTEGER;
+sql_query_coverage VARCHAR;
+row_coverage RECORD;
+new_id_coverage INTEGER;
+BEGIN
+		sql_query_policy := E'SELECT * FROM policy WHERE pno = \'' || pno || E'\'';
+	EXECUTE sql_query_policy INTO old_policy;
+	IF
+		old_policy = NULL THEN
+			RETURN 1;
+	END IF;
+	
+	is_effective := ( SELECT ( CURRENT_DATE <= policy.expirydate AND policy.status = 'E' ) FROM policy WHERE policy.pno = $1 );
+	IF
+		is_effective = TRUE THEN
+		
+		has_same_vehicle := (SELECT count(*)>0 FROM policy WHERE policy.ptype = old_policy.ptype AND policy.pno <> old_policy.pno AND policy.id = old_policy.id);
+		IF has_same_vehicle = TRUE THEN
+			RETURN 2;
+		END IF;
+		-- new policy
+		new_id_policy := ( SELECT ( MAX ( policy.pno ) + 1 ) AS new_id FROM policy );
+			INSERT INTO policy ( pno, ptype, status, effectivedate, expirydate, agreedvalue, comments, sid, ID )
+		VALUES
+			(
+				new_id_policy,
+				old_policy.ptype,
+				'D',
+				CURRENT_DATE,
+				CURRENT_DATE + ( old_policy.expirydate - old_policy.effectivedate ),
+				old_policy.agreedvalue,
+				old_policy.comments,
+				old_policy.sid,
+				old_policy.ID 
+			);
+-- old policy
+		UPDATE policy 
+		SET expirydate = CURRENT_DATE 
+		WHERE
+			policy.pno = $1;
+-- new coverage
+		sql_query_coverage := E'SELECT * FROM coverage WHERE coverage.pno = \'' || pno || E'\'';
+		FOR row_coverage IN EXECUTE sql_query_coverage
+		LOOP
+		new_id_coverage := ( SELECT ( MAX ( coverage.coid ) + 1 ) AS new_id FROM coverage );
+		INSERT INTO coverage ( coid, cname, maxamount, comments, pno )
+		VALUES
+			( new_id_coverage, row_coverage.cname, row_coverage.maxamount, row_coverage.comments, new_id_policy );
+		
+	END LOOP;
+ELSE 
+new_id_policy := ( SELECT ( MAX ( policy.pno ) + 1 ) AS new_id FROM policy );
+			INSERT INTO policy ( pno, ptype, status, effectivedate, expirydate, agreedvalue, comments, sid, ID )
+		VALUES
+			(
+				new_id_policy,
+				old_policy.ptype,
+				'D',
+				CURRENT_DATE,
+				CURRENT_DATE + ( old_policy.expirydate - old_policy.effectivedate ),
+				old_policy.agreedvalue,
+				old_policy.comments,
+				old_policy.sid,
+				old_policy.ID 
+			);
+-- new coverage
+		sql_query_coverage := E'SELECT * FROM coverage WHERE coverage.pno = \'' || pno || E'\'';
+		FOR row_coverage IN EXECUTE sql_query_coverage
+		LOOP
+		new_id_coverage := ( SELECT ( MAX ( coverage.coid ) + 1 ) AS new_id FROM coverage );
+		INSERT INTO coverage ( coid, cname, maxamount, comments, pno )
+		VALUES
+			( new_id_coverage, row_coverage.cname, row_coverage.maxamount, row_coverage.comments, new_id_policy );
+		
+	END LOOP;
+END IF;
+RETURN 0;
+
+END;
+$$ LANGUAGE plpgsql;
 
 -- 12
+-- tri_before_insert_insured_by
+DROP TRIGGER
+IF
+	EXISTS tri_before_insert_insured_by ON insured_by;
+CREATE 
+	OR REPLACE FUNCTION func_tri_before_modify_insured_by () RETURNS TRIGGER AS $$ DECLARE
+	new_sid INTEGER;
+involved_sid INTEGER;
+BEGIN
+	new_sid := (
+		SELECT
+			staff.sid 
+		FROM
+			public.client
+			JOIN public.person ON client.pid = person.pid
+			JOIN public.staff ON staff.pid = person.pid 
+		WHERE
+			client.cid = NEW.cid 
+		);
+	IF
+		new_sid = NULL THEN
+			RETURN NEW;
+		
+	END IF;
+
+	involved_sid := (SELECT
+	tmp.sid 
+	FROM
+		(
+		SELECT
+			policy.sid 
+		FROM
+			public.policy 
+		WHERE
+			policy.pno = NEW.pno UNION
+		SELECT
+			rated_by.sid 
+		FROM
+			public.rated_by
+			JOIN public.rating_record ON rated_by.rid = rating_record.rid
+			JOIN public.coverage ON coverage.coid = rating_record.coid 
+		WHERE
+			coverage.pno = NEW.pno UNION
+		SELECT
+			underwritten_by.sid 
+		FROM
+			public.underwritten_by
+			JOIN public.underwriting_record ON underwriting_record.urid = underwritten_by.urid 
+		WHERE
+			underwriting_record.pno = NEW.pno 
+		) tmp 
+	WHERE
+		tmp.sid = new_sid);
+	IF
+		involved_sid = NULL THEN
+			RETURN NEW;
+		
+	END IF;
+	RAISE EXCEPTION 'ERROR！';
+RETURN NEW;
+	
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER tri_before_insert_insured_by BEFORE INSERT ON insured_by FOR EACH ROW
+EXECUTE PROCEDURE func_tri_before_modify_insured_by ();
+
+-- tri_before_modify_rated_by
+DROP TRIGGER
+IF
+	EXISTS tri_before_insert_rated_by ON rated_by;
+CREATE 
+	OR REPLACE FUNCTION func_tri_before_modify_rated_by () RETURNS TRIGGER AS $$ BEGIN
+		RETURN NEW;
+	
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER tri_before_insert_rated_by before INSERT ON rated_by FOR EACH ROW
+EXECUTE PROCEDURE func_tri_before_modify_rated_by ();
+
+-- tri_before_modify_underwritten_by
+DROP TRIGGER
+IF
+	EXISTS tri_before_insert_underwritten_by ON underwritten_by;
+CREATE 
+	OR REPLACE FUNCTION func_tri_before_modify_underwritten_by () RETURNS TRIGGER AS $$ BEGIN
+		RETURN NEW;
+	
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER tri_before_insert_underwritten_by before INSERT ON underwritten_by FOR EACH ROW
+EXECUTE PROCEDURE func_tri_before_modify_underwritten_by ();
+
+-- tri_before_modify_policy
+DROP TRIGGER
+IF
+	EXISTS tri_before_insert_policy ON policy;
+CREATE 
+	OR REPLACE FUNCTION func_tri_before_modify_policy () RETURNS TRIGGER AS $$ BEGIN
+		RETURN NEW;
+	
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER tri_before_insert_policy before INSERT ON policy FOR EACH ROW
+EXECUTE PROCEDURE func_tri_before_modify_policy ();
